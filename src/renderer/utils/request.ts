@@ -1,13 +1,14 @@
-import axios, { AxiosRequestConfig } from "axios";
-import { ElMessage } from "element-plus";
+import axios, { AxiosRequestConfig } from 'axios';
+import { ElMessage } from 'element-plus';
 const serves = axios.create({
-  baseURL: __CONFIG__.BASE_API,
-  timeout: 5000,
+  baseURL: __CONFIG__.API_HOST,
+  timeout: 5000
 });
 
 // 设置请求发送之前的拦截器
 serves.interceptors.request.use(
   (config) => {
+    console.log('env', __CONFIG__);
     // 设置发送之前数据需要做什么处理
     return config;
   },
@@ -25,13 +26,13 @@ serves.interceptors.response.use(
   },
   (err) => {
     // 判断请求异常信息中是否含有超时timeout字符串
-    if (err.message.includes("timeout")) {
-      console.log("错误回调", err);
-      ElMessage.error("网络超时");
+    if (err.message.includes('timeout')) {
+      console.log('错误回调', err);
+      ElMessage.error('网络超时');
     }
-    if (err.message.includes("Network Error")) {
-      console.log("错误回调", err);
-      ElMessage.error("服务端未启动，或网络连接错误");
+    if (err.message.includes('Network Error')) {
+      console.log('错误回调', err);
+      ElMessage.error('服务端未启动，或网络连接错误');
     }
     return Promise.reject(err);
   }

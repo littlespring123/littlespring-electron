@@ -20,7 +20,12 @@
       "@main/*": ["src/main/*"]
     },
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src/**/*", "customTypes/*"],
   "exclude": ["node_modules"]

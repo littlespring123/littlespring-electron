@@ -1,0 +1,68 @@
+// 颜色
+$theme-color: lightgreen;
+$theme-border-color: lightgreen;
+$theme-bgc-color: lightgreen;
+
+// 基本
+a {
+  
+}
+
+// 边框
+.border-test1 {
+  border: 1px solid red;
+}
+
+.border-test1 {
+  border: 1px solid red;
+}
+
+// 尺寸
+
+// 盒子
+.flex-center-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box-rotate180 {
+  transform-origin: center;
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}
+
+.box-rotate90 {
+  transform-origin: center;
+  transform: rotate(90deg);
+  transition: transform 0.3s;
+}
+
+.box-rotate {
+  transform: rotate(90deg);
+}
+
+.test-border {
+  border: 1px solid red;
+}
+
+// svg图标规范
+.svgIcon-base {
+  align-items: center;
+  line-height: 10px;
+  width: 10px;
+  height: 10px;
+  transition: 0.3s;
+}
+
+// 箭头
+// 下箭头
+.down-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin: 3px;
+  border-left: 15px solid transparent; /* 左侧边框为透明 */
+  border-right: 15px solid transparent; /* 右侧边框为透明 */
+  border-bottom: 26px solid $theme-color; /* 底部边框为红色，通过三角形高度计*/
+}

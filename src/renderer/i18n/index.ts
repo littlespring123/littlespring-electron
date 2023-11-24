@@ -1,32 +1,47 @@
-import { createI18n } from "vue-i18n"
+import { createI18n } from 'vue-i18n';
+import EN from '@renderer/i18n/languages/en';
+import CN from '@renderer/i18n/languages/zh-cn';
 
-export function loadLanguages() {
-    const context = import.meta.globEager("./languages/*.ts");
+const message = {
+  cn: {
+    ...CN
+  },
+  en: {
+    ...EN
+  }
+};
 
-    const languages: AnyObject = {};
+// export function loadLanguages() {
+//     const context = import.meta.globEager("./languages/*.ts");
 
-    let langs = Object.keys(context);
-    for (let key of langs) {
-        if (key === "./index.ts") return;
-        let lang = context[key].lang;
-        let name = key.replace(/(\.\/languages\/|\.ts)/g, '');
-        languages[name] = lang
-    }
+//     const languages: AnyObject = {};
 
-    return languages
+//     let langs = Object.keys(context);
+//     for (let key of langs) {
+//         if (key === "./index.ts") return;
+//         let lang = context[key].lang;
+//         let name = key.replace(/(\.\/languages\/|\.ts)/g, '');
+//         languages[name] = lang
+//     }
+
+//     return languages
+// }
+
+// export function i18nt(key: string) {
+//     return i18n.global.d(key);
+// }
+
+const i18n = createI18n({
+  legacy: false,
+  locale: 'cn',
+  fallbackLocale: 'cn',
+  globalInjection: true, // 全局注册 $t方法
+  // messages: loadLanguages()
+  messages: message
+});
+
+export function setLanguage(locale: 'en' | 'cn') {
+  i18n.global.locale.value = locale;
 }
 
-export function i18nt(key: string) {
-    return i18n.global.d(key);
-}
-
-export const i18n = createI18n({
-    legacy: false,
-    locale: 'zh-cn',
-    fallbackLocale: 'zh-cn',
-    messages: loadLanguages()
-})
-
-export function setLanguage(locale: string) {
-    i18n.global.locale.value = locale
-}
+export default i18n;
