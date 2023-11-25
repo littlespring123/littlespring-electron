@@ -21,7 +21,7 @@
     <div
       class="pagination-block"
       @click="handleCurrentChange(currentPage + 1)"
-      :class="{ forbidden: currentPage + 1 >= pageMax }"
+      :class="{ forbidden: currentPage + 1 > pageMax }"
     >
       <Icon class="svgIcon-base" name="arrow-right"></Icon>
     </div>
@@ -29,28 +29,35 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 分页器
+ * @param total 总条数
+ * @param pageSize 每页多少条
+ * @param currentPage 当前位于页
+ */
 import { ref, onMounted, toRefs, watch, onUpdated } from 'vue';
 import { useStore } from '@renderer/stores';
 import { storeToRefs } from 'pinia';
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
-const define = defineProps({
+const props = defineProps({
   total: {
+    // 总条数
     type: Number,
-    default: 9
+    default: 5,
   },
   pageSize: {
     type: Number,
-    default: 9
+    default: 5,
   },
   currentPage: {
     type: Number,
-    default: 1
-  }
+    default: 1,
+  },
 });
 
-const { total, pageSize, currentPage } = toRefs(define);
-const pageMax = () => Math.ceil(total.value / pageSize.value);
+const { total, pageSize, currentPage } = toRefs(props);
+const pageMax = ref(Math.ceil(total.value / pageSize.value));
 
 const pageList = ref(0);
 
@@ -61,7 +68,8 @@ const handleSizeChange = (val) => {
 const emits = defineEmits(['pageChange']);
 
 const handleCurrentChange = (e) => {
-  if (e <= 0 || e > total.value) return;
+  console.log(pageMax.value);
+  if (e <= 0 || e > pageMax.value || e === currentPage) return;
   emits('pageChange', e);
 };
 
@@ -70,7 +78,7 @@ const setPageList = () => {
   let i = 1;
   pageList.value = Array.from(
     { length: Math.ceil(total.value / pageSize.value) },
-    (_, index) => index + 1
+    (_, index) => index + 1,
   );
   pageList.value.length > 5 && (pageList.value = pageList.value.slice(0, 5)); // 最多显示5页
 };
@@ -95,33 +103,36 @@ onMounted(() => {
 
   &-block {
     cursor: pointer;
-
+    font-size: 1.5rem;
     display: inline-block;
-    width: 30px;
-    height: 28px;
-    padding: 4px 8px;
-    font-size: 1rem;
-    line-height: 18px;
+    width: 3rem;
+    height: 3rem;
+    padding: 10px;
+    text-align: center;
+    // font-size: 1rem;
+    line-height: 2rem;
+    // align-items: center;
     border: 1px solid #ddd;
     border-right: none;
     box-sizing: border-box;
 
     &:first-child {
-      width: 34px;
+      width: 3rem;
       border-top-left-radius: 4px;
       border-bottom-left-radius: 4px;
     }
 
     &:last-child {
-      width: 34px;
+      width: 3rem;
       border-right: 1px solid #ddd;
       border-top-right-radius: 4px;
       border-bottom-right-radius: 4px;
     }
   }
 
-  &-block:hover {
+  &-block:not(.forbidden) :hover {
     color: v-bind(themeColor);
+    fill: v-bind(themeColor);
   }
 }
 .active {
@@ -138,7 +149,7 @@ onMounted(() => {
 //   fill: v-bind(themeColor);
 // }
 .forbidden {
-  color: #ccc;
+  opacity: 0.6;
   cursor: not-allowed;
 }
 </style>

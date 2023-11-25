@@ -54,12 +54,12 @@ const { query } = useRoute();
 const detail = ref({});
 
 const currentTitle: Ref<NodeType> = ref({
-  id: 0
+  id: 0,
 });
 // let selfTitle=ref([])
 
 const getBlogDet = async () => {
-  const res = await getBlogApi(query?.id);
+  const res = await getBlogApi(Number(query?.id));
   if (res) {
     detail.value = res;
     valueHtml.value = md2html(detail.value.content);
@@ -73,7 +73,7 @@ const toTarget = (target: any) => {
   toElement.scrollIntoView({
     behavior: 'smooth',
     block: 'center',
-    inline: 'nearest'
+    inline: 'nearest',
   });
 };
 

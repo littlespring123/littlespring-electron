@@ -127,7 +127,7 @@ const toTarget = (target: any) => {
 
 <style scoped lang="scss">
 .root {
-  max-height: 90%;
+  max-height: 80vh;
   width: 90%;
   display: flex;
   justify-content: space-around;
@@ -138,6 +138,7 @@ const toTarget = (target: any) => {
   .inputBox {
     display: flex;
     flex-direction: column;
+    height: 60vh;
 
     .preview {
       border: 1px solid #ccc;
@@ -145,6 +146,7 @@ const toTarget = (target: any) => {
       max-height: 50vh;
       overflow: auto;
     }
+
     .preview:hover {
       border: 1px solid v-bind(themeColor);
     }
@@ -179,6 +181,7 @@ textarea:focus {
 
 /* 自定义样式 */
 .mo-textarea {
+  height: 40vh;
   display: inline-block;
   resize: vertical;
   padding: 5px 15px;

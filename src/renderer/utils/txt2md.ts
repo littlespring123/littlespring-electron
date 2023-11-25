@@ -18,8 +18,6 @@ export const md2html = (text: string) => {
       return require('highlight.js').highlightAuto(code).value;
     },
   };
-
-  debugger;
   let rendererMD = new marked.Renderer();
 
   marked.setOptions({

@@ -34,7 +34,7 @@ export const getBlogListApi = async (
 };
 
 // 获取详情
-export const getBlogApi = async (id: string) => {
+export const getBlogApi = async (id: number) => {
   const res = await myRequest({
     url: '/blog/getInfo',
     method: 'GET',
@@ -70,7 +70,7 @@ export const postBlogApi = async (data: any, uid: string) => {
 };
 
 // 修改blog
-export const modifyBlogApi = async (data: any, id: string) => {
+export const modifyBlogApi = async (data: any, id: number) => {
   const res = await myRequest({
     url: '/blog/modifyBlog',
     method: 'POST',

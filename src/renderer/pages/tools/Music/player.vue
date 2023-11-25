@@ -210,7 +210,7 @@ onMounted(() => {
     // display: flex;
 
     .music-info {
-      display: flex;
+      display: flex;  
     }
 
     .navigation {

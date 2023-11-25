@@ -75,7 +75,12 @@ const routes: IRoute[] = [
     hiden: true,
     component: () => import('@renderer/pages/center/index.vue'),
   },
-  { path: '/:pathMatch(.*)*', name: '', component: () => import('@renderer/pages/other/404.vue') },
+  {
+    path: '/:pathMatch(.*)*',
+    name: '',
+    hiden: true,
+    component: () => import('@renderer/pages/other/404.vue'),
+  },
 ];
 
 export default routes;

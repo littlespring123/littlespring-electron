@@ -13,6 +13,7 @@
         <ul class="menu-links">
           <li
             class="nav-link"
+            :class="{ active: activeIndex === index }"
             v-show="!item?.hiden"
             @click="
               router.push(item.path);
@@ -107,7 +108,7 @@ $text-color: #707070;
   height: 100%;
   // width: 250px;
   border: 1px solid #ccc;
-  width: 8vw;
+  width: 13vw;
   padding: 10px 14px;
   background: $shell-color;
   transition: all 0.3s ease;
@@ -125,7 +126,7 @@ $text-color: #707070;
 }
 
 .close {
-  width: 88px;
+  width: 7vw;
 }
 
 .icon {
@@ -182,6 +183,13 @@ $text-color: #707070;
 .shell li:hover .icon,
 .shell li:hover .text {
   color: $shell-color;
+}
+
+.active {
+  color: $shell-color;
+  fill: $shell-color;
+  // mix-blend-mode: difference;
+  background-color: v-bind(themeColor);
 }
 
 .logo {

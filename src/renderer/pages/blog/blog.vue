@@ -64,16 +64,16 @@ const list: Ref<any> = ref([]);
 const selectOptions = [
   {
     text: '综合',
-    value: 'none'
+    value: 'none',
   },
   {
     text: '最热',
-    value: 'hot'
+    value: 'hot',
   },
   {
     text: '最新',
-    value: 'new'
-  }
+    value: 'new',
+  },
 ];
 
 const change = (e) => {
@@ -86,8 +86,8 @@ const btn = [
     content: '+',
     fun: () => {
       router.push('/add');
-    }
-  }
+    },
+  },
 ];
 
 // 列表相关
@@ -95,9 +95,9 @@ const title = ref('');
 const tagText = ref('');
 const paginations = ref({
   pageNum: 1,
-  pageSize: 9,
+  pageSize: 5,
   total: 0,
-  sort: ''
+  sort: '',
 });
 
 const getBlog = async (pageNum?: number, pageSize?: number) => {
@@ -107,11 +107,14 @@ const getBlog = async (pageNum?: number, pageSize?: number) => {
     pageSize,
     title.value,
     tagText.value,
-    paginations.value.sort
+    paginations.value.sort,
   );
+  console.log('blog res', res);
   if (res) {
+    console.log('blog res', res);
     list.value = res.records;
-    paginations.value = { ...paginations.value, pageNum: res.current, total: res.pages };
+    paginations.value = { ...paginations.value, pageNum: res.current, total: res.total };
+    console.log(paginations.value);
   }
 };
 
