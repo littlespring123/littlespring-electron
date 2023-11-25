@@ -18,19 +18,17 @@ const creatTray = (win) => {
     ]))
 }
 
-
-
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 900,
+        height: 700,
         // 不显示菜单栏
         // frame: false,
         // 优雅的打开
         show: false,
         backgroundColor: '#fff',
         webPreferences: {
-            // nodeIntegration: true,
+            nodeIntegration: true,
             // contextIsolation: false,
             preload: path.resolve(__dirname, './preload.js')
         }
@@ -38,7 +36,7 @@ const createWindow = () => {
     win.loadURL('http://localhost:5173')
     // win.loadFile('./dist/index.html')
     // if (NODE_ENV === "development") {
-        win.webContents.openDevTools()
+    win.webContents.openDevTools()
     // }
 
     // 优雅的打开
@@ -137,7 +135,7 @@ const createWindow = () => {
                     }
                 ]
             }])
-        Menu.setApplicationMenu(menu)
+        // Menu.setApplicationMenu(menu)
     })
 
     // 第二窗口:作为字幕，O(∩_∩)O
@@ -199,6 +197,11 @@ app.on("browser-window-blur", () => {
 
 app.on("browser-window-focus", () => {
 
+})
+
+ipcMain.on('msg1', (event, msg) => {
+    console.log("close main", msg)
+    win.close()
 })
 
 ipcMain.handle('btn-event', (event, msg) => {

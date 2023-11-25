@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import vuePlugin from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import { getConfig } from './utils';
+import { svgBuilder } from '@renderer/plugins/Builder';
 import viteIkarosTools from './plugin/vite-ikaros-tools';
 
 function resolve(dir: string) {
@@ -16,21 +17,26 @@ export default defineConfig({
   mode: config && config.NODE_ENV,
   root,
   define: {
-    __CONFIG__: config
+    __CONFIG__: config,
   },
   resolve: {
     alias: {
-      '@renderer': root
-    }
+      '@renderer': root,
+    },
   },
   base: './',
   build: {
     outDir: config && config.target ? resolve('dist/web') : resolve('dist/electron/renderer'),
     emptyOutDir: true,
     target: 'esnext',
-    cssCodeSplit: false
+    cssCodeSplit: false,
   },
   server: {},
-  plugins: [vueJsx(), vuePlugin(), viteIkarosTools()],
-  optimizeDeps: {}
+  plugins: [
+    vueJsx(),
+    vuePlugin(),
+    viteIkarosTools(),
+    svgBuilder(resolve('src/renderer/assets/svg/')),
+  ],
+  optimizeDeps: {},
 });

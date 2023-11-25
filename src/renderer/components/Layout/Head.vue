@@ -21,9 +21,12 @@
     <div>
       {{ road }}
     </div>
+    <Button @click="closeWin">关闭</Button>
   </div>
 </template>
 <script setup lang="ts">
+// import { ipcRenderer } from 'electron';
+// import { remote } from 'electron';
 import { useRouter } from 'vue-router';
 import { useStore } from '@renderer/stores';
 import { storeToRefs } from 'pinia';
@@ -33,12 +36,21 @@ const router = useRouter();
 const goBack = () => {
   router.back();
 };
+const closeWin = () => {
+  console.log('close');
+  console.log(window.require('electron'));
+  const { ipcRenderer } = window.require('electron');
+  ipcRenderer.send('msg1', 'ss');
+  // console.log(remote);
+  // const currentWindow = remote.getCurrentWindow();
+  // currentWindow.close();
+};
 
 defineProps({
   road: {
     type: String,
-    default: '博客'
-  }
+    default: '博客',
+  },
 });
 </script>
 

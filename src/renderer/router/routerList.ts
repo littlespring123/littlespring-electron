@@ -25,56 +25,57 @@ const routes: IRoute[] = [
     name: 'nav.home',
     meta: {
       headerRender: false,
-      menuRender: false
+      menuRender: false,
     },
-    component: () => import('@renderer/pages/home.vue')
+    component: () => import('@renderer/pages/home.vue'),
   },
   {
     path: '/blog',
     icon: 'blog',
     name: 'nav.blog',
-    component: () => import('@renderer/pages/blog/blog.vue')
+    component: () => import('@renderer/pages/blog/blog.vue'),
   },
   {
     path: '/tool',
     icon: 'tools',
     name: 'nav.tools',
-    component: () => import('@renderer/pages/tools/index.vue')
+    component: () => import('@renderer/pages/tools/index.vue'),
   },
   {
     path: '/detail',
-    name: '详情',
+    name: 'nav.detail',
     hiden: true,
-    component: () => import('@renderer/pages/blog/detail.vue')
+    component: () => import('@renderer/pages/blog/detail.vue'),
   },
   {
     path: '/add',
-    name: '新增',
+    name: 'nav.add',
     hiden: true,
-    component: () => import('@renderer/pages/blog/add.vue')
+    component: () => import('@renderer/pages/blog/add.vue'),
   },
   {
     path: '/login',
-    name: '登录',
+    name: 'nav.login',
     hiden: true,
     meta: {
       headerRender: false,
-      menuRender: false
+      menuRender: false,
     },
-    component: () => import('@renderer/pages/center/login.vue')
+    component: () => import('@renderer/pages/center/login.vue'),
   },
   {
     path: '/set',
     name: 'nav.set',
     hiden: true,
-    component: () => import('@renderer/pages/center/set.vue')
+    component: () => import('@renderer/pages/center/set.vue'),
   },
   {
     path: '/center',
     name: '我的',
     hiden: true,
-    component: () => import('@renderer/pages/center/index.vue')
-  }
+    component: () => import('@renderer/pages/center/index.vue'),
+  },
+  { path: '/:pathMatch(.*)*', name: '', component: () => import('@renderer/pages/other/404.vue') },
 ];
 
 export default routes;

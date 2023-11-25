@@ -7,7 +7,7 @@ export default {
     categorize: '类别',
     viewer: '浏览量',
     site: '地址：',
-    github: 'github开源地址'
+    github: 'github开源地址',
   },
   nav: {
     home: '主页',
@@ -16,7 +16,10 @@ export default {
     todo: 'todo',
     music: '音乐',
     set: '设置',
-    hide: '隐藏'
+    hide: '隐藏',
+    add: '添加',
+    login: '登录',
+    detail: '详情',
   },
 
   blog: {
@@ -25,26 +28,27 @@ export default {
     tag: '标签',
     tagPlaceHolder: 'please enter the tag',
     sort: '排序',
+    input: '请输入',
     filter: '筛选',
     categorize: '没目录',
     preview: '预览',
     add: '添加',
-    submit: '提交'
+    submit: '提交',
   },
 
   tools: {
-    todo: 'todo'
+    todo: 'todo',
   },
   music: {
     music: 'music',
     searchMusic: '今天想听点什么呢?',
     searchBtn: '搜索',
     LRC: '词',
-    musicCover: '封面'
+    musicCover: '封面',
   },
   center: {
     login: '登录',
-    name: '名字'
+    name: '名字',
   },
   set: {
     systemInfo: '关于系统',
@@ -58,22 +62,22 @@ export default {
       // nodeVersion: 'Node version:',
       systemPlatform: 'system platform:',
       systemVersion: 'system version:',
-      systemArch: 'system arch:'
+      systemArch: 'system arch:',
     },
     interface: '系统界面',
     color: {
       themeColor: '主题色',
-      color: '字体颜色'
+      color: '字体颜色',
     },
     scroller: {
       set: '滚动条设置',
       color: '滚动条颜色',
-      size: '滚动条宽度'
+      size: '滚动条宽度',
     },
     mode: '夜间模式',
     language: '语言',
     save: '保存',
-    reset: '重置'
+    reset: '重置',
   },
 
   loading: '加载中',
@@ -82,15 +86,15 @@ export default {
   message: {
     success: '成功',
     warn: '警告',
-    fail: '失败'
+    fail: '失败',
   },
 
   homeOther: {
     openPreloadWindowError: {
       title: '提示',
       content: '请移步项目的strict分支',
-      confirm: '确定'
-    }
+      confirm: '确定',
+    },
   },
 
   about: {
@@ -104,7 +108,8 @@ export default {
     nodeVersion: 'Node版本：',
     systemPlatform: '系统平台：',
     systemVersion: '系统版本：',
-    systemArch: '系统位数：'
+    systemArch: '系统位数：',
+    bit: '位',
   },
   buttons: {
     console: '控制台打印',
@@ -123,7 +128,7 @@ export default {
     openPreloadWindow: 'preload.js测试',
     browser: '浏览器',
     showOnMyComputer: '在我的电脑显示',
-    hideOnMyComputer: '在我的电脑隐藏'
+    hideOnMyComputer: '在我的电脑隐藏',
   },
   print: {
     print: '打印',
@@ -139,9 +144,9 @@ export default {
     top: '上',
     bottom: '下',
     right: '右',
-    left: '左'
+    left: '左',
   },
   browser: {
-    searchBarPlaceholder: '在Bing中搜索，或输入一个网址'
-  }
+    searchBarPlaceholder: '在Bing中搜索，或输入一个网址',
+  },
 };

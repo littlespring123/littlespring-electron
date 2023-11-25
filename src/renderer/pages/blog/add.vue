@@ -33,7 +33,7 @@
         <textarea
           class="mo-textarea"
           :placeholder="t('blog.input')"
-          v-model="blogForm.valueText"
+          v-model="blogForm.content"
           cols="100"
           rows="20"
         ></textarea>
@@ -69,6 +69,10 @@ import { md2html } from '@renderer/utils/txt2md';
 import { useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useStore } from '@renderer/stores/index';
+
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
+
 const store = useStore();
 
 const { themeColor } = storeToRefs(store);
@@ -79,7 +83,7 @@ const router = useRouter();
 const blogForm = ref({
   title: '',
   content: '',
-  tag: []
+  tag: [],
 });
 const valueMD = ref('');
 const tagText = ref('');
@@ -116,7 +120,7 @@ const toTarget = (target: any) => {
   toElement.scrollIntoView({
     behavior: 'smooth',
     block: 'center',
-    inline: 'nearest'
+    inline: 'nearest',
   });
 };
 </script>

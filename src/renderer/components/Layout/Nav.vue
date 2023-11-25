@@ -69,13 +69,13 @@ const bottomNav = ref([
   {
     name: 'nav.set',
     icon: 'set',
-    operate: () => router.push('/set')
+    operate: () => router.push('/set'),
   },
   {
     name: 'nav.hide',
     icon: 'hide',
-    operate: () => (showMenu.value = !showMenu.value)
-  }
+    operate: () => (showMenu.value = !showMenu.value),
+  },
 ]);
 
 // const getImageUrl = (icon: any) => {

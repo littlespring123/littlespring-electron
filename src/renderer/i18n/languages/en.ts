@@ -4,7 +4,7 @@ export default {
     categorize: 'categorize',
     viewer: 'page view',
     site: 'url:',
-    github: 'github'
+    github: 'github',
   },
   nav: {
     home: 'home',
@@ -13,7 +13,10 @@ export default {
     todo: 'todo',
     music: 'music',
     set: 'set',
-    hide: 'hide'
+    hide: 'hide',
+    add: 'add',
+    login: 'login',
+    detail: 'detail',
   },
   blog: {
     title: 'title',
@@ -26,61 +29,63 @@ export default {
     categorize: 'categorize',
     preview: 'preview',
     add: 'add',
-    submit: 'submit'
+    submit: 'submit',
   },
   tools: {
-    todo: 'todo'
+    todo: 'todo',
   },
   music: {
     music: 'music',
     searchMusic: 'What are you looking for?',
     searchBtn: 'search',
     LRC: 'L',
-    musicCover: 'music-cover'
+    musicCover: 'music-cover',
   },
   center: {
     login: 'login',
-    name: 'name'
+    name: 'name',
   },
 
   set: {
     systemInfo: 'About system',
-    about: {
-      system: 'About system',
-      // languageValue: 'English',
-      // currentPagePath: 'current page path:',
-      // currentPageName: 'current page name:',
-      // vueVersion: 'Vue version:',
-      // electronVersion: 'Electron version:',
-      // nodeVersion: 'Node version:',
-      systemPlatform: 'system platform:',
-      systemVersion: 'system version:',
-      systemArch: 'system arch:'
-    },
     interface: 'interface',
     color: {
       themeColor: 'theme color',
-      color: 'font color'
+      color: 'font color',
     },
     scroller: {
       set: 'Scroll bar setting',
       color: 'Scroll bar color',
-      size: 'Scroll bar width'
+      size: 'Scroll bar width',
     },
     mode: 'dark mode',
     language: 'language：',
     save: 'save',
-    reset: 'reset'
+    reset: 'reset',
   },
-
+  //关于
+  about: {
+    system: 'About system',
+    language: 'language',
+    languageValue: 'English',
+    currentPagePath: 'current page path:',
+    currentPageName: 'current page name:',
+    vueVersion: 'Vue version:',
+    electronVersion: 'Electron version:',
+    nodeVersion: 'Node version:',
+    systemPlatform: 'system platform:',
+    systemVersion: 'system version:',
+    systemArch: 'system arch:',
+    bit: 'bit',
+  },
   loading: 'Wait data loading',
 
   // 消息
   message: {
     success: 'success',
     warn: 'warn',
-    fail: 'fail'
-  }
+    fail: 'fail',
+  },
 };
 // welcome: 'Welcome use the framework',
 

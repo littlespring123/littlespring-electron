@@ -1,6 +1,8 @@
 <template>
   <div class="root">
-    <Card :title="t('set.systemInfo')"></Card>
+    <Card :title="t('set.systemInfo')">
+      <SystemInformation></SystemInformation>
+    </Card>
     <Card :title="t('set.interface')">
       <div class="child">
         <Input
@@ -58,8 +60,7 @@
 </template>
 
 <script setup lang="ts">
-import Button from '@renderer/components/Button.vue';
-import Card from '@renderer/components/Card.vue';
+import SystemInformation from './Component/SystemInformation.vue';
 import { ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useStore } from '@renderer/stores';
@@ -74,12 +75,12 @@ const { setLanguageMode } = store;
 const languageArray = [
   {
     text: 'English',
-    value: 'en'
+    value: 'en',
   },
   {
     text: '中文',
-    value: 'cn'
-  }
+    value: 'cn',
+  },
 ];
 
 const saveConfig = () => {
