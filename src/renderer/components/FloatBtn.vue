@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="floatBtn"
-    :style="{ border: `1px solid ${color}`, color, backgroundColor }"
-  >
+  <div class="floatBtn">
     <div v-for="item in list" @click="item.fun">
       {{ item.content }}
     </div>
@@ -62,9 +59,11 @@ defineProps({
   text-align: center;
   bottom: v-bind(bootom);
   right: v-bind(right);
+  color: v-bind(color);
+  border: 1px solid v-bind(color);
+  background-color: v-bind(backgroundColor);
 }
 .floatBtn:hover {
-  // mix-blend-mode: difference;
   color: v-bind(themeColor);
   border: 1px solid v-bind(themeColor);
   transition: 0.5s;

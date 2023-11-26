@@ -14,7 +14,11 @@
       </div>
     </div>
     <ul class="options" v-show="isOpen">
-      <li v-for="(item, index) in localdata" :key="index" @click="selectOption(item)">
+      <li
+        v-for="(item, index) in localdata"
+        :key="index"
+        @click="selectOption(item)"
+      >
         {{ item.text }}
       </li>
     </ul>
@@ -34,30 +38,30 @@
  * @property {Boolean} disabled 是否禁用
  * @event {Function} change  选中发生变化触发
  */
-import { ref, toRefs, onMounted, onBeforeUnmount } from 'vue';
+import { ref, toRefs, onMounted, onBeforeUnmount } from "vue";
 
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 const mySelect = ref(null);
 const define = defineProps({
   localdata: {
     type: Array,
-    default: []
+    default: [],
   },
   label: {
     type: String,
-    default: ''
+    default: "",
   },
   placeholder: {
     type: String,
-    default: '综合'
+    default: "综合",
   },
   disabled: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 const { localdata, label, placeholder, disabled } = toRefs(define);
@@ -73,20 +77,29 @@ const toggleDropdown = () => {
 
 const selectOption = (option) => {
   value.value = option.text;
-  emit('change', option);
+  emit("change", option);
   isOpen.value = false;
 };
 
 onMounted(() => {
-  document.addEventListener('click', (e) => {
-    if (!mySelect.value.contains(e.target)) {
+  document.addEventListener("click", (e) => {
+    // if (!(e instanceof MouseEvent)) {
+    //   e = window.event;
+    // }
+    if (!mySelect || !mySelect.value) return;
+    // if (e.target.contains(mySelect.value)) {
+    //   isOpen.value = false;
+    // } else {
+    //   isOpen.value = true;
+    // }
+    if (!mySelect.value?.contains(e.target)) {
       isOpen.value = false;
     }
   });
 });
 
 onBeforeUnmount(() => {
-  document.body.removeEventListener('click', () => {});
+  document.body.removeEventListener("click", () => {});
 });
 </script>
 

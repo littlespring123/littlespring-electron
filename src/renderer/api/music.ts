@@ -1,8 +1,10 @@
-import myRequest from '@renderer/api/request';
+import myRequest from "@renderer/api/request";
+const API = "http://47.98.47.146:3000";
 
-// const API = process.env.VITE_APP_API_URL;
-
-// 获取music列表 By uId
+/**
+ * 获取music列表 By uId
+ *
+ */
 export const getListApi = async (
   uid?: string,
   key?: string,
@@ -10,42 +12,65 @@ export const getListApi = async (
   pageSize?: number
 ) => {
   const res = await myRequest({
-    url: '/files/getBlog',
-    method: 'GET',
+    url: `${API}/files/getBlog`,
+    method: "GET",
     data: {
       uid,
       key,
       pageNum,
-      pageSize
-    }
+      pageSize,
+    },
   });
   return res.data;
 };
 
 // 检索音乐
-export const searchMusic = async (keywords: string, pageNum?: number, pageSize?: number) => {
+export const searchMusic = async (
+  keywords: string,
+  pageNum?: number,
+  pageSize?: number
+) => {
   const res = await myRequest({
-    url: '/search',
-    method: 'GET',
+    url: `${API}/search`,
+    method: "GET",
     params: {
-      keywords
+      keywords,
     },
-    data: {
-      pageNum,
-      pageSize
-    }
+    // data: {
+    //   pageNum,
+    //   pageSize,
+    // },
   });
   return res.data;
 };
 
-// check音乐
+/**
+ * check音乐
+ * @param {number} id
+ * @return {boolean} success
+ */
 export const checkMusic = async (id: number) => {
   const res = await myRequest({
-    url: '/check/music',
-    method: 'GET',
+    url: `${API}/check/music`,
+    method: "GET",
     params: {
-      id
-    }
+      id,
+    },
+  });
+  return res.data;
+};
+
+/**
+ * 获取详情
+ * @param id
+ */
+export const musicInfo = async (id: number) => {
+  const res = await myRequest({
+    url: `${API}/song/url`,
+    method: "GET",
+    params: {
+      id,
+    },
   });
   return res.data;
 };

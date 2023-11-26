@@ -12,7 +12,7 @@
         :key="item.id"
         @click="toTarget(item.id)"
         :class="currentTitle.id === item.id ? 'active' : ''"
-        :style="{ 'padding-left': item.tag - valueHtml.maxTitle + 'em' }"
+        :style="{ 'padding-left': (item.tag - valueHtml.maxTitle) * 10 + 'px' }"
       >
         {{ item.text }}
       </li>
@@ -127,15 +127,17 @@ const onScroll = (e: any) => {
 
 <style scoped lang="scss">
 .root {
-  width: 99%;
+  width: 100%;
   display: flex;
   justify-content: center;
-  // flex-direction: column;
-  padding: 10px;
-  margin: 20px;
+  padding: 4px;
+  margin: 10px 5px;
 
   .box {
-    width: 90%;
+    width: 70%;
+    // border: 1px solid red;
+    max-width: 70vw;
+    padding: 4px;
 
     .head {
       display: flex;
@@ -149,29 +151,31 @@ const onScroll = (e: any) => {
         display: flex;
         margin: 3px 0;
         justify-content: center;
-        // flex-direction: row;
       }
     }
 
     .detail-content {
       padding: 10px;
       max-height: 70vh;
+
       overflow: auto;
       border: 1px solid #ccc;
     }
   }
 
   .catalogy {
-    position: fixed;
+    // position: fixed;
     border: 1px solid #ccc;
 
     top: 20vh;
-    right: 6vw;
-    min-height: 20vh;
+    right: 3vw;
+    max-width: 18vw;
     max-height: 60vh;
-    overflow: scroll;
+    overflow: auto;
 
     .item {
+      max-width: 50vw;
+      overflow: hiden;
       cursor: pointer;
       list-style: none;
     }

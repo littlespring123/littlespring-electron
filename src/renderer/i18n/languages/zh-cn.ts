@@ -74,6 +74,11 @@ export default {
       color: "滚动条颜色",
       size: "滚动条宽度",
     },
+    window: {
+      set: "窗口设置",
+      width: "宽度",
+      height: "高度",
+    },
     mode: "夜间模式",
     language: "语言",
     save: "保存",

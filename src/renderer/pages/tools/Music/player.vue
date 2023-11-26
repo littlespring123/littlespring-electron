@@ -50,6 +50,12 @@
 </template>
 
 <script setup lang="ts">
+import {
+  getListApi,
+  searchMusic,
+  checkMusic,
+  musicInfo,
+} from "@renderer/api/music";
 import LRC from "./LRC.vue";
 import { lyric } from "./lyric.js";
 import { ref, onMounted } from "vue";
@@ -82,17 +88,17 @@ const baseInfo = ref({
   url: "",
 });
 
-const getInfo = () => {
-  const res = true; // await
-  if (res) {
-    baseInfo.value = {
-      title: "周杰伦",
-      timeline: 7,
-      endTime: 12,
-      url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
-    };
-  }
-};
+// const getInfo = () => {
+//   const res = true; // await
+//   if (res) {
+//     baseInfo.value = {
+//       title: "周杰伦",
+//       timeline: 7,
+//       endTime: 12,
+//       url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
+//     };
+//   }
+// };
 
 // 1. 通过监听按钮的点击时间，修改音频的播放、暂停状态，并设置对应的 icon.
 const playButton = () => {
@@ -139,10 +145,100 @@ const updateProgress = () => {
 // audioPlayer.value.addEventListener('timeupdate', updateProgress);
 
 onMounted(() => {
-  getInfo();
+  // getInfo();
   console.log("audio", audioPlayer.value, audioPlayer.value.duration);
   audioPlayer.value.src = baseInfo.value.url;
 });
+
+// 改
+const searchValue = ref("");
+const list = ref([]);
+const counts = ref(0);
+const current = ref(0);
+const currentPlay = ref(-1);
+
+// async function getMusic() {
+// 	const res = await getMusicList()
+// 	console.log(res);
+// 	list.value = res.data
+// }
+
+const search = () => {
+  uni.request({
+    url: "http://116.62.61.65:3000/search?keywords=" + searchValue.value,
+    method: "GET",
+    success: (res) => {
+      console.log(res);
+      let temp = res.data.result;
+      counts.value = temp.songCount;
+      // list.value.push(temp.songs)
+      list.value = temp.songs;
+      uni.setStorageSync("lastWord", searchValue.value);
+      searchValue.value = "";
+    },
+    fail: (err) => {
+      console.log(err);
+      uni.showToast({
+        title: err.errMsg,
+        duration: 2000,
+      });
+    },
+  });
+};
+
+// 播放器
+const play =async (id) => {
+  const res = await musicInfo(id);
+  if(res){
+    baseInfo.value = {
+      title: "周杰伦",
+      timeline: 7,
+      endTime: 12,
+      url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
+    };
+  }
+};
+
+innerAudioContext.onError((res) => {
+  console.log(res.errMsg);
+  console.log(res.errCode);
+});
+onShow(() => {
+  // getMusic()
+  if (uni.getStorageSync("lastWord")) {
+    searchValue.value = uni.getStorageSync("lastWord");
+    search();
+  }
+});
+onReady(() => {
+  uni.setNavigationBarColor({
+    frontColor: uni.getStorageSync("themeColor") ? "#ffffff" : "#000000", // 导航栏标题颜色，只能是'black'或'white'
+    backgroundColor: uni.getStorageSync("themeColor")
+      ? uni.getStorageSync("themeColor")
+      : "#ffffff", // 导航栏背景颜色
+  });
+});
+
+const check=async(id)=>{
+  const res=await checkMusic(id);
+  if(res){
+    console.log(res);
+      if (res.data.success) {
+        play(id, index);
+      } else {
+        uni.showToast({
+          title: res.data.message,
+          icon: "error",
+          duration: 2000,
+        });
+      }
+  }
+}
+
+const stop = () => {
+  innerAudioContext.pause();
+  currentPlay.value = -1;
+};
 </script>
 
 <style scoped lang="scss">

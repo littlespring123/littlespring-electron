@@ -24,7 +24,7 @@
             size="large"
             :circle="true"
             v-for="item in blogForm.tag"
-            :text="item"
+            :text="item?.content ? item?.content : item"
           ></Tag>
         </div>
       </div>
@@ -144,24 +144,26 @@ getBlogDet();
 
 <style scoped lang="scss">
 .root {
-  max-height: 80vh;
-  width: 90%;
+  max-height: 86vh;
+  width: 95%;
   display: flex;
   justify-content: space-around;
   border: 1px solid #ccc;
-  padding: 10px;
-  margin: 20px;
+  padding: 6px;
+  margin: 10px;
 
   .inputBox {
     display: flex;
     flex-direction: column;
     height: 60vh;
+    width: 80%;
 
     .preview {
       border: 1px solid #ccc;
       min-height: 20vh;
       max-height: 50vh;
       overflow: auto;
+      padding: 5px 15px;
     }
 
     .preview:hover {
@@ -175,8 +177,15 @@ getBlogDet();
   }
 
   .catalogy {
-    width: 10vw;
+    width: 18%;
     border: 1px solid #ccc;
+    // overflow-y: auto;
+    // overflow-x: auto;
+    overflow: auto;
+    transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  .catalogy:hover {
+    border: 1px solid v-bind(themeColor);
   }
 }
 

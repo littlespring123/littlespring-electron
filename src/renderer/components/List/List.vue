@@ -1,5 +1,5 @@
 <template>
-  <view class="">
+  <view class="" :style="{ display: layout }">
     <view v-if="listLength === 0" class="">
       <Empty description="暂无活动"></Empty>
     </view>
@@ -10,29 +10,34 @@
 </template>
 
 <script setup lang="ts">
-import Empty from '@renderer/components/Empty.vue';
-import { ref, nextTick } from 'vue';
+/**
+ * 列表组件
+ * layout 布局方式
+ * listLength
+ */
+import Empty from "@renderer/components/Empty.vue";
+import { ref, nextTick } from "vue";
 // 子传父方法
-const emit = defineEmits(['getMore']);
+const emit = defineEmits(["getMore"]);
 
 // 父传子变量
 const props = defineProps({
   layout: {
     type: String,
-    default: ''
+    default: "block",
   },
   listLength: {
     type: Number,
-    default: 0
+    default: 0,
   },
   page: {
     type: Number,
-    default: 1
+    default: 1,
   },
   pageSize: {
     type: Number,
-    default: 20
-  }
+    default: 20,
+  },
 });
 
 // 置顶按钮
@@ -40,7 +45,7 @@ const myScroll = ref(0);
 const oldScrollTop = ref(0);
 const topArrow = ref(false);
 const toTop = () => {
-  console.log('出发了', myScroll.value);
+  console.log("出发了", myScroll.value);
   myScroll.value = oldScrollTop.value;
   nextTick(() => {
     myScroll.value = -20;
@@ -55,7 +60,7 @@ const isShowArrow = (e: any) => {
 };
 
 const getMoreFunc = () => {
-  emit('getMore', { page: props.page + 1, pageSize: props.pageSize });
+  emit("getMore", { page: props.page + 1, pageSize: props.pageSize });
 };
 </script>
 

@@ -13,32 +13,35 @@
 </template>
 
 <script setup lang="ts">
-// 选项卡
-import { ref, toRefs } from 'vue';
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+/**
+ * 选项卡
+ * 
+ *  */
+import { ref, toRefs } from "vue";
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 
 const activeTab = ref(0);
 
-const emits = defineEmits(['change']);
+const emits = defineEmits(["change"]);
 
 const define = defineProps({
   list: {
     type: Array,
-    default: []
+    default: [],
   },
   activeIndex: {
     type: Number,
-    default: 0
-  }
+    default: 0,
+  },
 });
 
 const { list, activeIndex } = toRefs(define);
 
 const changeTab = (index) => {
-  emits('change', index);
+  emits("change", index);
   activeTab.value = index;
 };
 </script>

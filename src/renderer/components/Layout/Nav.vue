@@ -68,7 +68,7 @@ const { t } = useI18n();
 
 const store = useStore();
 const router = useRouter();
-const showMenu = ref(true);
+const showMenu = ref(false);
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 
 const activeIndex = ref(0);

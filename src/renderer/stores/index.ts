@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia';
-import { watch, ref } from 'vue';
-import { setLanguage } from '@renderer/i18n';
+import { defineStore } from "pinia";
+import { watch, ref } from "vue";
+import { setLanguage } from "@renderer/i18n";
 
-export const useStore = defineStore('main', () => {
+export const useStore = defineStore("main", () => {
   // 用户信息
   const userInfo = ref({
-    id: '',
-    name: ''
+    id: "",
+    name: "",
   });
 
   const setUserInfo = (data: any) => {
@@ -23,13 +23,13 @@ export const useStore = defineStore('main', () => {
 
   // 设置相关
   // 主题设置
-  const themeColor = ref('#007AFF');
-  const color = ref('#000');
-  const backgroundColor = ref('#fff');
+  const themeColor = ref("#007AFF");
+  const color = ref("#000");
+  const backgroundColor = ref("#fff");
   const setColor = (colorObj: any) => {
-    setThemeColor(colorObj?.themeColor || '#007AFF');
-    color.value = colorObj?.color || '#000';
-    backgroundColor.value = colorObj?.backgroundColor || '#fff';
+    setThemeColor(colorObj?.themeColor || "#007AFF");
+    color.value = colorObj?.color || "#000";
+    backgroundColor.value = colorObj?.backgroundColor || "#fff";
   };
   const setThemeColor = (color: string) => {
     themeColor.value = color;
@@ -37,8 +37,8 @@ export const useStore = defineStore('main', () => {
 
   // 滚动条设置
   const scroller = ref({
-    scrollerColor: '#ccc',
-    scrollerWidth: 10
+    scrollerColor: "#ccc",
+    scrollerWidth: 5,
   });
   const setScroller = (data) => {
     scroller.value = data;
@@ -49,20 +49,20 @@ export const useStore = defineStore('main', () => {
   const setDarkMode = (value: boolean) => {
     darkMode.value = value;
     if (value) {
-      color.value = '#fff';
-      backgroundColor.value = '#000';
+      color.value = "#fff";
+      backgroundColor.value = "#000";
     } else {
-      color.value = '#000';
-      backgroundColor.value = '#fff';
+      color.value = "#000";
+      backgroundColor.value = "#fff";
     }
   };
 
   // 语言设置
-  const languageMode = ref('cn');
-  const setLanguageMode = (mode: 'en' | 'cn') => {
+  const languageMode = ref("cn");
+  const setLanguageMode = (mode: "en" | "cn") => {
     languageMode.value = mode;
     setLanguage(mode);
-    console.log('mode', mode, languageMode.value);
+    console.log("mode", mode, languageMode.value);
   };
 
   // 加载中
@@ -71,34 +71,34 @@ export const useStore = defineStore('main', () => {
   // message设置
   const message = ref({
     show: false,
-    text: '',
-    icon: 'success',
-    duration: 2000
+    text: "",
+    icon: "success",
+    duration: 2000,
   });
 
   const setMessage = (text: string, duration = 2000) => {
     message.value = {
       show: true,
       text,
-      icon: 'none',
-      duration
+      icon: "none",
+      duration,
     };
   };
 
-  const setSuccessMsg = (text = '成功', duration = 2000) => {
+  const setSuccessMsg = (text = "成功", duration = 2000) => {
     message.value = {
       show: true,
       text,
-      icon: 'success',
-      duration
+      icon: "success",
+      duration,
     };
   };
-  const setFailMsg = (text = '失败', duration = 2000) => {
+  const setFailMsg = (text = "失败", duration = 2000) => {
     message.value = {
       show: true,
       text,
-      icon: 'fail',
-      duration
+      icon: "fail",
+      duration,
     };
   };
 
@@ -134,7 +134,7 @@ export const useStore = defineStore('main', () => {
     setUserInfo,
     setDarkMode,
     setShowHead,
-    setSHowNav
+    setSHowNav,
   };
 });
 // watch(
