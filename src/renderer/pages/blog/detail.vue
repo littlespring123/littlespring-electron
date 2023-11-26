@@ -4,7 +4,7 @@
 
     <ul class="catalogy">
       {{
-        t('blog.categorize')
+        t("blog.categorize")
       }}
       <li
         class="item"
@@ -25,18 +25,24 @@
         </div>
         <div>{{ detail.date }}</div>
       </div>
-      <div class="detail-content" v-html="valueHtml.content" @scroll="onScroll"></div>
+      <div
+        class="detail-content"
+        v-html="valueHtml.content"
+        @scroll="onScroll"
+      ></div>
     </div>
   </div>
+
+  <FloatBtn :list="btn" right="50px" bootom="50px"></FloatBtn>
 </template>
 
 <script setup lang="ts">
-import { ref, Ref } from 'vue';
-import { useRoute } from 'vue-router';
-import { getBlogApi } from '@renderer/api/blog';
-import { marked } from 'marked';
-import { md2html } from '@renderer/utils/txt2md';
-import { useI18n } from 'vue-i18n';
+import { ref, Ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { getBlogApi } from "@renderer/api/blog";
+import { marked } from "marked";
+import { md2html } from "@renderer/utils/txt2md";
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 interface NodeType {
   name?: string;
@@ -49,9 +55,20 @@ interface NodeType {
   isVisible?: boolean;
 }
 
-const valueHtml = ref('');
+const valueHtml = ref("");
 const { query } = useRoute();
+const router = useRouter();
 const detail = ref({});
+
+// 悬浮按钮
+const btn = [
+  {
+    content: "M",
+    fun: () => {
+      router.push("/add?id=" + query?.id);
+    },
+  },
+];
 
 const currentTitle: Ref<NodeType> = ref({
   id: 0,
@@ -68,21 +85,22 @@ const getBlogDet = async () => {
 getBlogDet();
 
 const toTarget = (target: any) => {
-  target = '#toc-nav' + target;
+  target = "#toc-nav" + target;
   let toElement = document.querySelector(target);
   toElement.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center',
-    inline: 'nearest',
+    behavior: "smooth",
+    block: "center",
+    inline: "nearest",
   });
 };
 
 // 监听滚动事件并更新样式
 const onScroll = (e: any) => {
-  let scrollItems = document.querySelectorAll('.item');
+  let scrollItems = document.querySelectorAll(".item");
   for (let i = scrollItems.length - 1; i >= 0; i--) {
     // 判断滚动条滚动距离是否大于当前滚动项可滚动距离
-    let judge = e.target.scrollTop >= scrollItems[i].offsetTop - scrollItems[0].offsetTop;
+    let judge =
+      e.target.scrollTop >= scrollItems[i].offsetTop - scrollItems[0].offsetTop;
     if (judge) {
       console.log(currentTitle.value.id, toc[i].id);
       currentTitle.value = { ...currentTitle.value, id: i + 1 };

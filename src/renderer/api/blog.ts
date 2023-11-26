@@ -56,6 +56,7 @@ export const searchBlogApi = async (value: string) => {
   });
   return res.data;
 };
+
 // 新建blog
 export const postBlogApi = async (data: any, uid: string) => {
   const res = await myRequest({

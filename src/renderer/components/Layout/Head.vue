@@ -6,7 +6,7 @@
       {{ road }}
     </div>
 
-    <div class="backBtn" @click="closeWin">
+    <!-- <div class="backBtn" @click="closeWin">
       <div class="controls-container">
         <div class="windows-icon-bg" @click="Mini">
           <img src="@renderer/assets/icons/svg/mini.svg" class="icon-size" />
@@ -28,8 +28,8 @@
         </div>
       </div>
 
-      <!-- <Icon name="close" :color="themeColor"></Icon> -->
-    </div>
+      <Icon name="close" :color="themeColor"></Icon>
+    </div> -->
   </div>
 </template>
 <script setup lang="ts">
@@ -97,10 +97,8 @@ defineProps({
     cursor: pointer;
     margin-right: 10px;
     border-radius: 26%;
-    border: 1px solid red;
 
     .controls-container {
-      border: 1px solid red;
     }
   }
 

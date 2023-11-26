@@ -1,8 +1,16 @@
 <template>
-  <div class="Nav shell" :class="showMenu ? '' : 'close'" :style="{ color, backgroundColor }">
+  <div
+    class="Nav shell"
+    :class="showMenu ? '' : 'close'"
+    :style="{ color, backgroundColor }"
+  >
     <div class="logo">
       <!-- <span class="logo-img"> -->
-      <img @click="router.push('/login')" src="@renderer/assets/headportrait.jpeg" alt="" />
+      <img
+        @click="router.push('/login')"
+        src="@renderer/assets/headportrait.jpeg"
+        alt=""
+      />
       <!-- </span> -->
       <!-- <div class="text logo-text">
         <span class="name">littlespring</span>
@@ -50,13 +58,13 @@
   <!-- <div @click="showMenu = true" class="tag" v-show="!showMenu">show</div> -->
 </template>
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import routes from '@renderer/router/routerList';
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import routes from "@renderer/router/routerList";
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 const store = useStore();
@@ -68,13 +76,13 @@ const activeIndex = ref(0);
 
 const bottomNav = ref([
   {
-    name: 'nav.set',
-    icon: 'set',
-    operate: () => router.push('/set'),
+    name: "nav.set",
+    icon: "set",
+    operate: () => router.push("/set"),
   },
   {
-    name: 'nav.hide',
-    icon: 'hide',
+    name: "nav.hide",
+    icon: "hide",
     operate: () => (showMenu.value = !showMenu.value),
   },
 ]);
@@ -141,7 +149,7 @@ $text-color: #707070;
   display: flex;
   align-items: center;
   justify-content: center;
-  font: 300 23px '';
+  font: 300 23px "";
 }
 
 .text,
@@ -185,12 +193,12 @@ $text-color: #707070;
   color: $shell-color;
 }
 
-.active {
-  color: $shell-color;
-  fill: $shell-color;
-  // mix-blend-mode: difference;
-  background-color: v-bind(themeColor);
-}
+// .active {
+//   color: $shell-color;
+//   fill: $shell-color;
+//   // mix-blend-mode: difference;
+//   background-color: v-bind(themeColor);
+// }
 
 .logo {
   display: flex;
@@ -218,7 +226,7 @@ $text-color: #707070;
 
     .name {
       margin-top: 2px;
-      font: 600 18px '';
+      font: 600 18px "";
     }
   }
 }

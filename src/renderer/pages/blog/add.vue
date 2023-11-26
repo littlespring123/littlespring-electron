@@ -62,11 +62,10 @@
 </template>
 
 <script setup lang="ts">
-// import { marked } from 'marked';
-import { postBlogApi } from "@renderer/api/blog";
+import { getBlogApi, postBlogApi, modifyBlogApi } from "@renderer/api/blog";
 import { ref } from "vue";
 import { md2html } from "@renderer/utils/txt2md";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useStore } from "@renderer/stores/index";
 
@@ -78,6 +77,7 @@ const store = useStore();
 const { themeColor } = storeToRefs(store);
 
 const router = useRouter();
+const { query } = useRoute();
 
 // 内容 HTML
 const blogForm = ref({
@@ -106,9 +106,16 @@ const showMD = () => {
 };
 
 const post = async () => {
-  const res = await postBlogApi(blogForm.value, store.userInfo.uid);
-  if (res) {
-    router.push("/blog");
+  if (query?.id) {
+    const res = await modifyBlogApi(blogForm.value, query?.id);
+    if (res) {
+      router.push("/blog");
+    }
+  } else {
+    const res = await postBlogApi(blogForm.value, store.userInfo.uid);
+    if (res) {
+      router.push("/blog");
+    }
   }
 };
 
@@ -123,6 +130,16 @@ const toTarget = (target: any) => {
     inline: "nearest",
   });
 };
+
+const getBlogDet = async () => {
+  if (query?.id) {
+    const res = await getBlogApi(Number(query?.id));
+    if (res) {
+      blogForm.value = res;
+    }
+  }
+};
+getBlogDet();
 </script>
 
 <style scoped lang="scss">

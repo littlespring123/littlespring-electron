@@ -49,6 +49,7 @@ server.interceptors.response.use(
       console.log("接口信息报错", res.message);
       return Promise.reject(new Error(res.message || "Error"));
     }
+    stores.setSuccessMsg(res.message, 1000);
     return res;
   },
   (err) => {
