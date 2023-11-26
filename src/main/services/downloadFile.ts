@@ -6,7 +6,7 @@ import packageInfo from '../../../package.json'
 
 
 /**
- * 
+ *
  * @description
  * @returns {void} 下载类
  * @param {mainWindow} 主窗口
