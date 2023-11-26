@@ -4,6 +4,6 @@ export const BuiltInServerPort: number = 25565;
 export const hotPublishUrl: string =
   "http://umbrella22.github.io/electron-vite-template";
 export const hotPublishConfigName: string = "update-config";
-export const openDevTools: boolean = false;
+export const openDevTools: boolean = true;
 export const DisableF12: boolean = true;
 export const HotUpdateFolder: string = "hot-update";

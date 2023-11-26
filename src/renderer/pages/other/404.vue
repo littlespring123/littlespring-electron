@@ -19,14 +19,24 @@
 </template>
 
 <script setup lang="ts">
-import img_404 from '@renderer/assets/404_images/404.png';
-import img_404_cloud from '@renderer/assets/404_images/404_cloud.png';
-import { useTemplateStore } from '@renderer/store/modules/template';
-import { vueListen } from '../utils/ipcRenderer';
-import { IpcChannel } from '../../ipc';
-const storeTemplate = useTemplateStore();
+import img_404 from "@renderer/assets/404_images/404.png";
+import img_404_cloud from "@renderer/assets/404_images/404_cloud.png";
+import { useStoreTemplate } from "@store/template";
+let { ipcRenderer } = window;
+const storeTemplate = useStoreTemplate();
 console.log(storeTemplate.$state.testData);
-vueListen(IpcChannel.SendDataTest, (event, data) => {
+
+if (!ipcRenderer) {
+  ipcRenderer = {} as any;
+  ipcRenderer.on =
+    ipcRenderer.invoke =
+    ipcRenderer.removeAllListeners =
+      (...args: any): any => {
+        console.log("not electron");
+      };
+}
+
+ipcRenderer.on("send-data-test", (event, data) => {
   console.log(event);
   console.log(data);
 });

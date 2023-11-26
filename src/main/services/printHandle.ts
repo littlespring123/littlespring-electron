@@ -5,12 +5,20 @@ import { printURL } from "@main/config/StaticPath";
 import { IpcChannel, IpcMainHandle } from "../../ipc";
 import { openDevTools } from "./windowManager";
 
-export function usePrintHandle(): Pick<IpcMainHandle, IpcChannel.GetPrinters | IpcChannel.PrintHandlePrint | IpcChannel.OpenPrintDemoWindow> {
+export function usePrintHandle(): Pick<
+  IpcMainHandle,
+  | IpcChannel.GetPrinters
+  | IpcChannel.PrintHandlePrint
+  | IpcChannel.OpenPrintDemoWindow
+> {
   return {
     [IpcChannel.GetPrinters]: async (event) => {
       return await event.sender.getPrintersAsync();
     },
-    [IpcChannel.PrintHandlePrint]: async (event, options: WebContentsPrintOptions) => {
+    [IpcChannel.PrintHandlePrint]: async (
+      event,
+      options: WebContentsPrintOptions
+    ) => {
       return new Promise((resolve) => {
         event.sender.print(
           options,
@@ -22,8 +30,8 @@ export function usePrintHandle(): Pick<IpcMainHandle, IpcChannel.GetPrinters | I
     },
     [IpcChannel.OpenPrintDemoWindow]: () => {
       openPrintDemoWindow();
-    }
-  }
+    },
+  };
 }
 
 let win: BrowserWindow;
@@ -37,8 +45,9 @@ export function openPrintDemoWindow() {
     ...Object.assign(otherWindowConfig, {}),
   });
   // 开发模式下自动开启devtools
-  if (process.env.NODE_ENV === "development") {
-    openDevTools(win)
+  // if (process.env.NODE_ENV === "development") {
+  if (true) {
+    openDevTools(win);
   }
   win.loadURL(printURL);
   win.on("ready-to-show", () => {

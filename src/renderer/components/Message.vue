@@ -20,9 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, toRefs } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useStore } from '@renderer/stores';
+import { reactive, toRefs, watch } from "vue";
+import { storeToRefs } from "pinia";
+import { useStore } from "@renderer/stores";
 const store = useStore();
 const { message } = storeToRefs(store);
 
@@ -52,27 +52,25 @@ const { message } = storeToRefs(store);
 
 // 打开消息
 const onOpen = (config) => {
-  setTimeout(() => {
-    message.show = true;
-  }, 10);
+  // setTimeout(() => {
+  message.value.show = true;
+  // }, 10);
 
   // 指定时间后移除消息
   if (message.duration !== 0) {
     setTimeout(() => {
       onClose();
-    }, message.duration);
+    }, message.value.duration);
   }
 };
 
-onOpen();
+watch(message, () => {
+  onOpen();
+});
 
 // 消息关闭
 const onClose = () => {
-  message.show = false;
-  // state.visibled = false;
-  // setTimeout(() => {
-  //   props.remove();
-  // }, 200);
+  message.value.show = false;
 };
 </script>
 
@@ -85,12 +83,12 @@ $normalHeight: 34px;
   position: fixed;
   top: 60px;
   right: 10px;
-  width: 10vw;
+  width: 20vw;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
   z-index: 9999;
-  transition: right 0.4s ease;
+  transition: right 1s ease-in-out;
 
   .message-icon {
     display: inline-block;
@@ -115,6 +113,7 @@ $normalHeight: 34px;
   }
 
   .message-content {
+    // border: 1px solid red;
     display: inline-block;
     padding: 4px 18px;
     height: $normalHeight;
@@ -123,6 +122,7 @@ $normalHeight: 34px;
     font-size: 14px;
     font-weight: 400;
     border-radius: $radius;
+    box-shadow: 0px 3px 0px 1px #ccc;
     color: #595959;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     background: #ffffff;
@@ -167,6 +167,6 @@ $normalHeight: 34px;
 // }
 
 .slideFade {
-  right: -11vw;
+  right: -400px;
 }
 </style>

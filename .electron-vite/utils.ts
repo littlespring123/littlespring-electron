@@ -14,7 +14,8 @@ const getEnvPath = () => {
   ) {
     return rootResolve("env/.env");
   }
-  return rootResolve(`env/${getEnv()}.env`);
+  return rootResolve("env/.env");
+  // return rootResolve(`env/${getEnv()}.env`);
 };
 
 export const getConfig = () => config({ path: getEnvPath() }).parsed;

@@ -24,7 +24,6 @@ const server = axios.create({
 
 server.interceptors.request.use(
   (config) => {
-    console.log("env", __CONFIG__);
     console.log("req", config);
     loading.value = true;
     // message.value.show = true;
@@ -49,18 +48,18 @@ server.interceptors.response.use(
       console.log("接口信息报错", res.message);
       return Promise.reject(new Error(res.message || "Error"));
     }
-    stores.setSuccessMsg(res.message, 1000);
+    stores.setSuccessMsg(res.message, 3000);
     return res;
   },
   (err) => {
     loading.value = false;
     if (err.message.includes("timeout")) {
       console.log("错误回调", err);
-      stores.setFailMsg("网络超时", 1000);
+      stores.setFailMsg("网络超时", 2000);
     }
     if (err.message.includes("Network Error")) {
       console.log("错误回调", err);
-      stores.setFailMsg("服务端未启动，或网络连接错误", 1000);
+      stores.setFailMsg("服务端未启动，或网络连接错误", 2000);
     }
     return Promise.reject(err);
   }

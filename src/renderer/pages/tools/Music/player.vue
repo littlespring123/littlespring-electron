@@ -3,12 +3,17 @@
     <div v-show="!showLRC" class="img-container">
       <img
         :class="playState ? 'rotateLoop' : 'rotatePause'"
-        src="images/ukulele.jpg"
+        src="@renderer/assets/headportrait.jpeg"
         :alt="t('music.musicCover')"
         id="cover"
       />
     </div>
-    <LRC :currentTime="currentTime" :lrc="lyric" v-show="showLRC" class="img-container"></LRC>
+    <LRC
+      :currentTime="currentTime"
+      :lrc="lyric"
+      v-show="showLRC"
+      class="img-container"
+    ></LRC>
     <div class="controller">
       <div class="music-info">
         <h4 id="title">{{ baseInfo.title }}</h4>
@@ -20,7 +25,7 @@
           @click="showLRC = !showLRC"
           :style="showLRC ? `border:1px solid ${color}` : ''"
         >
-          {{ t('music.LRC') }}
+          {{ t("music.LRC") }}
         </div>
       </div>
       <div class="navigation">
@@ -45,13 +50,13 @@
 </template>
 
 <script setup lang="ts">
-import LRC from './LRC.vue';
-import { lyric } from './lyric.js';
-import { ref, onMounted } from 'vue';
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import LRC from "./LRC.vue";
+import { lyric } from "./lyric.js";
+import { ref, onMounted } from "vue";
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 
-import { useI18n } from 'vue-i18n';
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
@@ -59,8 +64,8 @@ const { color, backgroundColor, themeColor } = storeToRefs(store);
 const props = defineProps({
   id: {
     type: String,
-    default: ''
-  }
+    default: "",
+  },
 });
 
 const playState = ref(false); // 是否播放
@@ -71,20 +76,20 @@ const currentTime = ref(0);
 
 // const audio = document.querySelector('audio'); // 获取音频
 const baseInfo = ref({
-  title: '',
+  title: "",
   timeline: 0, // 总时间
-  cover: '',
-  url: ''
+  cover: "",
+  url: "",
 });
 
 const getInfo = () => {
   const res = true; // await
   if (res) {
     baseInfo.value = {
-      title: '周杰伦',
+      title: "周杰伦",
       timeline: 7,
       endTime: 12,
-      url: 'http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3'
+      url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
     };
   }
 };
@@ -135,7 +140,7 @@ const updateProgress = () => {
 
 onMounted(() => {
   getInfo();
-  console.log('audio', audioPlayer.value, audioPlayer.value.duration);
+  console.log("audio", audioPlayer.value, audioPlayer.value.duration);
   audioPlayer.value.src = baseInfo.value.url;
 });
 </script>
@@ -185,7 +190,7 @@ onMounted(() => {
   }
 
   .img-container::after {
-    content: '';
+    content: "";
     background-color: #fff;
     border-radius: 50%;
     // position: absolute;
@@ -210,7 +215,7 @@ onMounted(() => {
     // display: flex;
 
     .music-info {
-      display: flex;  
+      display: flex;
     }
 
     .navigation {

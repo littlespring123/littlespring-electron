@@ -1,5 +1,8 @@
 <template>
-  <div class="floatBtn" :style="{ border: `1px solid ${color}`, color, backgroundColor }">
+  <div
+    class="floatBtn"
+    :style="{ border: `1px solid ${color}`, color, backgroundColor }"
+  >
     <div v-for="item in list" @click="item.fun">
       {{ item.content }}
     </div>
@@ -7,42 +10,42 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 // import { useRouter } from 'vue-router';
 // const router = useRouter()
 const store = useStore();
-const { color, backgroundColor } = storeToRefs(store);
+const { color, backgroundColor, themeColor } = storeToRefs(store);
 defineProps({
   isShow: {
     type: Boolean,
-    default: true
+    default: true,
   },
   list: {
     default: [
       {
-        content: '+',
+        content: "+",
         fun: () => {
-          console.log('hello');
-        }
-      }
-    ]
+          console.log("hello");
+        },
+      },
+    ],
   },
   top: {
-    type: String
+    type: String,
   },
   right: {
     type: String,
-    default: '25px'
+    default: "25px",
   },
   bootom: {
     type: String,
-    default: '25px'
+    default: "25px",
   },
   left: {
     type: String,
-    default: '25px'
-  }
+    default: "25px",
+  },
 });
 </script>
 
@@ -61,7 +64,9 @@ defineProps({
   right: v-bind(right);
 }
 .floatBtn:hover {
-  mix-blend-mode: difference;
+  // mix-blend-mode: difference;
+  color: v-bind(themeColor);
+  border: 1px solid v-bind(themeColor);
   transition: 0.5s;
 }
 </style>

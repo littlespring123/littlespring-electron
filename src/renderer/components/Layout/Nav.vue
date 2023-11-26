@@ -30,9 +30,8 @@
             v-for="(item, index) in routes"
             :key="index"
           >
-            <Icon class="iconfont icon" :name="item.icon" :color="color"></Icon>
+            <Icon class="iconfont icon" :name="item.icon"></Icon>
             <span class="text nac-text">{{ t(item.name) }}</span>
-            <!-- :color="index === activeIndex ? themeColor : color" -->
           </li>
         </ul>
       </div>
@@ -128,7 +127,6 @@ $text-color: #707070;
     display: flex;
     align-items: center;
     margin-top: 10px;
-    // justify-content: center;
     justify-content: left;
   }
 }
@@ -154,7 +152,6 @@ $text-color: #707070;
 
 .text,
 .icon {
-  color: $text-color;
   transition: all 0.3s ease;
 }
 
@@ -184,21 +181,20 @@ $text-color: #707070;
 }
 
 .shell li:hover {
-  background-color: v-bind(themeColor);
-  color: v-bind(color);
+  color: v-bind(themeColor);
+  fill: v-bind(themeColor);
 }
 
 .shell li:hover .icon,
 .shell li:hover .text {
-  color: $shell-color;
+  color: v-bind(themeColor);
+  fill: v-bind(themeColor);
 }
 
-// .active {
-//   color: $shell-color;
-//   fill: $shell-color;
-//   // mix-blend-mode: difference;
-//   background-color: v-bind(themeColor);
-// }
+.active {
+  color: v-bind(themeColor);
+  fill: v-bind(themeColor);
+}
 
 .logo {
   display: flex;
