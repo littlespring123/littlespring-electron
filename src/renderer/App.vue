@@ -93,13 +93,13 @@ router.afterEach((to, from, next) => {
   opacity: 0;
 }
 
+// 滚动条
 ::-webkit-scrollbar {
   width: v-bind(scrollerWidth + 'px');
 }
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  // background-color: rgba(25, 147, 147, 0.1);
   opacity: 0.1;
   background-color: v-bind(scrollerColor);
 }

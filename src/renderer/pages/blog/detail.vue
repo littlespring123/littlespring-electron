@@ -131,11 +131,11 @@ const onScroll = (e: any) => {
   display: flex;
   justify-content: center;
   padding: 4px;
-  margin: 10px 5px;
+  margin: 5px;
 
   .box {
     width: 70%;
-    // border: 1px solid red;
+    border: 1px solid #ccc;
     max-width: 70vw;
     padding: 4px;
 
@@ -157,21 +157,21 @@ const onScroll = (e: any) => {
     .detail-content {
       padding: 10px;
       max-height: 70vh;
-
-      overflow: auto;
+      overflow: hidden;
       border: 1px solid #ccc;
+    }
+    .detail-content:hover {
+      overflow: auto;
     }
   }
 
   .catalogy {
-    // position: fixed;
     border: 1px solid #ccc;
-
+    overflow: hidden;
     top: 20vh;
-    right: 3vw;
+    // right: 3vw;
     max-width: 18vw;
     max-height: 60vh;
-    overflow: auto;
 
     .item {
       max-width: 50vw;
@@ -179,6 +179,10 @@ const onScroll = (e: any) => {
       cursor: pointer;
       list-style: none;
     }
+  }
+
+  .catalogy:hover {
+    overflow: auto;
   }
 }
 

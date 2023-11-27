@@ -56,14 +56,24 @@
         <Input
           :label="t('set.window.height')"
           inputType="number"
-          v-model="scroller.scrollerWidth"
+          v-model="windowSet.height"
         />
       </div>
       <div class="child">
         <Input
           :label="t('set.window.width')"
           inputType="number"
-          v-model="scroller.scrollerWidth"
+          v-model="windowSet.width"
+        />
+      </div>
+    </Card>
+
+    <Card :title="t('set.blog.set')">
+      <div class="child">
+        <Input
+          :label="t('set.blog.pagesize')"
+          inputType="number"
+          v-model="blogSet.pagesize"
         />
       </div>
     </Card>
@@ -86,8 +96,15 @@ const { t } = useI18n();
 const store = useStore();
 console.log("stroe", store);
 
-const { scroller, themeColor, darkMode, color, backgroundColor } =
-  storeToRefs(store);
+const {
+  scroller,
+  themeColor,
+  blogSet,
+  windowSet,
+  darkMode,
+  color,
+  backgroundColor,
+} = storeToRefs(store);
 const { setLanguageMode } = store;
 
 const languageArray = [

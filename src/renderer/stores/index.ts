@@ -38,7 +38,7 @@ export const useStore = defineStore("main", () => {
   // 滚动条设置
   const scroller = ref({
     scrollerColor: "#ccc",
-    scrollerWidth: 5,
+    scrollerWidth: 3,
   });
   const setScroller = (data) => {
     scroller.value = data;
@@ -102,6 +102,21 @@ export const useStore = defineStore("main", () => {
     };
   };
 
+  // blog设置
+  const blogSet = ref({
+    pagesize: 5,
+  });
+
+  const setBlogSet = () => {};
+
+  // 界面设置
+  const windowSet = ref({
+    height: 300,
+    width: 300,
+  });
+
+  const setWindowSet = () => {};
+
   // layout设置
   const showHead = ref(true);
   const showNav = ref(true);
@@ -119,12 +134,16 @@ export const useStore = defineStore("main", () => {
     color,
     backgroundColor,
     scroller,
+    blogSet,
     darkMode,
+    windowSet,
     loading,
     languageMode,
     showHead,
     showNav,
     setScroller,
+    setWindowSet,
+    setBlogSet,
     setColor,
     setLanguageMode,
     setMessage,

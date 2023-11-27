@@ -17,6 +17,10 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * 输入框
+ * 
+ */
 import { useStore } from '@renderer/stores';
 import { storeToRefs } from 'pinia';
 const store = useStore();

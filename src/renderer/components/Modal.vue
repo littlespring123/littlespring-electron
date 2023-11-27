@@ -4,25 +4,40 @@
       <div class="modal-content">
         <slot></slot>
       </div>
-      <button @click="closeModal" class="modal-close-button">Close</button>
+      <button @click="confirmModal" class="modal-close-button">
+        {{ t("modal.confirm") }}
+      </button>
+      <button @click="closeModal" class="modal-close-button">
+        {{ t("modal.close") }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+const { t } = useI18n();
 const props = defineProps({
   show: {
     type: Boolean,
+    default: false,
   },
 });
 const closeModal = (event: any) => {
   console.log(event);
   if (event.target === event.currentTarget) {
-    emit('close');
+    emit("close");
+  }
+};
+const confirmModal = (event: any) => {
+  console.log(event);
+  if (event.target === event.currentTarget) {
+    emit("confirm");
   }
 };
 
-const emit = defineEmits();
+const emit = defineEmits(["close", "confirm"]);
 </script>
 
 <style scoped lang="scss">

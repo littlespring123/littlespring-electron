@@ -36,8 +36,11 @@ export default {
     submit: "提交",
   },
 
-  tools: {
-    todo: "todo",
+  todo: {
+    title: "标题",
+    titlePlace: "请输入标题",
+    content: "内容",
+    contentPlace: "请输入内容",
   },
   music: {
     music: "music",
@@ -78,6 +81,9 @@ export default {
       set: "窗口设置",
       width: "宽度",
       height: "高度",
+    },
+    blog: {
+      pageseize: "每页数量",
     },
     mode: "夜间模式",
     language: "语言",
@@ -154,4 +160,10 @@ export default {
   browser: {
     searchBarPlaceholder: "在Bing中搜索，或输入一个网址",
   },
+
+  // 组件
+  modal: {
+    confirm: "确认",
+    close:"关闭"
+  }
 };

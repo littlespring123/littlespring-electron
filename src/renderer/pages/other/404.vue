@@ -45,7 +45,7 @@ ipcRenderer.on("send-data-test", (event, data) => {
 <style rel="stylesheet/scss" lang="scss" scoped>
 .wscn-http404 {
   position: relative;
-  width: 1200px;
+  width: 100%;
   margin: 20px auto 60px;
   padding: 0 100px;
   overflow: hidden;

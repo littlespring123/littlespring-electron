@@ -31,8 +31,11 @@ export default {
     add: "add",
     submit: "submit",
   },
-  tools: {
-    todo: "todo",
+  todo: {
+    title: "title",
+    titlePlace: "please input title",
+    content: "content",
+    contentPlace: "please input content",
   },
   music: {
     music: "music",
@@ -63,6 +66,9 @@ export default {
       width: "width",
       height: "height",
     },
+    blog: {
+      pageseize: "page size",
+    },
     mode: "dark mode",
     language: "language：",
     save: "save",
@@ -90,6 +96,12 @@ export default {
     success: "success",
     warn: "warn",
     fail: "fail",
+  },
+
+  // 组件
+  modal: {
+    confirm: "confirm",
+    close: "close",
   },
 };
 // welcome: 'Welcome use the framework',

@@ -162,11 +162,12 @@ getBlogDet();
       border: 1px solid #ccc;
       min-height: 20vh;
       max-height: 50vh;
-      overflow: auto;
+      overflow: hidden;
       padding: 5px 15px;
     }
 
     .preview:hover {
+      overflow: auto;
       border: 1px solid v-bind(themeColor);
     }
 
@@ -179,12 +180,13 @@ getBlogDet();
   .catalogy {
     width: 18%;
     border: 1px solid #ccc;
-    // overflow-y: auto;
-    // overflow-x: auto;
+    overflow: hidden;
     overflow: auto;
     transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
   }
+
   .catalogy:hover {
+    overflow: auto;
     border: 1px solid v-bind(themeColor);
   }
 }
