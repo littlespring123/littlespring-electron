@@ -11,7 +11,7 @@
         v-for="item of valueHtml.toc"
         :key="item.id"
         @click="toTarget(item.id)"
-        :class="currentTitle.id === item.id ? 'active' : ''"
+        :class="{ active: currentTitle.id === item.id }"
         :style="{ 'padding-left': (item.tag - valueHtml.maxTitle) * 10 + 'px' }"
       >
         {{ item.text }}
@@ -135,6 +135,7 @@ const onScroll = (e: any) => {
 
   .box {
     width: 70%;
+    max-height: 75vh;
     border: 1px solid #ccc;
     max-width: 70vw;
     padding: 4px;
@@ -175,9 +176,13 @@ const onScroll = (e: any) => {
 
     .item {
       max-width: 50vw;
-      overflow: hiden;
+      overflow: hidden;
       cursor: pointer;
       list-style: none;
+    }
+
+    .item:hover {
+      text-decoration: underline;
     }
   }
 

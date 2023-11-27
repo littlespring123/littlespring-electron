@@ -1,36 +1,39 @@
 <script setup lang="ts">
-import FloatBtn from './components/FloatBtn.vue';
-import Star from '@renderer/components/App/Star.vue';
-import { useStore } from '@renderer/stores';
-import Nav from '@renderer/components/Layout/Nav.vue';
-import Loading from '@renderer/components/Loading.vue';
-import Head from '@renderer/components/Layout/Head.vue';
-import String from '@renderer/components/App/String.vue';
-import { storeToRefs } from 'pinia';
-import { toRefs, ref } from 'vue';
-import router from '@renderer/router';
-import i18n from '@renderer/i18n';
+import FloatBtn from "./components/FloatBtn.vue";
+import Star from "@renderer/components/App/Star.vue";
+import { useStore } from "@renderer/stores";
+import Nav from "@renderer/components/Layout/Nav.vue";
+import Loading from "@renderer/components/Loading.vue";
+import Head from "@renderer/components/Layout/Head.vue";
+import String from "@renderer/components/App/String.vue";
+import { storeToRefs } from "pinia";
+import { toRefs, ref } from "vue";
+import router from "@renderer/router";
+import i18n from "@renderer/i18n";
 const store = useStore();
-const roadShow = ref('');
+const roadShow = ref("");
 const { color, backgroundColor, scroller } = storeToRefs(store);
 const { scrollerColor, scrollerWidth } = toRefs(scroller.value);
-store.setColor(JSON.parse(localStorage.getItem('color')));
-store.setUserInfo(JSON.parse(localStorage.getItem('userInfo')));
+store.setColor(JSON.parse(localStorage.getItem("color")));
+store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
 
 const showLayout = ref({
   showNav: true,
-  showHead: true
+  showHead: true,
 });
 
 router.afterEach((to, from, next) => {
   console.log(to, to.meta);
   if (Object.keys(to.meta).length !== 0) {
     let { meta } = to;
-    showLayout.value = { showNav: meta.menuRender, showHead: meta.headerRender };
+    showLayout.value = {
+      showNav: meta.menuRender,
+      showHead: meta.headerRender,
+    };
   } else {
     showLayout.value = {
       showNav: true,
-      showHead: true
+      showHead: true,
     };
   }
 
@@ -95,7 +98,7 @@ router.afterEach((to, from, next) => {
 
 // 滚动条
 ::-webkit-scrollbar {
-  width: v-bind(scrollerWidth + 'px');
+  // width: v-bind(scrollerWidth + 'px');
 }
 
 ::-webkit-scrollbar-track {

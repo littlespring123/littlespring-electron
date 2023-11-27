@@ -8,9 +8,8 @@
       v-for="item in todos"
       :key="item.id"
     >
-      <div class="content">
-        {{ item.content }}
-      </div>
+      <div class="content" v-html="item.content.replace(/\n/g, '<br>')"></div>
+      <!-- {{ item.content }} -->
       <template v-slot:footer>
         <Icon
           @click="deleteTodo(item.id)"
@@ -20,19 +19,26 @@
       </template>
     </Card>
   </div>
-  <Modal :show="showForm" @confirm="addTodo" @cancel="showForm = false">
-    <Input
-      :placeholder="t('todo.titlePlace')"
-      :label="t('todo.title')"
-      name="title"
-      v-model="todoForm.title"
-    />
-    <Input
-      :placeholder="t('todo.contentPlace')"
-      :label="t('todo.content')"
-      name="content"
-      v-model="todoForm.content"
-    />
+  <Modal :show="showForm" @confirm="addTodo" @close="showForm = false">
+    <div class="input-box">
+      <div>
+        <Input
+          :placeholder="t('todo.titlePlace')"
+          :label="t('todo.title')"
+          name="title"
+          v-model="todoForm.title"
+        />
+      </div>
+
+      <textarea
+        :placeholder="t('todo.contentPlace')"
+        :label="t('todo.content')"
+        name="content"
+        :rows="6"
+        class="textarea"
+        v-model="todoForm.content"
+      ></textarea>
+    </div>
   </Modal>
   <FloatBtn :list="btn" right="50px" bootom="50px"></FloatBtn>
 </template>
@@ -67,57 +73,7 @@ const todoForm = ref({
   title: "",
   content: "",
 });
-const todos = ref([
-  {
-    id: "22",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: false,
-  },
-  {
-    id: "22111",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: false,
-  },
-  {
-    id: "222222",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: true,
-  },
-  {
-    id: "2333332",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: false,
-  },
-  {
-    id: "22444444",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: false,
-  },
-  {
-    id: "225555555",
-    title: "sasa",
-    content: "sassaassaasasasaas",
-    complete: false,
-  },
-  {
-    id: "221666",
-    title: "ssa",
-    content:
-      "sasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaassasasssasasasasassassasaaas",
-    complete: false,
-  },
-  {
-    id: "2245",
-    title: "ssa",
-    complete: true,
-    content: "sasassaasaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaas",
-  },
-]);
+const todos = ref([]);
 
 const getTodoList = () => {
   todos.value = JSON.parse(localStorage.getItem("todo")) || [];
@@ -126,11 +82,6 @@ const getTodoList = () => {
 //添加一个TODO
 const addTodo = () => {
   if (todoForm.value.id) {
-    // for (let i = 0, len = todos.value.length; i < len; i++) {
-    //   if (todos.value[i].id === todoForm.value.id) {
-    //     todos.value[i] = todoForm.value;
-    //   }
-    // }
     todos.value = todos.value.map((item) => {
       if (item.id === todoForm.value.id) {
         item = todoForm.value;
@@ -192,6 +143,7 @@ getTodoList();
 .toList {
   width: 98%;
   display: grid;
+  max-height: 80vh;
   // grid-template-columns: repeat(4, 25%);
   // grid-template-rows: repeat(4, 22%);
   grid-template-columns: repeat(4, 1fr);
@@ -205,10 +157,12 @@ getTodoList();
   .item {
     // border: 1px solid red;
     height: auto;
+    background-color: #fff7d1;
     // padding: 10px;
     // overflow: auto;
 
     .content {
+      background-color: #fff7d1;
       max-height: 20vh;
       overflow: hidden;
       // text-overflow: ellipsis;
@@ -226,5 +180,14 @@ getTodoList();
       overflow: auto;
     }
   }
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea {
+  white-space: pre-wrap;
 }
 </style>

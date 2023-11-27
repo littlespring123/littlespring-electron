@@ -4,12 +4,12 @@
       <div class="modal-content">
         <slot></slot>
       </div>
-      <button @click="confirmModal" class="modal-close-button">
+      <Button @click="confirmModal" class="modal-close-button">
         {{ t("modal.confirm") }}
-      </button>
-      <button @click="closeModal" class="modal-close-button">
+      </Button>
+      <Button @click="closeModal" class="modal-close-button">
         {{ t("modal.close") }}
-      </button>
+      </Button>
     </div>
   </div>
 </template>
@@ -24,17 +24,11 @@ const props = defineProps({
     default: false,
   },
 });
-const closeModal = (event: any) => {
-  console.log(event);
-  if (event.target === event.currentTarget) {
-    emit("close");
-  }
+const closeModal = () => {
+  emit("close");
 };
-const confirmModal = (event: any) => {
-  console.log(event);
-  if (event.target === event.currentTarget) {
-    emit("confirm");
-  }
+const confirmModal = () => {
+  emit("confirm");
 };
 
 const emit = defineEmits(["close", "confirm"]);
