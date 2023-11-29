@@ -50,15 +50,17 @@
 </template>
 
 <script setup lang="ts">
+import { DesktopMsg } from "@renderer/utils/notification";
 import {
   getListApi,
   searchMusic,
   checkMusic,
   musicInfo,
+  lyricInfo,
 } from "@renderer/api/music";
 import LRC from "./LRC.vue";
-import { lyric } from "./lyric.js";
-import { ref, onMounted } from "vue";
+// import { lyric } from "./lyric.js";
+import { ref, onMounted, toRefs, watch } from "vue";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
 
@@ -74,13 +76,19 @@ const props = defineProps({
   },
 });
 
+const { id } = toRefs(props);
 const playState = ref(false); // 是否播放
 const audioPlayer = ref(null); //播放器
 const progress = ref(0); // 进度
 const showLRC = ref(false); // 展示歌词
 const currentTime = ref(0);
+const lyric = ref("");
 
-// const audio = document.querySelector('audio'); // 获取音频
+watch(id, () => {
+  console.log("id", id);
+  check(id.value);
+});
+
 const baseInfo = ref({
   title: "",
   timeline: 0, // 总时间
@@ -151,7 +159,6 @@ onMounted(() => {
 });
 
 // 改
-const searchValue = ref("");
 const list = ref([]);
 const counts = ref(0);
 const current = ref(0);
@@ -163,87 +170,48 @@ const currentPlay = ref(-1);
 // 	list.value = res.data
 // }
 
-const search = () => {
-  uni.request({
-    url: "http://116.62.61.65:3000/search?keywords=" + searchValue.value,
-    method: "GET",
-    success: (res) => {
-      console.log(res);
-      let temp = res.data.result;
-      counts.value = temp.songCount;
-      // list.value.push(temp.songs)
-      list.value = temp.songs;
-      uni.setStorageSync("lastWord", searchValue.value);
-      searchValue.value = "";
-    },
-    fail: (err) => {
-      console.log(err);
-      uni.showToast({
-        title: err.errMsg,
-        duration: 2000,
-      });
-    },
-  });
-};
-
 // 播放器
-const play =async (id) => {
+const play = async (id) => {
   const res = await musicInfo(id);
-  if(res){
-    baseInfo.value = {
-      title: "周杰伦",
-      timeline: 7,
-      endTime: 12,
-      url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
-    };
+  console.log("play", res);
+  if (res) {
+    // baseInfo.value = {
+    //   title: "周杰伦",
+    //   timeline: 7,
+    //   endTime: 12,
+    //   url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
+    // };
   }
 };
 
-innerAudioContext.onError((res) => {
-  console.log(res.errMsg);
-  console.log(res.errCode);
-});
-onShow(() => {
-  // getMusic()
-  if (uni.getStorageSync("lastWord")) {
-    searchValue.value = uni.getStorageSync("lastWord");
-    search();
+const getLyric = async (id) => {
+  const res = await lyricInfo(id);
+  console.log("lyric", res);
+  if (res) {
+    lyric.value = res;
   }
-});
-onReady(() => {
-  uni.setNavigationBarColor({
-    frontColor: uni.getStorageSync("themeColor") ? "#ffffff" : "#000000", // 导航栏标题颜色，只能是'black'或'white'
-    backgroundColor: uni.getStorageSync("themeColor")
-      ? uni.getStorageSync("themeColor")
-      : "#ffffff", // 导航栏背景颜色
-  });
-});
+};
 
-const check=async(id)=>{
-  const res=await checkMusic(id);
-  if(res){
-    console.log(res);
-      if (res.data.success) {
-        play(id, index);
-      } else {
-        uni.showToast({
-          title: res.data.message,
-          icon: "error",
-          duration: 2000,
-        });
-      }
+const check = async (id) => {
+  const res = await checkMusic(id);
+  if (res) {
+    console.log("check", res);
+    if (res.success) {
+      play(id);
+    } else {
+      DesktopMsg({ title: "无版权", body: res.message });
+    }
   }
-}
+};
 
 const stop = () => {
-  innerAudioContext.pause();
   currentPlay.value = -1;
 };
 </script>
 
 <style scoped lang="scss">
 #audio-player {
-  width: 70vw;
+  width: 40vw;
   height: 30vh;
   display: flex;
   justify-content: center;
@@ -254,7 +222,7 @@ const stop = () => {
   box-shadow: 10px 20px 20px 10px rgba(252, 169, 169, 0.6);
   padding: 20px 30px;
   position: relative;
-  margin: 100px auto;
+  margin: 80px auto;
   overflow: hidden;
   z-index: 10;
 

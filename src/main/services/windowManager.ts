@@ -1,9 +1,9 @@
 import setIpc from "./ipcMain";
 import config from "@config/index";
 import menuconfig from "../config/menu";
-import { app, BrowserWindow, Menu, dialog } from "electron";
+import { app, BrowserWindow, Menu, dialog, Tray } from "electron";
 import { winURL, loadingURL, getPreloadFile } from "../config/StaticPath";
-import { join } from "path";
+import path, { join } from "path";
 
 setIpc.Mainfunc();
 
@@ -12,6 +12,7 @@ class MainInit {
   public shartURL: string = "";
   public loadWindow: BrowserWindow = null;
   public mainWindow: BrowserWindow = null;
+  public tray = null;
 
   constructor() {
     this.winURL = winURL;
@@ -64,12 +65,12 @@ class MainInit {
       if (config.UseStartupChart) this.loadWindow.destroy();
     });
     // 开发模式下自动开启devtools
-    if (process.env.NODE_ENV === "development") {
-      this.mainWindow.webContents.openDevTools({
-        mode: "undocked",
-        activate: true,
-      });
-    }
+    // if (process.env.NODE_ENV === "development") {
+    //   this.mainWindow.webContents.openDevTools({
+    //     mode: "undocked",
+    //     activate: true,
+    //   });
+    // }
     this.mainWindow.webContents.openDevTools({
       mode: "undocked",
       activate: true,
@@ -185,7 +186,10 @@ class MainInit {
     this.mainWindow.on("closed", () => {
       this.mainWindow = null;
     });
+    // 创建托盘
+    this.creatTray();
   }
+
   // 加载窗口函数
   loadingWindow(loadingURL: string) {
     this.loadWindow = new BrowserWindow({
@@ -210,8 +214,9 @@ class MainInit {
     // 延迟两秒可以根据情况后续调快，= =，就相当于个，sleep吧，就那种。 = =。。。
     setTimeout(() => {
       this.createMainWindow();
-    }, 1500);
+    }, 1000);
   }
+
   // 初始化窗口函数
   initWindow() {
     if (config.UseStartupChart) {
@@ -219,6 +224,34 @@ class MainInit {
     } else {
       return this.createMainWindow();
     }
+  }
+
+  creatTray() {
+    console.log("tray");
+    // this.tray = new Tray("http://47.98.47.146/static/headportrait.jpeg");
+    this.tray = new Tray(path.join("src\\renderer\\assets", "logo.png"));
+    this.tray.setToolTip("littlespring");
+    this.tray.on("click", (e) => {
+      this.mainWindow.isVisible()
+        ? this.mainWindow.hide()
+        : this.mainWindow.show();
+    });
+    this.tray.setContextMenu(
+      Menu.buildFromTemplate([
+        {
+          label: "显示",
+          click: () => {
+            this.mainWindow.show();
+          },
+        },
+        {
+          label: "关闭",
+          click: () => {
+            app.quit();
+          },
+        },
+      ])
+    );
   }
 }
 export default MainInit;

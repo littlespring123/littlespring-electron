@@ -4,19 +4,19 @@
   </button>
 </template>
 <script setup lang="ts">
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 defineProps({
   title: {
     type: String,
-    default: ''
+    default: "",
   },
   darkMode: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
   //   size: {
   //     type: String | Number,
   //     default: '12px',
@@ -26,9 +26,9 @@ defineProps({
   //     default: '#000',
   //   },
 });
-const emits = defineEmits(['Click']);
+const emits = defineEmits(["Click"]);
 const handle = () => {
-  emits('Click');
+  emits("Click");
 };
 </script>
 
@@ -56,6 +56,7 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  // outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto v-bind(themeColor);
 }
 </style>

@@ -24,6 +24,7 @@ app.on('window-all-closed', () => {
   // 所有平台均为所有窗口关闭就退出软件
   app.quit()
 })
+
 app.on('browser-window-created', () => {
   console.log('window-created')
 })

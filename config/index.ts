@@ -8,7 +8,7 @@ export default {
     chineseLog: false,
     port: 9080,
   },
-  DisableF12: true,
+  DisableF12: false,
   DllFolder: "",
   HotUpdateFolder: "update",
   UseStartupChart: true,

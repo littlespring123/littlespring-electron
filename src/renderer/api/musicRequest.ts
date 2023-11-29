@@ -13,13 +13,13 @@ interface requestType {
 }
 
 interface responseType {
-  data?: any;
+  result?: any;
   message?: string;
-  state?: number;
+  code?: number;
 }
 
 const server = axios.create({
-  baseURL: __CONFIG__.API_HOST || "http://47.98.47.146:8080",
+  baseURL: "http://47.98.47.146:3000",
   timeout: 20000,
 });
 
@@ -40,11 +40,8 @@ server.interceptors.response.use(
   (response) => {
     const res: responseType = response.data;
     loading.value = false;
-    console.dir("res", res);
-    if (res.state !== 200) {
-      if (res.state === 401) {
-        router.push("/login");
-      }
+    console.log("res", res);
+    if (res.code !== 200) {
       DesktopMsg({ title: "接口信息报错", body: res.message });
       return Promise.reject(new Error(res.message || "Error"));
     }

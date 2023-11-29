@@ -102,7 +102,7 @@ const onScroll = (e: any) => {
     let judge =
       e.target.scrollTop >= scrollItems[i].offsetTop - scrollItems[0].offsetTop;
     if (judge) {
-      console.log(currentTitle.value.id, toc[i].id);
+      // console.log(currentTitle.value.id, toc[i].id);
       currentTitle.value = { ...currentTitle.value, id: i + 1 };
       break;
     }
@@ -138,7 +138,7 @@ const onScroll = (e: any) => {
     max-height: 75vh;
     border: 1px solid #ccc;
     max-width: 70vw;
-    padding: 4px;
+    // padding: 4px;
 
     .head {
       display: flex;
@@ -157,7 +157,7 @@ const onScroll = (e: any) => {
 
     .detail-content {
       padding: 10px;
-      max-height: 70vh;
+      max-height: 60vh;
       overflow: hidden;
       border: 1px solid #ccc;
     }

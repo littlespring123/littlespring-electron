@@ -26,7 +26,7 @@ export default {
     title: "题目",
     titlePlaceHolder: "请输入标题",
     tag: "标签",
-    tagPlaceHolder: "please enter the tag",
+    tagPlaceHolder: "请输入标签",
     sort: "排序",
     input: "请输入",
     filter: "筛选",
@@ -164,6 +164,6 @@ export default {
   // 组件
   modal: {
     confirm: "确认",
-    close:"关闭"
-  }
+    close: "关闭",
+  },
 };

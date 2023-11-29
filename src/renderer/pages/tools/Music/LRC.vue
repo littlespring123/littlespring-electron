@@ -1,7 +1,14 @@
 <template>
   <div ref="container" class="contaniner">
-    <ul ref="ul" class="lrc-list" :style="{ transform: `translateY(-${offset}px)` }">
-      <li v-for="(item, index) in lrcList" :class="{ active: activeIndex === index }">
+    <ul
+      ref="ul"
+      class="lrc-list"
+      :style="{ transform: `translateY(-${offset}px)` }"
+    >
+      <li
+        v-for="(item, index) in lrcList"
+        :class="{ active: activeIndex === index }"
+      >
         {{ item.words }}
       </li>
     </ul>
@@ -9,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, ref, watch, onMounted } from 'vue';
+import { toRefs, ref, watch, onMounted } from "vue";
 const props = defineProps({
   currentTime: {
     type: Number,
@@ -17,7 +24,7 @@ const props = defineProps({
   },
   lrc: {
     type: String,
-    default: '',
+    default: "",
   },
 });
 
@@ -39,7 +46,7 @@ watch(currentTime, (newTime, old) => {
  * @returns
  **/
 const parseTime = (timeStr) => {
-  let parts = timeStr.split(':');
+  let parts = timeStr.split(":");
   return +parts[0] * 60 + +parts[1];
 };
 
@@ -50,9 +57,9 @@ const parseTime = (timeStr) => {
 const parseLRC = (lyric: string) => {
   let result = [];
   const regex = /\[(.*?)\]/g;
-  let lines = lyric.split('\n');
+  let lines = lyric.split("\n");
   lines.forEach((item) => {
-    let parts = item.split(']');
+    let parts = item.split("]");
     const obj = {
       time: parseTime(parts[0].substring(1)),
       words: parts[1],
@@ -80,7 +87,7 @@ const setOffset = (newTime) => {
   activeIndex.value = index;
   offset.value = Math.max(
     liHeight.value * index + liHeight.value / 2 - containerHeight.value / 2,
-    0,
+    0
   );
   console.log(activeIndex.value, offset.value);
 };
@@ -88,7 +95,7 @@ const setOffset = (newTime) => {
 onMounted(() => {
   // 容器高度
   lrcList.value = parseLRC(lrc.value); // 数组，包含{ time:00:00, words:""}
-  console.log('ssas', lrcList.value);
+  console.log("ssas", lrcList.value);
 });
 </script>
 
@@ -111,7 +118,7 @@ audio {
 
 /* 歌词 */
 .contaniner {
-  height: v-bind(containerHeight + 'px');
+  height: v-bind(containerHeight + "px");
   overflow: hidden;
 }
 

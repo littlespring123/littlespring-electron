@@ -97,18 +97,35 @@ router.afterEach((to, from, next) => {
 }
 
 // 滚动条
-::-webkit-scrollbar {
-  // width: v-bind(scrollerWidth + 'px');
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
 }
 
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  opacity: 0.1;
-  background-color: v-bind(scrollerColor);
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: rgba(25, 147, 147, 0.2);
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.15);
+  transition: color 0.2s ease;
 }
+// ::-webkit-scrollbar {
+//   // width: v-bind(scrollerWidth + 'px');
+// }
+
+// ::-webkit-scrollbar-track {
+//   border-radius: 10px;
+//   opacity: 0.1;
+//   background-color: v-bind(scrollerColor);
+// }
+
+// ::-webkit-scrollbar-thumb {
+//   border-radius: 10px;
+//   background-color: rgba(25, 147, 147, 0.2);
+// }
 </style>

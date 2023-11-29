@@ -1,4 +1,4 @@
-import { marked } from 'marked';
+import { marked } from "marked";
 
 /**
  * md转html格式
@@ -7,7 +7,6 @@ import { marked } from 'marked';
  * @return {content, toc} Object 文本内容，目录
  */
 export const md2html = (text: string) => {
-  console.log("text",text)
   let maxTitle = 0;
   let toc: any = [];
   let anchor = 0;
@@ -16,7 +15,7 @@ export const md2html = (text: string) => {
     breaks: true,
     smartLists: true,
     highlight: function (code: any) {
-      return require('highlight.js').highlightAuto(code).value;
+      return require("highlight.js").highlightAuto(code).value;
     },
   };
   let rendererMD = new marked.Renderer();
@@ -33,7 +32,6 @@ export const md2html = (text: string) => {
   });
 
   rendererMD.heading = function (text, level, raw) {
-    console.log('heading', text, level, raw);
     //保存这篇文章的最大标签：用于相对定位
     if (level < maxTitle) {
       maxTitle = level;
@@ -50,7 +48,6 @@ export const md2html = (text: string) => {
       tag: level,
       text: text,
     });
-    // console.log('toc', toc)
     return `<h${level} id="toc-nav${anchor}">${text}</h${level}>`;
   };
 

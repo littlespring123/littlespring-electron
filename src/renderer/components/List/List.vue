@@ -1,9 +1,9 @@
 <template>
-  <view class="" :style="{ display: layout }">
+  <view class="list" :style="{ display: layout }">
     <view v-if="listLength === 0" class="">
-      <Empty description="暂无活动"></Empty>
+      <Empty :description="description"></Empty>
     </view>
-    <div style="height: 100vh" v-else>
+    <div v-else>
       <slot></slot>
     </div>
   </view>
@@ -22,6 +22,10 @@ const emit = defineEmits(["getMore"]);
 
 // 父传子变量
 const props = defineProps({
+  description: {
+    type: String,
+    default: "暂无内容",
+  },
   layout: {
     type: String,
     default: "block",
@@ -64,4 +68,9 @@ const getMoreFunc = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.list {
+  overflow: auto;
+  align-items: center;
+}
+</style>

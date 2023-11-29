@@ -3,25 +3,25 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 
 const stores = useStore();
 const { color, themeColor } = storeToRefs(stores);
 
 const changeTheme = () => {
-  let sw = document.getElementById('sw');
+  let sw = document.getElementById("sw");
   stores.setDarkMode(!stores.darkMode);
-  sw?.classList.add('pull');
+  sw?.classList.add("pull");
 
   setTimeout(() => {
-    sw?.classList.remove('pull');
+    sw?.classList.remove("pull");
   }, 600);
 };
 </script>
 
 <style scoped lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
 
 $dark-color: #111;
 $light-color: #eee;
@@ -40,12 +40,12 @@ $bg-color: #4c6fff;
   height: 200px;
   width: 2px;
   background: v-bind(themeColor);
-  right: 10%;
+  right: 20%;
   top: -100px;
   cursor: pointer;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     border: 2px solid v-bind(themeColor);
     border-radius: 50%;

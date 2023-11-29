@@ -4,7 +4,7 @@
     <Todo />
   </div>
   <div v-show="activeIndex === 1">
-    <!-- <Music /> -->
+    <Music />
   </div>
 </template>
 

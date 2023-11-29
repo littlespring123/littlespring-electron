@@ -22,27 +22,35 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref } from "vue";
 const props = defineProps({
   title: {
     type: String,
-    default: '',
+    default: "",
   },
   subTitle: {
     type: String,
-    default: '',
+    default: "",
   },
   extra: {
     type: String,
-    default: '',
+    default: "",
   },
   content: {
     type: String,
-    default: '',
+    default: "",
   },
   rows: {
     type: Number,
     default: 4,
+  },
+  margin: {
+    type: String,
+    default: "8px",
+  },
+  padding: {
+    type: String,
+    default: "8px",
   },
 });
 </script>
@@ -51,8 +59,8 @@ const props = defineProps({
 .card {
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 8px;
-  margin: 16px;
+  padding: v-bind(padding);
+  margin: v-bind(margin);
   width: auto;
   display: flex;
   flex-direction: column;

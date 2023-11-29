@@ -1,4 +1,4 @@
-import myRequest from "@renderer/api/request";
+import myRequest from "@renderer/api/musicRequest";
 const API = "http://47.98.47.146:3000";
 
 /**
@@ -31,7 +31,7 @@ export const searchMusic = async (
   pageSize?: number
 ) => {
   const res = await myRequest({
-    url: `${API}/search`,
+    url: `/search`,
     method: "GET",
     params: {
       keywords,
@@ -41,7 +41,7 @@ export const searchMusic = async (
     //   pageSize,
     // },
   });
-  return res.data;
+  return res.result;
 };
 
 /**
@@ -51,13 +51,10 @@ export const searchMusic = async (
  */
 export const checkMusic = async (id: number) => {
   const res = await myRequest({
-    url: `${API}/check/music`,
+    url: `/check/music?id=` + id,
     method: "GET",
-    params: {
-      id,
-    },
   });
-  return res.data;
+  return res;
 };
 
 /**
@@ -66,11 +63,20 @@ export const checkMusic = async (id: number) => {
  */
 export const musicInfo = async (id: number) => {
   const res = await myRequest({
-    url: `${API}/song/url`,
+    url: `/song/url?id=` + id,
     method: "GET",
-    params: {
-      id,
-    },
+  });
+  return res.data;
+};
+
+/**
+ * 获取详情
+ * @param id
+ */
+export const lyricInfo = async (id: number) => {
+  const res = await myRequest({
+    url: `/lyric?id=` + id,
+    method: "GET",
   });
   return res.data;
 };
