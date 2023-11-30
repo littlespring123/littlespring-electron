@@ -9,19 +9,19 @@
 </template>
 
 <script setup lang="ts">
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
-const define = defineProps({
+defineProps({
   value: {
     type: String,
-    default: 0
+    default: 0,
   },
   title: {
     type: String,
-    default: ''
-  }
+    default: "",
+  },
 });
 </script>
 

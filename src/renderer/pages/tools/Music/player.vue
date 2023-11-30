@@ -3,20 +3,21 @@
     <div v-show="!showLRC" class="img-container">
       <img
         :class="playState ? 'rotateLoop' : 'rotatePause'"
-        src="@renderer/assets/headportrait.jpeg"
+        :src="baseInfo.al.picUrl"
+        :title="baseInfo.al.picUrl"
         :alt="t('music.musicCover')"
         id="cover"
       />
     </div>
     <LRC
       :currentTime="currentTime"
-      :lrc="lyric"
+      :lrc="lyric.lyric"
       v-show="showLRC"
       class="img-container"
     ></LRC>
     <div class="controller">
       <div class="music-info">
-        <h4 id="title">{{ baseInfo.title }}</h4>
+        <h4 id="title">{{ baseInfo.name }}</h4>
         <Progress :value="`${progress}%`"></Progress>
       </div>
       <div class="baseSet">
@@ -29,24 +30,22 @@
         </div>
       </div>
       <div class="navigation">
-        <!-- <button id="prev" class="action-btn">
+        <button id="prev" class="action-btn">
           <Icon class="svgIcon-base" name="arrow-left"></Icon>
-        </button> -->
+        </button>
         <div v-show="playState" @click="playButton" class="player-button">
           <Icon name="stop" :color="color" />
         </div>
         <div v-show="!playState" @click="playButton" class="player-button">
           <Icon name="start" :color="color" />
         </div>
-        <!-- <button id="next" class="action-btn">
+        <button id="next" class="action-btn">
           <Icon class="svgIcon-base" name="arrow-right"></Icon>
-        </button> -->
+        </button>
       </div>
     </div>
   </div>
-  <!-- <audio ref="audioPlayer" @timeupdate="chengeCurr" :src="baseInfo.url"></audio> -->
-  <audio ref="audioPlayer" @timeupdate="chengeCurr"></audio>
-  <!-- style="display: none" -->
+  <audio ref="audioPlayer" @timeupdate="chengeCurr" @ended="endPlay"></audio>
 </template>
 
 <script setup lang="ts">
@@ -55,6 +54,7 @@ import {
   getListApi,
   searchMusic,
   checkMusic,
+  musicUrl,
   musicInfo,
   lyricInfo,
 } from "@renderer/api/music";
@@ -90,23 +90,13 @@ watch(id, () => {
 });
 
 const baseInfo = ref({
-  title: "",
-  timeline: 0, // 总时间
-  cover: "",
-  url: "",
+  name: "",
+  time: 0, // 总时间
+  al: {
+    picUrl: "http://47.98.47.146/static/headportrait.jpeg",
+    name: "littlespring",
+  },
 });
-
-// const getInfo = () => {
-//   const res = true; // await
-//   if (res) {
-//     baseInfo.value = {
-//       title: "周杰伦",
-//       timeline: 7,
-//       endTime: 12,
-//       url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
-//     };
-//   }
-// };
 
 // 1. 通过监听按钮的点击时间，修改音频的播放、暂停状态，并设置对应的 icon.
 const playButton = () => {
@@ -117,85 +107,52 @@ const playButton = () => {
     playState.value = true;
     audioPlayer.value?.play();
   }
-  console.log();
 };
 
 const chengeCurr = (e) => {
-  currentTime.value = e.timeStamp;
-  progress.value = e.timeStamp / (audioPlayer.value.duration * 10);
+  // currentTime.value = e.timeStamp;
+  currentTime.value = e.target.currentTime;
+  // progress.value = e.timeStamp / (audioPlayer?.value.duration * 10);
+  progress.value = (e.target.currentTime * 100) / audioPlayer?.value.duration;
+  console.log("@time", e.target.currentTime, audioPlayer?.value.duration);
 };
-// audio.addEventListener('timeupdate', () => {
-//
-// });
 
-// 3. 如果播放结束，将播放按钮重置为暂停状态。
-// audio.onended = audioEnded = () => {
-//   playerButton.innerHTML = playIcon;
-// };
-
-// 4. 监听进度条变化，并设置音频位置。
-// timeline.addEventListener('change', () => {
-//   const time = (timeline.value * audio.duration) / 100;
-//   audio.currentTime = time;
-// });
-
-// 5. 监听音频按钮变化，并设置对应的状态（是否静音）和icon
-// soundButton.addEventListener('click', () => {
-//   audio.muted = !audio.muted;
-//   soundButton.innerHTML = audio.muted ? muteIcon : soundIcon;
-// });
-
-const updateProgress = () => {
-  if (audioPlayer.value) {
-    progress.value = audioPlayer.value.currentTime;
-  }
-};
-// audioPlayer.value.addEventListener('timeupdate', updateProgress);
-
-onMounted(() => {
-  // getInfo();
-  console.log("audio", audioPlayer.value, audioPlayer.value.duration);
-  audioPlayer.value.src = baseInfo.value.url;
-});
-
-// 改
 const list = ref([]);
 const counts = ref(0);
 const current = ref(0);
 const currentPlay = ref(-1);
 
-// async function getMusic() {
-// 	const res = await getMusicList()
-// 	console.log(res);
-// 	list.value = res.data
-// }
-
-// 播放器
 const play = async (id) => {
-  const res = await musicInfo(id);
-  console.log("play", res);
+  const res = await musicUrl(id);
   if (res) {
-    // baseInfo.value = {
-    //   title: "周杰伦",
-    //   timeline: 7,
-    //   endTime: 12,
-    //   url: "http://m701.music.126.net/20231113001353/fd9dd48b8ae3b8c74383fbd5c5d08da0/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/8691015841/c477/085a/8455/ba7bd30c62cb663a710a72911049feb6.mp3",
-    // };
+    baseInfo.value = res[0];
+    audioPlayer.value.src = baseInfo.value.url;
+    progress.value = 0;
+    getLyric(id);
+    getMusicInfo(id);
+    audioPlayer.value?.play();
+    playState.value = true;
   }
 };
 
 const getLyric = async (id) => {
   const res = await lyricInfo(id);
-  console.log("lyric", res);
   if (res) {
-    lyric.value = res;
+    lyric.value = res.lrc;
+  }
+};
+
+const getMusicInfo = async (id) => {
+  const res = await musicInfo(id);
+  console.log("info", res.songs);
+  if (res) {
+    baseInfo.value = res.songs[0];
   }
 };
 
 const check = async (id) => {
   const res = await checkMusic(id);
   if (res) {
-    console.log("check", res);
     if (res.success) {
       play(id);
     } else {
@@ -204,8 +161,9 @@ const check = async (id) => {
   }
 };
 
-const stop = () => {
-  currentPlay.value = -1;
+const endPlay = () => {
+  playState.value = false;
+  audioPlayer.value?.pause();
 };
 </script>
 
@@ -257,7 +215,6 @@ const stop = () => {
     content: "";
     background-color: #fff;
     border-radius: 50%;
-    // position: absolute;
     bottom: 100%;
     left: 50%;
     width: 20px;
@@ -280,6 +237,9 @@ const stop = () => {
 
     .music-info {
       display: flex;
+
+      .title {
+      }
     }
 
     .navigation {

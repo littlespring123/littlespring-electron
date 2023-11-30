@@ -3,6 +3,11 @@ import { watch, ref } from "vue";
 import { setLanguage } from "@renderer/i18n";
 
 export const useStore = defineStore("main", () => {
+  // 导航栏高亮
+  const menuActive = ref("");
+  const setMenuActive = (value: string) => {
+    menuActive.value = value;
+  };
   // 用户信息
   const userInfo = ref({
     id: "",
@@ -136,12 +141,14 @@ export const useStore = defineStore("main", () => {
     scroller,
     blogSet,
     darkMode,
+    menuActive,
     windowSet,
     loading,
     languageMode,
     showHead,
     showNav,
     setScroller,
+    setMenuActive,
     setWindowSet,
     setBlogSet,
     setColor,

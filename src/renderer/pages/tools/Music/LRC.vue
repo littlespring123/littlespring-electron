@@ -16,6 +16,10 @@
 </template>
 
 <script setup lang="ts">
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
+const store = useStore();
+const { color, backgroundColor, themeColor } = storeToRefs(store);
 import { toRefs, ref, watch, onMounted } from "vue";
 const props = defineProps({
   currentTime: {
@@ -28,8 +32,8 @@ const props = defineProps({
   },
 });
 
-const containerHeight = ref(420);
-const liHeight = ref(30);
+const containerHeight = ref(220);
+const liHeight = ref(40);
 const ul = ref(null);
 const { currentTime, lrc } = toRefs(props);
 const lrcList = ref([]);
@@ -37,7 +41,12 @@ const activeIndex = ref(-1);
 const offset = ref(0);
 
 watch(currentTime, (newTime, old) => {
+  console.log("curr time", currentTime.value);
   setOffset(newTime);
+});
+
+watch(lrc, () => {
+  lrcList.value = parseLRC(lrc.value); // 数组，包含{ time:00:00, words:""}
 });
 
 /**
@@ -66,6 +75,7 @@ const parseLRC = (lyric: string) => {
     };
     result.push(obj);
   });
+  console.log("lrc", result);
   return result;
 };
 
@@ -83,20 +93,15 @@ const findIndex = (newTime) => {
 
 // 设置ul偏移量
 const setOffset = (newTime) => {
+  console.log("new time", newTime);
   let index = findIndex(newTime);
   activeIndex.value = index;
   offset.value = Math.max(
     liHeight.value * index + liHeight.value / 2 - containerHeight.value / 2,
     0
   );
-  console.log(activeIndex.value, offset.value);
+  console.log(activeIndex.value, offset.value, index);
 };
-
-onMounted(() => {
-  // 容器高度
-  lrcList.value = parseLRC(lrc.value); // 数组，包含{ time:00:00, words:""}
-  console.log("ssas", lrcList.value);
-});
 </script>
 
 <style scoped lang="scss">
@@ -134,7 +139,7 @@ li {
 }
 
 .active {
-  color: #fff;
+  color: v-bind(themeColor);
   /* font-size: 24px; */
   transform: scale(2);
 }

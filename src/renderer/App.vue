@@ -24,6 +24,7 @@ const showLayout = ref({
 
 router.afterEach((to, from, next) => {
   console.log(to, to.meta);
+  // 是否显示layout
   if (Object.keys(to.meta).length !== 0) {
     let { meta } = to;
     showLayout.value = {
@@ -38,6 +39,8 @@ router.afterEach((to, from, next) => {
   }
 
   if (to.name) {
+    store.setMenuActive(to.path);
+    console.log("path", store.menuActive);
     roadShow.value = i18n.global.t(to.name.toString());
     document.title = roadShow.value;
   }

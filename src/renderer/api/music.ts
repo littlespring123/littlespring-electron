@@ -58,10 +58,10 @@ export const checkMusic = async (id: number) => {
 };
 
 /**
- * 获取详情
+ * 获取歌曲链接
  * @param id
  */
-export const musicInfo = async (id: number) => {
+export const musicUrl = async (id: number) => {
   const res = await myRequest({
     url: `/song/url?id=` + id,
     method: "GET",
@@ -70,7 +70,19 @@ export const musicInfo = async (id: number) => {
 };
 
 /**
- * 获取详情
+ * 获取歌曲链接
+ * @param id
+ */
+export const musicInfo = async (id: number) => {
+  const res = await myRequest({
+    url: `/song/detail?ids=` + id,
+    method: "GET",
+  });
+  return res;
+};
+
+/**
+ * 获取歌词详情
  * @param id
  */
 export const lyricInfo = async (id: number) => {
@@ -78,5 +90,5 @@ export const lyricInfo = async (id: number) => {
     url: `/lyric?id=` + id,
     method: "GET",
   });
-  return res.data;
+  return res;
 };

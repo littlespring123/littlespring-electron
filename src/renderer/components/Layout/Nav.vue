@@ -21,12 +21,9 @@
         <ul class="menu-links">
           <li
             class="nav-link"
-            :class="{ active: activeIndex === index }"
+            :class="{ active: menuActive === item.path }"
             v-show="!item?.hiden"
-            @click="
-              router.push(item.path);
-              activeIndex = index;
-            "
+            @click="router.push(item.path)"
             v-for="(item, index) in routes"
             :key="index"
           >
@@ -40,10 +37,7 @@
           <li
             class="nav-link"
             v-show="!item?.hiden"
-            @click="
-              item.operate();
-              activeIndex = -1;
-            "
+            @click="item.operate()"
             v-for="(item, index) in bottomNav"
             :key="index"
           >
@@ -69,9 +63,7 @@ const { t } = useI18n();
 const store = useStore();
 const router = useRouter();
 const showMenu = ref(false);
-const { color, backgroundColor, themeColor } = storeToRefs(store);
-
-const activeIndex = ref(0);
+const { color, backgroundColor, themeColor, menuActive } = storeToRefs(store);
 
 const bottomNav = ref([
   {
