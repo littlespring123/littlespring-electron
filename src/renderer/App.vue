@@ -14,8 +14,9 @@ const store = useStore();
 const roadShow = ref("");
 const { color, backgroundColor, scroller, themeColor } = storeToRefs(store);
 const { scrollerColor, scrollerWidth } = toRefs(scroller.value);
-store.setColor(JSON.parse(localStorage.getItem("color")));
+store.setColor(store.getFromLocal("color"));
 store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+store.setLanguageMode(store.getFromLocal("languageMode") || "cn");
 
 const showLayout = ref({
   showNav: true,
@@ -49,6 +50,7 @@ router.afterEach((to, from, next) => {
 </script>
 
 <template>
+  <Star></Star>
   <div class="root" :style="{ color, backgroundColor }">
     <Nav v-show="showLayout.showNav"></Nav>
     <div class="content">
@@ -67,7 +69,6 @@ router.afterEach((to, from, next) => {
   <!-- <div v-show="!store.darkMode">
     <Gear></Gear>
   </div> -->
-  <Star></Star>
 </template>
 
 <style lang="scss">
@@ -80,7 +81,7 @@ router.afterEach((to, from, next) => {
   transition: 0.3s;
   // padding-top: 10vh;
   overflow: hidden;
-  z-index: 99;
+  z-index: 999;
 
   .content {
     // left: 10vw;

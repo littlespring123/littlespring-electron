@@ -79,7 +79,7 @@ import {
   musicInfo,
 } from "@renderer/api/music";
 import Player from "./player.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { getMusicList } from "@renderer/api/music";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
@@ -110,9 +110,16 @@ const search = async () => {
   }
 };
 
+// 播放列表
 const add2PlayList = (item) => {
   if (playList.value.includes(item)) return;
   playList.value.push(item);
+  localStorage.setItem("playlist", JSON.stringify(playList.value));
+};
+
+const removeList = (removeIdx: number) => {
+  playList.value = playList.value.filter((item, index) => removeIdx !== index);
+  localStorage.setItem("playlist", JSON.stringify(playList.value));
 };
 
 /**
@@ -120,29 +127,21 @@ const add2PlayList = (item) => {
  * @params {number} index
  */
 const clickPlay = (index) => {
-  console.log("");
-  if (index < 0) return;
+  if (index < 0 || index > playList.length) return;
   currentId.value = playList.value[index].id;
   currentPlay.value = index;
 };
 
-const removeList = (removeIdx: number) => {
-  playList.value = playList.value.filter((item, index) => removeIdx !== index);
-};
+onMounted(() => {
+  playList.value = JSON.parse(localStorage.getItem("playlist")) || [];
+});
 </script>
 
 <style scoped lang="scss">
 .music-box {
-  // display: flex;
-  // justify-content: space-around;
   align-items: center;
   width: 96%;
   height: 85vh;
-  border: 1px solid #ccc;
-  // border-radius: 15px;
-  // box-shadow: 5px 5px 5px 4px rgba(252, 169, 169, 0.6);
-  // padding: 20px 30px;
-  // position: relative;
   margin: 7px auto;
   // overflow: auto;
   z-index: 10;

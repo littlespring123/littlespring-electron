@@ -2,7 +2,7 @@
   <div
     class="Nav shell"
     :class="showMenu ? '' : 'close'"
-    :style="{ color, backgroundColor }"
+    :style="{ fill: color, color, backgroundColor }"
   >
     <div class="logo">
       <!-- <span class="logo-img"> -->
@@ -27,7 +27,7 @@
             v-for="(item, index) in routes"
             :key="index"
           >
-            <Icon class="iconfont icon" :color="color" :name="item.icon"></Icon>
+            <Icon class="iconfont icon" :name="item.icon"></Icon>
             <span class="text nac-text">{{ t(item.name) }}</span>
           </li>
         </ul>

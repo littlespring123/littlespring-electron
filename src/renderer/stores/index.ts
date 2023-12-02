@@ -3,11 +3,20 @@ import { watch, ref } from "vue";
 import { setLanguage } from "@renderer/i18n";
 
 export const useStore = defineStore("main", () => {
+  // 全局保存
+  const save2Local = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+  const getFromLocal = (key: string) => {
+    return JSON.parse(localStorage.getItem(key));
+  };
+
   // 导航栏高亮
   const menuActive = ref("");
   const setMenuActive = (value: string) => {
     menuActive.value = value;
   };
+
   // 用户信息
   const userInfo = ref({
     id: "",
@@ -147,6 +156,8 @@ export const useStore = defineStore("main", () => {
     showHead,
     showNav,
     setScroller,
+    getFromLocal,
+    save2Local,
     setMenuActive,
     setWindowSet,
     setBlogSet,

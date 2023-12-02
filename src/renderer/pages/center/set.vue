@@ -26,7 +26,12 @@
       </div>
       <div class="child">
         <MySelect
-          @change="(option) => setLanguageMode(option.value)"
+          @change="
+            (option) => {
+              setLanguageMode(option.value);
+              store.save2Local('languageMode', option.value);
+            }
+          "
           :label="t('set.language')"
           :localdata="languageArray"
         ></MySelect>
@@ -94,7 +99,6 @@ import { useStore } from "@renderer/stores";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
-console.log("stroe", store);
 
 const {
   scroller,
@@ -109,12 +113,12 @@ const { setLanguageMode } = store;
 
 const languageArray = [
   {
-    text: "English",
-    value: "en",
-  },
-  {
     text: "中文",
     value: "cn",
+  },
+  {
+    text: "English",
+    value: "en",
   },
 ];
 

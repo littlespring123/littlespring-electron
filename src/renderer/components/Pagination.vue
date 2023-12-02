@@ -2,14 +2,14 @@
   <div
     class="pagination"
     v-show="total > 0"
-    :style="{ color, backgroundColor }"
+    :style="{ fill: color, color, backgroundColor }"
   >
     <div
       @click="handleCurrentChange(currentPage - 1)"
       :class="{ forbidden: currentPage - 1 <= 0 }"
       class="pagination-block"
     >
-      <Icon class="svgIcon-base" name="arrow-left" width="24px"></Icon>
+      <Icon name="arrow-left" width="24px"></Icon>
     </div>
     <div v-if="pageList[2] - 2 > 1" class="pagination-block">...</div>
     <div
@@ -27,7 +27,7 @@
       @click="handleCurrentChange(currentPage + 1)"
       :class="{ forbidden: currentPage + 1 > pageMax }"
     >
-      <Icon class="svgIcon-base" name="arrow-right" width="24px"></Icon>
+      <Icon name="arrow-right" width="24px"></Icon>
     </div>
   </div>
 </template>
@@ -151,5 +151,9 @@ onMounted(() => {
 .forbidden {
   opacity: 0.6;
   cursor: not-allowed;
+}
+
+.icon {
+  fill: v-bind(color);
 }
 </style>

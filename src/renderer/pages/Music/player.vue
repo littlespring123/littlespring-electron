@@ -2,7 +2,7 @@
   <div
     id="audio-player"
     class="pink-atmo-box"
-    :style="{ color, backgroundColor }"
+    :style="{ fill: color, color, backgroundColor }"
   >
     <div v-show="!showLRC" class="img-container">
       <img
@@ -38,29 +38,25 @@
         >
           {{ t("music.LRC") }}
         </div>
-        <div class="setItem" @click="">L</div>
+        <a :href="music2Down" class="setItem" @click="">L</a>
       </div>
       <div class="navigation">
-        <button id="prev" class="action-btn">
-          <Icon
-            @click="emits('changePlay', currentIndex - 1)"
-            name="arrow-left"
-            height="24px"
-          ></Icon>
-        </button>
+        <Icon
+          @click="emits('changePlay', currentIndex - 1)"
+          name="arrow-left"
+          height="24px"
+        ></Icon>
         <div v-show="playState" @click="playButton" class="player-button">
           <Icon name="stop" :color="color" />
         </div>
         <div v-show="!playState" @click="playButton" class="player-button">
           <Icon name="start" :color="color" />
         </div>
-        <button id="next" class="action-btn">
-          <Icon
-            @click="emits('changePlay', currentIndex + 1)"
-            name="arrow-right"
-            height="24px"
-          ></Icon>
-        </button>
+        <Icon
+          @click="emits('changePlay', currentIndex + 1)"
+          name="arrow-right"
+          height="24px"
+        ></Icon>
       </div>
       <div class="list"></div>
     </div>
@@ -141,12 +137,14 @@ const list = ref([]);
 const counts = ref(0);
 const current = ref(0);
 const currentPlay = ref(-1);
+const music2Down = ref("");
 
 const play = async (id) => {
   const res = await musicUrl(id);
   if (res) {
-    // baseInfo.value = ;
+    // baseInfo.value = { url: res[0].url };
     audioPlayer.value.src = res[0].url;
+    music2Down.value = res[0].url;
     progress.value = 0;
     getLyric(id);
     getMusicInfo(id);
@@ -195,7 +193,7 @@ const endPlay = () => {
   display: flex;
   justify-content: center;
   position: fixed;
-  background-color: #fff;
+  // background-color: #fff;
   // border-radius: 15px;
   // box-shadow: 5px 5px 5px 5px rgba(252, 169, 169, 0.6);
   padding: 10px;
@@ -236,7 +234,7 @@ const endPlay = () => {
 
   .img-container::after {
     content: "";
-    background-color: #fff;
+    // background-color: #fff;
     border-radius: 50%;
     bottom: 100%;
     left: 50%;
@@ -253,6 +251,8 @@ const endPlay = () => {
       margin: 0 5px;
       box-sizing: border-box;
       cursor: pointer;
+      color: black;
+      align-items: center;
     }
     .setItem:hover {
       color: v-bind(themeColor);
@@ -284,24 +284,19 @@ const endPlay = () => {
       justify-content: center;
       z-index: 1;
 
-      .action-btn {
-        background-color: #fff;
-        border: 0;
-        color: #dfdbdf;
-        font-size: 20px;
-        cursor: pointer;
-        padding: 10px;
-        margin: 0 20px;
-      }
+      // .action-btn {
+      //   // background-color: #fff;
+      //   border: 0;
+      //   // color: #dfdbdf;
+      //   font-size: 20px;
+      //   cursor: pointer;
+      //   // padding: 10px;
+      //   margin: 0 20px;
+      // }
 
-      .action-btn.action-btn-big {
-        color: #cdc2d0;
-        font-size: 30px;
-      }
-
-      .action-btn:focus {
-        outline: 0;
-      }
+      // .action-btn:focus {
+      //   outline: 0;
+      // }
 
       .player-button {
         cursor: pointer;
