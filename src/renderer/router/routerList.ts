@@ -36,6 +36,12 @@ const routes: IRoute[] = [
     component: () => import("@renderer/pages/blog/blog.vue"),
   },
   {
+    path: "/music",
+    icon: "music",
+    name: "nav.music",
+    component: () => import("@renderer/pages/Music/music.vue"),
+  },
+  {
     path: "/tool",
     icon: "tools",
     name: "nav.tools",

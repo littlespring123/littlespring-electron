@@ -187,7 +187,7 @@ class MainInit {
       this.mainWindow = null;
     });
     // 创建托盘
-    this.creatTray();
+    // this.creatTray();
   }
 
   // 加载窗口函数

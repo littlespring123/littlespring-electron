@@ -1,6 +1,7 @@
 <template>
   <div ref="container" class="contaniner">
     <ul
+      v-if="lrcList.length > 0"
       ref="ul"
       class="lrc-list"
       :style="{ transform: `translateY(-${offset}px)` }"
@@ -12,6 +13,7 @@
         {{ item.words }}
       </li>
     </ul>
+    <div class="no-lrc" v-else>- 暂无歌词 -</div>
   </div>
 </template>
 
@@ -32,7 +34,7 @@ const props = defineProps({
   },
 });
 
-const containerHeight = ref(220);
+const containerHeight = ref(200);
 const liHeight = ref(40);
 const ul = ref(null);
 const { currentTime, lrc } = toRefs(props);
@@ -41,7 +43,6 @@ const activeIndex = ref(-1);
 const offset = ref(0);
 
 watch(currentTime, (newTime, old) => {
-  console.log("curr time", currentTime.value);
   setOffset(newTime);
 });
 
@@ -75,7 +76,6 @@ const parseLRC = (lyric: string) => {
     };
     result.push(obj);
   });
-  console.log("lrc", result);
   return result;
 };
 
@@ -93,14 +93,12 @@ const findIndex = (newTime) => {
 
 // 设置ul偏移量
 const setOffset = (newTime) => {
-  console.log("new time", newTime);
   let index = findIndex(newTime);
   activeIndex.value = index;
   offset.value = Math.max(
     liHeight.value * index + liHeight.value / 2 - containerHeight.value / 2,
     0
   );
-  console.log(activeIndex.value, offset.value, index);
 };
 </script>
 
@@ -110,13 +108,6 @@ const setOffset = (newTime) => {
   padding: 0;
 }
 
-body {
-  background-color: #000;
-  color: #666;
-  text-align: center;
-  font-size: 20px;
-}
-
 audio {
   margin: 10px;
 }
@@ -124,17 +115,24 @@ audio {
 /* 歌词 */
 .contaniner {
   height: v-bind(containerHeight + "px");
+  overflow: auto;
+  // padding: auto;
+  // display: flex;
+  width: 100%;
+  align-items: center;
   overflow: hidden;
 }
 
 ul {
   transition: 2s;
+  width: 100%;
   list-style: none;
 }
 
 li {
   line-height: 40px;
   height: 40px;
+  text-align: center;
   transition: 0.3s;
 }
 
@@ -142,5 +140,13 @@ li {
   color: v-bind(themeColor);
   /* font-size: 24px; */
   transform: scale(2);
+}
+
+.no-lrc {
+  // margin: auto 0;
+  width: 100%;
+  // height: 100%;
+  // line-height: 100%;
+  text-align: center;
 }
 </style>

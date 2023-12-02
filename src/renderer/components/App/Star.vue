@@ -1,10 +1,16 @@
 <template>
-  <canvas v-show="store.darkMode" id="star" class="star" width="99vw" height="99vh"></canvas>
+  <canvas
+    v-show="store.darkMode"
+    id="star"
+    class="star"
+    width="99vw"
+    height="99vh"
+  ></canvas>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
-import { useStore } from '@renderer/stores';
+import { onMounted } from "vue";
+import { useStore } from "@renderer/stores";
 const store = useStore();
 let canvas: any;
 let ctx: any;
@@ -16,11 +22,11 @@ const newmeteror = () => {
     lines: [
       {
         x: parseInt((Math.random() * canvas.width).toString()),
-        y: parseInt((Math.random() * canvas.height * 0.7).toString())
-      }
+        y: parseInt((Math.random() * canvas.height * 0.7).toString()),
+      },
     ],
     life: parseInt((Math.random() * 100).toString()) + 100,
-    age: 0
+    age: 0,
   });
 };
 
@@ -44,7 +50,7 @@ const draw = () => {
     if (meteror.age <= meteror.life / 2) {
       line.push({
         x: s_head.x + 1,
-        y: s_head.y + 0.3
+        y: s_head.y + 0.3,
       });
     } else {
       line.shift();
@@ -58,10 +64,8 @@ const draw = () => {
 };
 
 onMounted(() => {
-  canvas = document.getElementById('star');
-  ctx = canvas?.getContext('2d'); //取得2d上下文对象(画笔)
-  console.log(canvas);
-  console.log();
+  canvas = document.getElementById("star");
+  ctx = canvas?.getContext("2d"); //取得2d上下文对象(画笔)
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
   meterors = [];

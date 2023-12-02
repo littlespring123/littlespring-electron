@@ -1,5 +1,9 @@
 <template>
-  <div id="audio-player" :style="{ color, backgroundColor }">
+  <div
+    id="audio-player"
+    class="pink-atmo-box"
+    :style="{ color, backgroundColor }"
+  >
     <div v-show="!showLRC" class="img-container">
       <img
         :class="playState ? 'rotateLoop' : 'rotatePause'"
@@ -16,22 +20,33 @@
       class="img-container"
     ></LRC>
     <div class="controller">
-      <div class="music-info">
-        <h4 id="title">{{ baseInfo.name }}</h4>
-        <Progress :value="`${progress}%`"></Progress>
-      </div>
+      <h4 id="title">
+        <span class="title-title">{{ baseInfo.name }}</span>
+        <span class="title-name" v-show="baseInfo.ar[0].name">{{
+          baseInfo.ar[0].name
+        }}</span>
+      </h4>
+      <Progress
+        :title="parseInt(currentTime).toString()"
+        :value="`${progress}%`"
+      ></Progress>
       <div class="baseSet">
         <div
           class="setItem"
           @click="showLRC = !showLRC"
-          :style="showLRC ? `border:1px solid ${color}` : ''"
+          :style="showLRC && { borderWidth: '1px', borderStyle: 'solid' }"
         >
           {{ t("music.LRC") }}
         </div>
+        <div class="setItem" @click="">L</div>
       </div>
       <div class="navigation">
         <button id="prev" class="action-btn">
-          <Icon class="svgIcon-base" name="arrow-left"></Icon>
+          <Icon
+            @click="emits('changePlay', currentIndex - 1)"
+            name="arrow-left"
+            height="24px"
+          ></Icon>
         </button>
         <div v-show="playState" @click="playButton" class="player-button">
           <Icon name="stop" :color="color" />
@@ -40,9 +55,14 @@
           <Icon name="start" :color="color" />
         </div>
         <button id="next" class="action-btn">
-          <Icon class="svgIcon-base" name="arrow-right"></Icon>
+          <Icon
+            @click="emits('changePlay', currentIndex + 1)"
+            name="arrow-right"
+            height="24px"
+          ></Icon>
         </button>
       </div>
+      <div class="list"></div>
     </div>
   </div>
   <audio ref="audioPlayer" @timeupdate="chengeCurr" @ended="endPlay"></audio>
@@ -59,7 +79,6 @@ import {
   lyricInfo,
 } from "@renderer/api/music";
 import LRC from "./LRC.vue";
-// import { lyric } from "./lyric.js";
 import { ref, onMounted, toRefs, watch } from "vue";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
@@ -68,15 +87,19 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
-
 const props = defineProps({
   id: {
     type: String,
     default: "",
   },
+  currentIndex: {
+    type: Number,
+    default: -1,
+  },
 });
+const emits = defineEmits(["changePlay"]);
 
-const { id } = toRefs(props);
+const { id, currentIndex } = toRefs(props);
 const playState = ref(false); // 是否播放
 const audioPlayer = ref(null); //播放器
 const progress = ref(0); // 进度
@@ -85,7 +108,6 @@ const currentTime = ref(0);
 const lyric = ref("");
 
 watch(id, () => {
-  console.log("id", id);
   check(id.value);
 });
 
@@ -96,6 +118,7 @@ const baseInfo = ref({
     picUrl: "http://47.98.47.146/static/headportrait.jpeg",
     name: "littlespring",
   },
+  ar: [{ id: "", name: "" }],
 });
 
 // 1. 通过监听按钮的点击时间，修改音频的播放、暂停状态，并设置对应的 icon.
@@ -110,11 +133,8 @@ const playButton = () => {
 };
 
 const chengeCurr = (e) => {
-  // currentTime.value = e.timeStamp;
   currentTime.value = e.target.currentTime;
-  // progress.value = e.timeStamp / (audioPlayer?.value.duration * 10);
   progress.value = (e.target.currentTime * 100) / audioPlayer?.value.duration;
-  console.log("@time", e.target.currentTime, audioPlayer?.value.duration);
 };
 
 const list = ref([]);
@@ -125,8 +145,8 @@ const currentPlay = ref(-1);
 const play = async (id) => {
   const res = await musicUrl(id);
   if (res) {
-    baseInfo.value = res[0];
-    audioPlayer.value.src = baseInfo.value.url;
+    // baseInfo.value = ;
+    audioPlayer.value.src = res[0].url;
     progress.value = 0;
     getLyric(id);
     getMusicInfo(id);
@@ -163,44 +183,47 @@ const check = async (id) => {
 
 const endPlay = () => {
   playState.value = false;
+  currentIndex.value = -1;
   audioPlayer.value?.pause();
 };
 </script>
 
 <style scoped lang="scss">
 #audio-player {
-  width: 40vw;
+  width: 70vw;
   height: 30vh;
   display: flex;
   justify-content: center;
   position: fixed;
-  // bottom: 10px;
   background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 10px 20px 20px 10px rgba(252, 169, 169, 0.6);
-  padding: 20px 30px;
+  // border-radius: 15px;
+  // box-shadow: 5px 5px 5px 5px rgba(252, 169, 169, 0.6);
+  padding: 10px;
   position: relative;
-  margin: 80px auto;
+  margin: auto;
   overflow: hidden;
   z-index: 10;
 
   .img-container {
     align-items: center;
     margin: auto;
-    width: 70%;
+    width: 50%;
     text-align: center;
+    padding: 10px;
+    margin: 10px;
     // position: relative;
     // width: 110px;
 
     img {
-      border-radius: 50%;
+      // border-radius: 25%;
       object-fit: cover;
-      height: 110px;
-      width: inherit;
+      background-size: cover;
+      height: 26vh;
+      width: 100%;
       // position: absolute;
-      bottom: 0;
-      left: 0;
-      animation: rotate 3s linear infinite;
+      // bottom: 0;
+      // left: 0;
+      // animation: rotate 3s linear infinite;
     }
     .rotateLoop {
       animation-play-state: running;
@@ -224,21 +247,34 @@ const endPlay = () => {
 
   .baseSet {
     display: flex;
+    align-items: center;
 
     .setItem {
+      margin: 0 5px;
       box-sizing: border-box;
       cursor: pointer;
+    }
+    .setItem:hover {
+      color: v-bind(themeColor);
+      border-color: v-bind(themeColor);
     }
   }
 
   .controller {
-    width: 30%;
-    // display: flex;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 
-    .music-info {
-      display: flex;
-
-      .title {
+    .title {
+      &-title {
+      }
+      &-name {
+      }
+      &-name:before {
+        content: "-";
+        margin: 0 10px;
       }
     }
 

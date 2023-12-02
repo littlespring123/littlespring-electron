@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent, computed, toRefs } from 'vue';
+import { defineComponent, computed, toRefs } from "vue";
 
 const define = defineProps({
   name: {
@@ -16,17 +16,17 @@ const define = defineProps({
   color: {
     // 自定义svg的color属性
     type: String,
-    default: '',
+    default: "",
   },
   width: {
     // 自定义svg的color属性
-    type: Number,
-    default: 16,
+    type: String,
+    default: "32px",
   },
   height: {
     // 自定义svg的color属性
-    type: Number,
-    default: 16,
+    type: String,
+    default: "32px",
   },
 });
 
@@ -38,7 +38,7 @@ const svgClass = computed(() => {
   if (name.value) {
     return `svg-icon icon-${name.value}`;
   }
-  return 'svg-icon'; // svg 标签
+  return "svg-icon"; // svg 标签
 });
 </script>
 
@@ -46,8 +46,8 @@ const svgClass = computed(() => {
 .svg-icon {
   fill: v-bind(color);
   color: v-bind(color);
-  width: 1.6em;
-  height: 1.6em;
+  width: v-bind(width);
+  height: v-bind(height);
   margin-left: 3px;
 }
 </style>

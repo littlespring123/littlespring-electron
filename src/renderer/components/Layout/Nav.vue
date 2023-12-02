@@ -27,7 +27,7 @@
             v-for="(item, index) in routes"
             :key="index"
           >
-            <Icon class="iconfont icon" :name="item.icon"></Icon>
+            <Icon class="iconfont icon" :color="color" :name="item.icon"></Icon>
             <span class="text nac-text">{{ t(item.name) }}</span>
           </li>
         </ul>
@@ -157,19 +157,6 @@ $text-color: #707070;
 .shell.close .text {
   opacity: 0;
   // display: none;
-}
-
-.shell li a {
-  list-style: none;
-  height: 100%;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: all 0.3s ease;
 }
 
 .shell li:hover {

@@ -3,7 +3,7 @@
     <div
       v-for="(tab, index) in list"
       class="tab-item"
-      :key="index"
+      :key="tab.id"
       @click="changeTab(index)"
       :class="{ active: activeTab === index }"
     >
@@ -15,7 +15,8 @@
 <script setup lang="ts">
 /**
  * 选项卡
- * 
+ * @params list 标签栏列表
+ * @params {number} activeIndex 激活index
  *  */
 import { ref, toRefs } from "vue";
 import { useStore } from "@renderer/stores";
@@ -40,7 +41,7 @@ const define = defineProps({
 
 const { list, activeIndex } = toRefs(define);
 
-const changeTab = (index) => {
+const changeTab = (index: number) => {
   emits("change", index);
   activeTab.value = index;
 };

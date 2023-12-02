@@ -1,43 +1,46 @@
 <template>
-  <div class="m-empty">
+  <div class="m-empty" :style="{ color, backgroundColor }">
     <view v-if="image === 'empty'" class="image">
-      <!-- <img
-        src="@renderer/static/empty.svg"
-        :style="{ width: width, height: height }"
-        mode="scaleToFill"
-        alt="empty"
-      /> -->
       <Icon name="empty"></Icon>
     </view>
     <slot v-else>
       <img class="u-empty" :src="image" :style="imageStyle" alt="image" />
     </slot>
-    <span class="u-description" v-if="description" :class="{ gray: image === '2' }">
+    <span
+      class="u-description"
+      v-if="description"
+      :class="{ gray: image === '2' }"
+    >
       <slot name="description">{{ description }}</slot>
     </span>
   </div>
 </template>
 <script setup lang="ts">
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
+const store = useStore();
+const { color, backgroundColor } = storeToRefs(store);
+
 defineProps({
   description: {
     type: String,
-    default: '暂无数据'
+    default: "暂无数据",
   },
   width: {
     type: String,
-    default: '320px'
+    default: "320px",
   },
   height: {
     type: String,
-    default: '240px'
+    default: "240px",
   },
   image: {
     type: String,
-    default: 'empty'
+    default: "empty",
   },
   imageStyle: {
-    type: () => {}
-  }
+    type: () => {},
+  },
 });
 </script>
 <style lang="scss" scoped>
@@ -53,7 +56,6 @@ defineProps({
     display: inline-block;
     margin-top: 8px;
     font-size: 14px;
-    color: rgba(0, 0, 0, 0.88);
     line-height: 1.571;
   }
 

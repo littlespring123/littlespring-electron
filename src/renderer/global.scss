@@ -1,11 +1,5 @@
-// 颜色
-$theme-color: lightgreen;
-$theme-border-color: lightgreen;
-$theme-bgc-color: lightgreen;
-
 // 基本
 a {
-  
 }
 
 // 边框
@@ -53,16 +47,4 @@ a {
   width: 10px;
   height: 10px;
   transition: 0.3s;
-}
-
-// 箭头
-// 下箭头
-.down-arrow {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin: 3px;
-  border-left: 15px solid transparent; /* 左侧边框为透明 */
-  border-right: 15px solid transparent; /* 右侧边框为透明 */
-  border-bottom: 26px solid $theme-color; /* 底部边框为红色，通过三角形高度计*/
 }

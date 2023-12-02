@@ -12,7 +12,7 @@ import router from "@renderer/router";
 import i18n from "@renderer/i18n";
 const store = useStore();
 const roadShow = ref("");
-const { color, backgroundColor, scroller } = storeToRefs(store);
+const { color, backgroundColor, scroller, themeColor } = storeToRefs(store);
 const { scrollerColor, scrollerWidth } = toRefs(scroller.value);
 store.setColor(JSON.parse(localStorage.getItem("color")));
 store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
@@ -116,6 +116,13 @@ router.afterEach((to, from, next) => {
   border-radius: 5px;
   background: rgba(0, 0, 0, 0.15);
   transition: color 0.2s ease;
+}
+
+.pink-atmo-box {
+  border-radius: 15px;
+  box-shadow: 5px 5px 5px 4px rgba(252, 169, 169, 0.6);
+  // box-shadow: 1px 2px 1px 2px rgb(from v-bind(themeColor));
+  // padding: 20px 30px;
 }
 // ::-webkit-scrollbar {
 //   // width: v-bind(scrollerWidth + 'px');

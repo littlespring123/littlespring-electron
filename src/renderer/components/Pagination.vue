@@ -1,11 +1,15 @@
 <template>
-  <div class="pagination" :style="{ color, backgroundColor }">
+  <div
+    class="pagination"
+    v-show="total > 0"
+    :style="{ color, backgroundColor }"
+  >
     <div
       @click="handleCurrentChange(currentPage - 1)"
       :class="{ forbidden: currentPage - 1 <= 0 }"
       class="pagination-block"
     >
-      <Icon class="svgIcon-base" name="arrow-left"></Icon>
+      <Icon class="svgIcon-base" name="arrow-left" width="24px"></Icon>
     </div>
     <div v-if="pageList[2] - 2 > 1" class="pagination-block">...</div>
     <div
@@ -23,7 +27,7 @@
       @click="handleCurrentChange(currentPage + 1)"
       :class="{ forbidden: currentPage + 1 > pageMax }"
     >
-      <Icon class="svgIcon-base" name="arrow-right"></Icon>
+      <Icon class="svgIcon-base" name="arrow-right" width="24px"></Icon>
     </div>
   </div>
 </template>
@@ -58,7 +62,7 @@ const props = defineProps({
 
 const { total, pageSize, currentPage } = toRefs(props);
 const pageMax = ref(Math.ceil(total.value / pageSize.value));
-const pageList = ref(0);
+const pageList = ref([]);
 
 watch(total, () => {
   pageMax.value = Math.ceil(total.value / pageSize.value);
@@ -71,19 +75,19 @@ const handleSizeChange = (val) => {
 const emits = defineEmits(["pageChange"]);
 
 const handleCurrentChange = (e) => {
-  console.log(pageMax.value);
   if (e <= 0 || e > pageMax.value || e === currentPage.value) return;
   emits("pageChange", e);
 };
 
 const setPageList = () => {
   pageList.value = [];
-  let i = 1;
-  pageList.value = Array.from(
-    { length: Math.ceil(total.value / pageSize.value) },
-    (_, index) => index + 1
-  );
-  pageList.value.length > 5 && (pageList.value = pageList.value.slice(0, 5)); // 最多显示5页
+  let length = Math.ceil(total.value / pageSize.value);
+  pageList.value = Array.from({ length }, (_, index) => index + 1);
+  pageList.value.length > 5 &&
+    (pageList.value = pageList.value.slice(
+      Math.max(Math.min(currentPage.value - 3, length - 5), 0),
+      Math.max(currentPage.value + 2, 6)
+    ));
 };
 
 onUpdated(() => {
@@ -103,6 +107,7 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  border: 1px solid red;
 
   &-block {
     cursor: pointer;
@@ -112,6 +117,7 @@ onMounted(() => {
     height: 3rem;
     padding: 10px;
     text-align: center;
+    align-items: center;
     // font-size: 1rem;
     line-height: 2rem;
     // align-items: center;
@@ -142,15 +148,6 @@ onMounted(() => {
   color: v-bind(themeColor);
 }
 
-.pagination-block {
-  // line-height: 10px;
-  // width: 10px;
-  // height: 10px;
-}
-
-// .svgIcon-base:hover {
-//   fill: v-bind(themeColor);
-// }
 .forbidden {
   opacity: 0.6;
   cursor: not-allowed;

@@ -49,7 +49,6 @@ const myScroll = ref(0);
 const oldScrollTop = ref(0);
 const topArrow = ref(false);
 const toTop = () => {
-  console.log("出发了", myScroll.value);
   myScroll.value = oldScrollTop.value;
   nextTick(() => {
     myScroll.value = -20;

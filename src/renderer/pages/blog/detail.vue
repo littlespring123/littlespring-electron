@@ -102,7 +102,6 @@ const onScroll = (e: any) => {
     let judge =
       e.target.scrollTop >= scrollItems[i].offsetTop - scrollItems[0].offsetTop;
     if (judge) {
-      // console.log(currentTitle.value.id, toc[i].id);
       currentTitle.value = { ...currentTitle.value, id: i + 1 };
       break;
     }
@@ -110,7 +109,6 @@ const onScroll = (e: any) => {
 };
 
 // window.addEventListener('scroll', function () {
-//     console.log('widnow',window.scrollY)
 //     for (let i = toc.length - 1; i >= 0; i--) {
 //         const title: NodeType = toc[i];
 //         if (title?.scrollTop && title.scrollTop <= window.scrollY) {

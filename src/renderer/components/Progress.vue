@@ -29,9 +29,8 @@ defineProps({
 .container {
   width: 100%;
   display: flex;
+  justify-content: center;
   align-items: center;
-  // box-shadow: 0 -1px 2px -2px rgba(0, 0, 0, 0.16);
-  // border: 1px solid #f0f0f0;
 }
 
 .icon {
@@ -40,10 +39,8 @@ defineProps({
 }
 
 .title {
-  width: 29%;
   align-items: center;
   font-size: 14px;
-  // padding-left: 10px;
 }
 
 .progress {

@@ -67,7 +67,6 @@ export const useStore = defineStore("main", () => {
   const setLanguageMode = (mode: "en" | "cn") => {
     languageMode.value = mode;
     setLanguage(mode);
-    console.log("mode", mode, languageMode.value);
   };
 
   // 加载中

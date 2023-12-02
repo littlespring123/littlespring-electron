@@ -72,7 +72,6 @@ const isOpen = ref(false);
 const emit = defineEmits();
 const toggleDropdown = () => {
   isOpen.value = !isOpen.value;
-  console.log(isOpen.value, localdata);
 };
 
 const selectOption = (option) => {
@@ -130,7 +129,11 @@ onBeforeUnmount(() => {
 
     .arrow {
       margin: auto 0;
-      width: 20%;
+      width: 30%;
+      // line-height: 32px;
+      align-items: center;
+      // margin: auto;
+      padding: auto 0;
     }
 
     .arrow:hover {

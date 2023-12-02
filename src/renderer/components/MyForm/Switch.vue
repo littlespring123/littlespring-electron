@@ -14,37 +14,37 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, ref, nextTick } from 'vue';
+import { computed, ref, nextTick } from "vue";
 const props = defineProps({
   modelValue: {
     //绑定值，必须等于active-value或inactive-value，默认为Boolean类型
-    type: [Number, String, Boolean]
+    type: [Number, String, Boolean],
   },
   trueValue: {
     //switch 打开时的值 可以自定义组件打开的时的值
     type: [Number, String, Boolean],
-    default: true
+    default: true,
   },
   falseValue: {
     //	switch 关闭时的值  可以自定义组件关闭的时的值
     type: [Number, String, Boolean],
-    default: true
+    default: true,
   },
   activeColor: {
     //switch 打开时的背景色
     type: [String],
-    default: '#409EFF'
+    default: "#409EFF",
   },
   width: {
     type: String,
-    default: '40px'
+    default: "40px",
   },
   label: {
     type: String,
-    default: ''
-  }
+    default: "",
+  },
 });
-const emits = defineEmits(['update:modelValue', 'change']);
+const emits = defineEmits(["update:modelValue", "change"]);
 
 //获取input元素
 const input = ref(null);
@@ -55,11 +55,10 @@ const checked = computed(() => {
 });
 //input事件 获取当前input事件
 const handleInput = () => {
-  console.log('sasa', input.value);
   nextTick(() => {
     const val = input.value.checked;
-    emits('update:modelValue', val); // 开关点击后的状态传给v-model
-    emits('change', val); //给组件增加change 事件
+    emits("update:modelValue", val); // 开关点击后的状态传给v-model
+    emits("change", val); //给组件增加change 事件
   });
 };
 </script>
