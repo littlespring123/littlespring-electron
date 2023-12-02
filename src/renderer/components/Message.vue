@@ -87,7 +87,6 @@ $normalHeight: 34px;
   align-items: center;
   text-align: center;
   box-sizing: border-box;
-  z-index: 9999;
   transition: right 1s ease-in-out;
 
   .message-icon {
@@ -113,7 +112,6 @@ $normalHeight: 34px;
   }
 
   .message-content {
-    // border: 1px solid red;
     display: inline-block;
     padding: 4px 18px;
     height: $normalHeight;

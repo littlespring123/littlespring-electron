@@ -1,7 +1,7 @@
 <template>
   <div class="root">
     <div class="inputBox">
-      <div>
+      <div @keyup.enter="pushTag">
         <Input
           :label="t('blog.title')"
           :placeholder="t('blog.titlePlaceHolder')"
@@ -17,7 +17,9 @@
           tabindex="0"
           v-model="tagText"
         />
-        <Button @Click="pushTag">{{ t("blog.add") }}</Button>
+        <Button @keyup.enter="pushTag" @Click="pushTag">{{
+          t("blog.add")
+        }}</Button>
         <div style="margin: 0 3px 10px 3px">
           <Tag
             :inverted="true"
@@ -106,6 +108,7 @@ const showMD = () => {
 };
 
 const post = async () => {
+  if (blogForm.value.title === "") return;
   if (query?.id) {
     const res = await modifyBlogApi(blogForm.value, query?.id);
     if (res) {
@@ -200,7 +203,6 @@ textarea {
   background-image: none;
   font-size: inherit;
   width: 100%;
-  z-index: 99;
 }
 
 textarea:focus {
@@ -220,7 +222,6 @@ textarea:focus {
   border: 1px solid #dcdfe6;
   border-radius: 4px;
   transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
-  z-index: 99;
 }
 
 /* 提示文字 */

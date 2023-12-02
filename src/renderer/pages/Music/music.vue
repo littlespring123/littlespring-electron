@@ -6,8 +6,8 @@
       @changePlay="clickPlay"
     ></Player>
     <div class="show-list">
-      <div class="search pink-atmo-box">
-        <div class="search-box">
+      <div class="search pink-atmo-box block-z-index">
+        <div @keyup.enter="search" class="search-box">
           <input
             class="search-txt"
             v-model="searchValue"
@@ -44,7 +44,7 @@
         :listLength="playList.length"
         margin="0px"
         padding="0px"
-        class="play-list pink-atmo-box"
+        class="play-list pink-atmo-box block-z-index"
         description="暂无播放内容"
       >
         <div
@@ -53,8 +53,11 @@
           class="item"
           :key="index"
         >
-          <span>{{ item.name }} - {{ item?.artists[0].name }}</span>
-          <span v-show="currentPlay !== index">
+          <div>{{ item.name }} - {{ item?.artists[0].name }}</div>
+          <div class="item-right" v-show="currentPlay !== index">
+            <div style="align-items: center">
+              {{ secTotime(item.duration / 1000) }}
+            </div>
             <Icon
               @click="
                 currentId = item.id;
@@ -64,7 +67,7 @@
               width="14px"
             ></Icon>
             <Icon @click="removeList(index)" name="delete" width="14px"></Icon>
-          </span>
+          </div>
         </div>
       </List>
     </div>
@@ -78,6 +81,7 @@ import {
   checkMusic,
   musicInfo,
 } from "@renderer/api/music";
+import { secTotime } from "@renderer/utils/date";
 import Player from "./player.vue";
 import { ref, onMounted, watch } from "vue";
 import { getMusicList } from "@renderer/api/music";
@@ -124,7 +128,7 @@ const removeList = (removeIdx: number) => {
 
 /**
  * 播放下一首
- * @params {number} index
+ * @param {number} index
  */
 const clickPlay = (index) => {
   if (index < 0 || index > playList.length) return;
@@ -144,7 +148,6 @@ onMounted(() => {
   height: 85vh;
   margin: 7px auto;
   // overflow: auto;
-  z-index: 10;
 
   .show-list {
     margin: 20px 0 0 0;
@@ -237,7 +240,14 @@ onMounted(() => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: v-bind(color);
+  fill: v-bind(color);
+  &-right {
+    display: flex;
+    align-items: center;
+  }
 }
+
 .item:hover {
   color: v-bind(themeColor);
   fill: v-bind(themeColor);

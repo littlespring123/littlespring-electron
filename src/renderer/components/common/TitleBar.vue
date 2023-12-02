@@ -42,7 +42,6 @@ if (!ipcRenderer) {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 .window-title {
-  // border: 1px solid red;
   width: 100%;
   height: 30px;
   line-height: 30px;
@@ -51,7 +50,6 @@ if (!ipcRenderer) {
   -webkit-app-region: drag;
   position: fixed;
   top: 0;
-  z-index: 99999;
 
   .icon-logo {
     width: 1em;
@@ -76,7 +74,6 @@ if (!ipcRenderer) {
     flex-shrink: 0;
     text-align: center;
     position: relative;
-    z-index: 3000;
     -webkit-app-region: no-drag;
     height: 100%;
     width: 138px;

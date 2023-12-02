@@ -77,7 +77,6 @@ const handleInput = () => {
 
   &__input {
     position: relative;
-    z-index: 1;
     margin: 0;
     width: 80%;
     height: 100%;
@@ -89,7 +88,6 @@ const handleInput = () => {
     transition: 0.2s;
     left: 2px;
     top: 2px;
-    z-index: 0;
     height: 14px;
     width: 14px;
     background: #fff;

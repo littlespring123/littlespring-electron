@@ -1,5 +1,5 @@
 <template>
-  <div class="tab">
+  <div class="tab block-z-index">
     <div
       v-for="(tab, index) in list"
       class="tab-item"
@@ -15,8 +15,8 @@
 <script setup lang="ts">
 /**
  * 选项卡
- * @params list 标签栏列表
- * @params {number} activeIndex 激活index
+ * @param {Array} list 标签栏列表
+ * @param {number} activeIndex 激活index
  *  */
 import { ref, toRefs } from "vue";
 import { useStore } from "@renderer/stores";

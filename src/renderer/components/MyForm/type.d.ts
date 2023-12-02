@@ -1,10 +1,10 @@
-export declare type FormLayout = 'horizontal' | 'inline' | 'vertical';
+export declare type FormLayout = "horizontal" | "inline" | "vertical";
 export declare type InternalNamePath = (string | number)[];
 // type ReactNode = {} | null | undefined;
 
 export interface formItemsType {
   // 通用信息
-  component?: ReactElement;
+  component?: any;
   type?: string;
   label: string;
   name: string;

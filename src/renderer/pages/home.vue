@@ -7,21 +7,21 @@
       </div>
       <div @click="router.push('/blog')" class="list">
         <div class="item">
-          <div>{{ t('home.article') }}</div>
+          <div>{{ t("home.article") }}</div>
           <div>{{ overViewInfo?.articleCount }}</div>
         </div>
         <div class="item">
-          <div>{{ t('home.categorize') }}</div>
+          <div>{{ t("home.categorize") }}</div>
           <div>{{ overViewInfo?.tagCount }}</div>
         </div>
         <div class="item">
-          <div>{{ t('home.viewer') }}</div>
+          <div>{{ t("home.viewer") }}</div>
           <div>{{ overViewInfo?.viewCount }}</div>
         </div>
       </div>
       <div class="link">
-        <div>{{ t('home.site') }}<a>http://local</a></div>
-        <div>{{ t('home.github') }}<a>https://github</a></div>
+        <div>{{ t("home.site") }}<a>http://local</a></div>
+        <div>{{ t("home.github") }}<a>https://github</a></div>
       </div>
     </div>
     <!-- <div class="search-box" :style="{ border: `1px solid ${themeColor}` }">
@@ -38,22 +38,22 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
-import { getOverViewApi } from '@renderer/api/blog';
-import { useI18n } from 'vue-i18n';
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
+import { getOverViewApi } from "@renderer/api/blog";
+import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
 const router = useRouter();
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
-const searchValue = ref('');
+const searchValue = ref("");
 const overViewInfo = ref({
   articleCount: 0,
   viewCount: 0,
-  tagCount: 0
+  tagCount: 0,
 });
 
 const getOverView = async () => {
@@ -64,7 +64,7 @@ const getOverView = async () => {
 };
 
 const search = () => {
-  router.push('/blog?key=' + searchValue.value);
+  router.push("/blog?key=" + searchValue.value);
 };
 
 onMounted(() => {
@@ -74,8 +74,6 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .root {
-  z-index: 100;
-  // max-width: 99vw;
   width: 100vw;
   max-height: 100vh;
   justify-content: center;
@@ -83,7 +81,7 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   transition: 0.3s;
-  background: url('../assets/background_snow.jpg') no-repeat;
+  background: url("../assets/background_snow.jpg") no-repeat;
 }
 
 .box {

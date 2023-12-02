@@ -63,7 +63,7 @@ router.afterEach((to, from, next) => {
   </div>
 
   <Loading />
-  <Message />
+  <!-- <Message /> -->
   <String />
   <!-- <FloatBtn></FloatBtn> -->
   <!-- <div v-show="!store.darkMode">
@@ -76,16 +76,13 @@ router.afterEach((to, from, next) => {
   width: 100vw;
   height: 100vh;
   display: flex;
-  // margin: 0 auto;
-  // justify-content: center;
   transition: 0.3s;
-  // padding-top: 10vh;
   overflow: hidden;
-  z-index: 999;
 
   .content {
     // left: 10vw;
     width: 100%;
+    position: relative;
   }
 }
 
@@ -122,21 +119,19 @@ router.afterEach((to, from, next) => {
 .pink-atmo-box {
   border-radius: 15px;
   box-shadow: 5px 5px 5px 4px rgba(252, 169, 169, 0.6);
-  // box-shadow: 1px 2px 1px 2px rgb(from v-bind(themeColor));
-  // padding: 20px 30px;
 }
-// ::-webkit-scrollbar {
-//   // width: v-bind(scrollerWidth + 'px');
-// }
 
-// ::-webkit-scrollbar-track {
-//   border-radius: 10px;
-//   opacity: 0.1;
-//   background-color: v-bind(scrollerColor);
-// }
+// 层级类
+.back-z-index {
+  z-index: 1;
+}
 
-// ::-webkit-scrollbar-thumb {
-//   border-radius: 10px;
-//   background-color: rgba(25, 147, 147, 0.2);
-// }
+.canvas-z-index {
+  z-index: 5;
+}
+
+.block-z-index {
+  position: relative;
+  z-index: 10;
+}
 </style>

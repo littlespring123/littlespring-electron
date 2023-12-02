@@ -1,9 +1,6 @@
 <template>
   <!-- <div class="root"> -->
-  <label v-if="label">
-    {{ label }}
-  </label>
-  <span>:</span>
+  <label v-if="label"> {{ label }}: </label>
   <input
     :name="name"
     :type="inputType"
@@ -19,53 +16,56 @@
 <script setup lang="ts">
 /**
  * 输入框
- * 
+ *
  */
-import { useStore } from '@renderer/stores';
-import { storeToRefs } from 'pinia';
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
-import { ref, toRefs } from 'vue';
+import { ref, toRefs } from "vue";
 const define = defineProps({
   name: {
     type: String,
-    default: ''
+    default: "",
   },
   label: {
     type: String,
-    default: ''
+    default: "",
   },
   inputType: {
     type: String,
-    default: 'text'
+    default: "text",
   },
   modelValue: {
     // 绑定的v-model
     type: String,
-    default: ''
+    default: "",
   },
   maxlength: {
     type: Number,
-    default: 100
+    default: 100,
   },
   placeholder: {
     type: String,
-    default: ''
+    default: "",
   },
   className: {
     type: String,
-    default: ''
+    default: "",
   },
   height: {
     type: String,
-    default: '20px'
-  }
+    default: "20px",
+  },
 });
 
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(["update:modelValue"]);
 </script>
 
 <style lang="scss" scoped>
+.root {
+  // display: flex;
+}
 label {
   margin-left: 5px;
   align-items: center;
@@ -83,7 +83,9 @@ input {
 input:focus {
   border: 1px solid v-bind(themeColor);
   outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+    0 0 8px rgba(102, 175, 233, 0.6);
 }
 </style>

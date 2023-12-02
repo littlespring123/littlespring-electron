@@ -1,16 +1,40 @@
+export const secTotime = (s) => {
+  var t = "";
+  if (s > -1) {
+    var hour = Math.floor(s / 3600);
+    var min = Math.floor(s / 60) % 60;
+    var sec = s % 60;
+    if (hour < 10 && hour > 0) {
+      t = "0" + hour + ":";
+    } else if (hour > 0) {
+      t = hour + ":";
+    }
+    if (min < 10) {
+      t += "0";
+    }
+    t += min + ":";
+    if (sec < 10) {
+      t += "0";
+    }
+    t += sec.toFixed(0);
+    console.log("time", t);
+  }
+  return t;
+};
+
 // 计算上次更新距离现在多久
 export const formatTime = (date) => {
   const targetDate = dayjs(date);
   const timeObj = {
-    years: dayjs().diff(targetDate, 'years'),
-    months: dayjs().diff(targetDate, 'months'),
-    days: dayjs().diff(targetDate, 'days'),
-    hours: dayjs().diff(targetDate, 'hours'),
-    minutes: dayjs().diff(targetDate, 'minutes'),
-    seconds: dayjs().diff(targetDate, 'seconds')
+    years: dayjs().diff(targetDate, "years"),
+    months: dayjs().diff(targetDate, "months"),
+    days: dayjs().diff(targetDate, "days"),
+    hours: dayjs().diff(targetDate, "hours"),
+    minutes: dayjs().diff(targetDate, "minutes"),
+    seconds: dayjs().diff(targetDate, "seconds"),
   };
 
-  let semantic = '';
+  let semantic = "";
   switch (true) {
     // 以前
     case timeObj.years > 0:
@@ -32,7 +56,7 @@ export const formatTime = (date) => {
       semantic = `${Math.abs(timeObj.seconds)}秒前`;
       break;
     default:
-      semantic = '';
+      semantic = "";
       break;
   }
   return semantic;

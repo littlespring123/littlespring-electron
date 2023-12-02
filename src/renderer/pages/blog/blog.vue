@@ -1,5 +1,5 @@
 <template>
-  <div class="select">
+  <div class="select block-z-index">
     <Input
       :label="t('blog.title')"
       v-model="title"
@@ -28,7 +28,7 @@
     @click="router.push('/detail?id=' + item.id)"
     v-for="(item, index) in list"
     :key="index"
-    class="item"
+    class="item block-z-index"
   >
     <div>
       {{ item.title }}

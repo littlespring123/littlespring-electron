@@ -1,7 +1,7 @@
 <template>
   <div
     id="audio-player"
-    class="pink-atmo-box"
+    class="pink-atmo-box block-z-index"
     :style="{ fill: color, color, backgroundColor }"
   >
     <div v-show="!showLRC" class="img-container">
@@ -27,7 +27,8 @@
         }}</span>
       </h4>
       <Progress
-        :title="parseInt(currentTime).toString()"
+        :title="secTotime(currentTime)"
+        :subTitle="secTotime(baseInfo.dt / 1000 - currentTime)"
         :value="`${progress}%`"
       ></Progress>
       <div class="baseSet">
@@ -75,6 +76,7 @@ import {
   lyricInfo,
 } from "@renderer/api/music";
 import LRC from "./LRC.vue";
+import { secTotime } from "@renderer/utils/date";
 import { ref, onMounted, toRefs, watch } from "vue";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
@@ -115,6 +117,7 @@ const baseInfo = ref({
     name: "littlespring",
   },
   ar: [{ id: "", name: "" }],
+  dt: 0,
 });
 
 // 1. 通过监听按钮的点击时间，修改音频的播放、暂停状态，并设置对应的 icon.
@@ -130,7 +133,8 @@ const playButton = () => {
 
 const chengeCurr = (e) => {
   currentTime.value = e.target.currentTime;
-  progress.value = (e.target.currentTime * 100) / audioPlayer?.value.duration;
+  progress.value = (e.target.currentTime * 100) / e.target.duration;
+  console.log("durign", currentTime.value, e);
 };
 
 const list = ref([]);
@@ -192,15 +196,10 @@ const endPlay = () => {
   height: 30vh;
   display: flex;
   justify-content: center;
-  position: fixed;
-  // background-color: #fff;
-  // border-radius: 15px;
-  // box-shadow: 5px 5px 5px 5px rgba(252, 169, 169, 0.6);
   padding: 10px;
   position: relative;
   margin: auto;
   overflow: hidden;
-  z-index: 10;
 
   .img-container {
     align-items: center;
@@ -251,7 +250,7 @@ const endPlay = () => {
       margin: 0 5px;
       box-sizing: border-box;
       cursor: pointer;
-      color: black;
+      color: v-bind(color);
       align-items: center;
     }
     .setItem:hover {
@@ -282,7 +281,6 @@ const endPlay = () => {
       display: flex;
       align-items: center;
       justify-content: center;
-      z-index: 1;
 
       // .action-btn {
       //   // background-color: #fff;

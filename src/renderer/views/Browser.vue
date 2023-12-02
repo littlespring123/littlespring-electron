@@ -331,7 +331,6 @@ document.onmousemove = (e) => {
 .tab-item.dragging {
   position: absolute;
   background-color: #fafafa;
-  z-index: 2;
 }
 .close-btn {
   position: absolute;

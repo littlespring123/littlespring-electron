@@ -1,74 +1,126 @@
 <template>
-  <!-- <Form
-    class="form"
-    :form="form"
-    @onFinish="selfOnFinish"
-    @onFieldsChange="onFieldsChange"
-    @validateMessages="validateMessages"
-  >
-    <slot></slot>
-  </Form> -->
-  <div>assaa</div>
+  <form ref="form" class="form" @submit.prevent="handleSubmit">
+    <div class="item" v-for="field in inFormFields" :key="field.name">
+      <Input
+        :label="field.label"
+        :type="field.type"
+        :name="field.name"
+        :placeholder="field.placeholder"
+        v-model="formData[field.name]"
+      />
+      <span :class="field.error ? 'error' : 'hiden-error'">
+        {{ field.error }}</span
+      >
+    </div>
+    <div class="footer">
+      <Button type="submit" @click="opearteSubmmit">{{
+        t("form.confirm")
+      }}</Button>
+      <Button type="reset" @click="opearteReset">{{ t("form.reset") }}</Button>
+    </div>
+  </form>
 </template>
 
 <script setup lang="ts">
-import { formType, formItemsType } from '@renderer/components/MyForm/type';
-import Loading from '@renderer/components/PageLoading/index';
-import { ref } from 'vue';
-const imageUrl = ref();
-const loading = ref(false);
+/**
+ * 表单
+ *
+ */
 
-// const [form] = Form.useForm();
+/**
+ * 表单项
+ * @param {} name
+ * @param {} label
+ * @param {} placeholder
+ * @param {} type
+ * @param {Array} rules
+ * @param {}
+ */
 
-// const rulesHandler = (item: formItemsType) => {
-//   let rules: Record<string, boolean | string | number>[] = [];
-//   if (item?.required) {
-//     // const type = 'object' as const;
-//     rules.push({ required: true });
-//   }
-//   if (item.rules && item.rules.length > 0) {
-//     rules = rules.concat(item.rules);
-//   }
-//   return rules;
-// };
+import { useI18n } from "vue-i18n";
+const { t } = useI18n();
+import { formType, formItemsType } from "@renderer/components/MyForm/type";
+import Loading from "@renderer/components/PageLoading/index";
+import { ref, toRefs, Ref } from "vue";
 
-// 渲染单个表单项
-const renderFormItem = (item) => {
-  //   const rules= rulesHandler(item);
-  const config = {
-    key: item.name,
-    label: item.label,
-    name: item.name,
-    style: item?.style,
-    labelCol: item?.labelCol || { span: 6 },
-    wrapperCol: item?.wrapperCol || { span: 8 },
-    colon: item?.colon,
-    tooltip: item?.tooltip,
-    rules
-  };
+const props = defineProps({
+  formFields: {
+    type: Array,
+    default: [],
+  },
+  formData: {
+    type: Object,
+    default: {},
+  },
+});
+const inFormFields = ref(props.formFields);
+const { formData } = toRefs(props);
+const emits = defineEmits(["submit", "reset"]);
+const opearteSubmmit = () => {
+  const isValid = validateForm();
+  if (isValid) {
+    emits("submit");
+  }
 };
 
-const initFormItem = () => {
-  if (!formItems || (formItems && formItems.length === 0)) return false;
+const opearteReset = () => {
+  inFormFields.value.map((item) => {
+    item.error = null;
+    return item;
+  });
+  emits("reset");
 };
 
-const selfOnFinish = (values) => {};
+// 表单校验
+const validateForm = () => {
+  let isValid = true;
+  inFormFields.value = inFormFields.value.map((field) => {
+    // 简单的非空校验示例
+    if (!formData.value[field.name]) {
+      field.error = `${field.label}不能为空`;
+      isValid = false;
+    } else {
+      field.error = null;
+    }
+    return field;
+  });
+  return isValid;
+};
 
-const onFieldsChange = (e) => {};
+// const onFieldsChange = (e) => {};
 </script>
 
 <style scoped lang="scss">
 .form {
   margin: 10px;
-}
-
-.center {
-  text-align: center;
   display: flex;
-}
+  flex-direction: column;
+  justify-content: center;
 
-.button {
-  border-radius: 5px;
-  margin-bottom: 2vh;
+  .item {
+    display: flex;
+    flex-direction: column;
+    // margin: 3px 10px;
+    padding: 15px;
+    position: relative;
+
+    .error {
+      color: red;
+      position: absolute;
+      top: 60px;
+      transition: top 0.4s;
+    }
+
+    .hiden-error {
+      color: red;
+      position: absolute;
+      top: 0px;
+      transition: top 0.4s;
+    }
+  }
+  .footer {
+    padding: 10px;
+    text-align: center;
+  }
 }
 </style>

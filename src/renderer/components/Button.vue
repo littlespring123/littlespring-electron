@@ -1,5 +1,5 @@
 <template>
-  <button :style="(color, backgroundColor)" @click="handle">
+  <button @click="handle">
     <slot>{{ title }}</slot>
   </button>
 </template>
@@ -37,14 +37,14 @@ button {
   width: auto;
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.3em 0.6em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  color: #fff;
+  color: v-bind(backgroundColor);
   background-color: v-bind(themeColor);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: 0.25s;
   margin: 3px;
 }
 
@@ -56,7 +56,6 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  // outline: 4px auto -webkit-focus-ring-color;
   outline: 4px auto v-bind(themeColor);
 }
 </style>

@@ -5,6 +5,7 @@
     <div class="progress">
       <div class="value"></div>
     </div>
+    <div v-if="subTitle" class="title">{{ subTitle }}</div>
   </div>
 </template>
 
@@ -19,6 +20,10 @@ defineProps({
     default: 0,
   },
   title: {
+    type: String,
+    default: "",
+  },
+  subTitle: {
     type: String,
     default: "",
   },
@@ -44,7 +49,6 @@ defineProps({
 }
 
 .progress {
-  z-index: 2;
   position: relative;
   width: 70%;
   max-width: 300px;
@@ -56,8 +60,6 @@ defineProps({
 .value {
   width: v-bind(value);
   display: inline-block;
-  z-index: 10;
-  //   width: 0;
   position: absolute;
   top: 0;
   left: 0;

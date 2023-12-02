@@ -1,6 +1,6 @@
 <template>
   <!-- <List class="list" :listLength="todos.length"> -->
-  <div class="toList">
+  <div class="toList block-z-index">
     <Card
       @dblclick="modifyEvent(item.id, item.title, item.content)"
       :title="item.title"
@@ -157,6 +157,7 @@ getTodoList();
   .item {
     // border: 1px solid red;
     height: auto;
+    color: black;
     background-color: #fff7d1;
     // padding: 10px;
     // overflow: auto;

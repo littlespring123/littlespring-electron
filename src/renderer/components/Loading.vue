@@ -6,8 +6,8 @@
 </template>
 
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useStore } from '@renderer/stores';
+import { storeToRefs } from "pinia";
+import { useStore } from "@renderer/stores";
 const store = useStore();
 const { color, backgroundColor, loading } = storeToRefs(store);
 
@@ -18,8 +18,8 @@ defineProps({
   //   },
   text: {
     type: String,
-    default: 'Loading...'
-  }
+    default: "Loading...",
+  },
 });
 </script>
 
@@ -34,7 +34,6 @@ defineProps({
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
 }
 
 .loading-spinner {

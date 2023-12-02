@@ -8,13 +8,21 @@
       </div>
       <div class="content">{{ message }}</div>
       <div class="download-progress">
-        <el-progress :percentage="percentage" :color="colors" :status="progressStaus"></el-progress>
+        <el-progress
+          :percentage="percentage"
+          :color="colors"
+          :status="progressStaus"
+        ></el-progress>
       </div>
       <div class="progress-content" v-if="winOS">
         注：当提示您安全警告时，请点击“运行(R)”，或者点击“更多信息”，选择仍要运行
       </div>
       <div class="bom-box">
-        <el-button type="text" @click="openfile" v-if="progressStaus == 'success'">
+        <el-button
+          type="text"
+          @click="openfile"
+          v-if="progressStaus == 'success'"
+        >
           查看文件位置
         </el-button>
         <el-button @click="killSys">{{ killButton }}</el-button>
@@ -41,7 +49,7 @@ watch(
     visible.value = props.modelValue;
   }
 );
-const colors: Ref<{ color: string, percentage: number }[] | string> = ref([
+const colors: Ref<{ color: string; percentage: number }[] | string> = ref([
   { color: "#f56c6c", percentage: 20 },
   { color: "#e6a23c", percentage: 40 },
   { color: "#6f7ad3", percentage: 60 },
@@ -83,13 +91,11 @@ const closeMask = () => {
     emits("update:modelValue", false);
   }
 };
-
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .mask-box {
   height: 100%;
   width: 100%;
-  z-index: 99999;
   backdrop-filter: saturate(180%) blur(20px);
   position: fixed;
   top: 0;

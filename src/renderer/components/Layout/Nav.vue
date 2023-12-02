@@ -101,11 +101,9 @@ $text-color: #707070;
 // }
 
 .shell {
-  // position: fixed;
   top: 0;
   left: 0;
   height: 100%;
-  // width: 250px;
   border: 1px solid #ccc;
   width: 13vw;
   padding: 10px 14px;

@@ -90,7 +90,9 @@ export default {
     save: "保存",
     reset: "重置",
   },
-
+  /**
+   * 组件
+   */
   loading: "加载中",
 
   // 消息
@@ -165,5 +167,9 @@ export default {
   modal: {
     confirm: "确认",
     close: "关闭",
+  },
+  form: {
+    confirm: "提交",
+    reset: "重置",
   },
 };

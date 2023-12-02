@@ -1,6 +1,6 @@
 <template>
   <div
-    class="pagination"
+    class="pagination block-z-index"
     v-show="total > 0"
     :style="{ fill: color, color, backgroundColor }"
   >
@@ -107,7 +107,6 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  border: 1px solid red;
 
   &-block {
     cursor: pointer;

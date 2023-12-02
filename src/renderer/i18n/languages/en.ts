@@ -1,4 +1,5 @@
 export default {
+  // 页面
   home: {
     article: "article",
     categorize: "categorize",
@@ -89,6 +90,11 @@ export default {
     systemArch: "system arch:",
     bit: "bit",
   },
+
+  /**
+   * 组件
+   *  */
+
   loading: "Wait data loading",
 
   // 消息
@@ -98,14 +104,16 @@ export default {
     fail: "fail",
   },
 
-  // 组件
   modal: {
     confirm: "confirm",
     close: "close",
   },
-};
-// welcome: 'Welcome use the framework',
 
+  form: {
+    confirm: "confirm",
+    reset: "reset",
+  },
+};
 // buttons: {
 //   console: 'Console',
 //   checkUpdate: 'Check update',

@@ -68,9 +68,8 @@ const count = ref(1);
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
   // box-shadow: inset 0px 0px 20px black;
-  transition: background 0.2s;
+  transition: background-color 0.2s;
 }
 
 .gearbox.turn .overlay {
@@ -115,7 +114,6 @@ const count = ref(1);
   left: 50%;
   margin-left: -18px;
   margin-top: -18px;
-  z-index: 3;
   box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1),
     inset 0px 0px 10px rgba(0, 0, 0, 0.1), inset 0px 2px 0px 0px #080808,
     inset 0px -1px 0px 0px #888888;

@@ -35,13 +35,13 @@ $bg-color: #4c6fff;
 }
 
 #sw {
-  z-index: 100;
   position: fixed;
   height: 200px;
   width: 2px;
   background: v-bind(themeColor);
   right: 20%;
   top: -100px;
+  z-index: 100;
   cursor: pointer;
 
   &::after {

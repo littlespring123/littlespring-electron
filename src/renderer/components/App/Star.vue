@@ -2,7 +2,7 @@
   <canvas
     v-show="store.darkMode"
     id="star"
-    class="star"
+    class="star canvas-z-index"
     width="99vw"
     height="99vh"
   ></canvas>
@@ -76,7 +76,7 @@ onMounted(() => {
 </script>
 <style scoped lang="scss">
 .star {
-  z-index: 1;
+  // z-index: -1;
   top: 0px;
   left: 0px;
   position: fixed;
