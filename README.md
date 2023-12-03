@@ -1,6 +1,10 @@
 # electron-vite-template
 基于electron模板，搭建的个人博客页面
 
+## 功能
+博客：记录，查看，修改
+音乐：网易云音乐
+todo:记事本
 
 ## Build Setup
 
@@ -59,7 +63,16 @@ $ npm run build
 
 
 ## 组件封装
+### 表单组件
 
+
+### 表格组件
+
+
+### 样式组件
+#### star
+
+### 
 
 
 

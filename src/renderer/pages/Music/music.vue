@@ -15,7 +15,15 @@
             :placeholder="t('music.searchMusic')"
           />
           <div class="search-btn">
-            <Icon @click="searchList = []" width="15px" name="close"></Icon>
+            <Icon
+              v-show="searchValue"
+              @click="
+                searchList = [];
+                searchValue = '';
+              "
+              width="15px"
+              name="close"
+            ></Icon>
             <div class="btn" @click="search">
               {{ t("music.searchBtn") }}
             </div>
@@ -225,11 +233,15 @@ onMounted(() => {
       }
 
       &-list {
-        border: 1px solid #ccc;
+        // border: 1px solid #ccc;
         padding: 3px;
         max-height: 30vh;
-        overflow: auto;
+        // overflow: hidden;
       }
+
+      // &-list:hover {
+      //   overflow: auto;
+      // }
     }
   }
 }
@@ -242,6 +254,10 @@ onMounted(() => {
   align-items: center;
   color: v-bind(color);
   fill: v-bind(color);
+  box-sizing: border-box;
+  // width: calc(100% - 10px);
+  // padding-right: 10px;
+  // border: 1px solid red;
   &-right {
     display: flex;
     align-items: center;

@@ -1,22 +1,21 @@
 <template>
   <div class="root">
     <!-- 目录 -->
-
-    <ul class="catalogy">
-      {{
-        t("blog.categorize")
-      }}
-      <li
+    <div class="catalogy">
+      {{ t("blog.categorize") }}
+      <div
         class="item"
         v-for="item of valueHtml.toc"
         :key="item.id"
         @click="toTarget(item.id)"
         :class="{ active: currentTitle.id === item.id }"
-        :style="{ 'padding-left': (item.tag - valueHtml.maxTitle) * 10 + 'px' }"
+        :style="{
+          'padding-left': (item.tag - valueHtml.maxTitle) * 10 + 'px',
+        }"
       >
         {{ item.text }}
-      </li>
-    </ul>
+      </div>
+    </div>
     <div class="box">
       <div class="head">
         <h3 class="title">{{ detail.title }}</h3>
@@ -43,7 +42,12 @@ import { getBlogApi } from "@renderer/api/blog";
 import { marked } from "marked";
 import { md2html } from "@renderer/utils/txt2md";
 import { useI18n } from "vue-i18n";
+import { useStore } from "@renderer/stores";
+import { storeToRefs } from "pinia";
+const store = useStore();
+const { color, backgroundColor, themeColor } = storeToRefs(store);
 const { t } = useI18n();
+
 interface NodeType {
   name?: string;
   id?: number | string;
@@ -166,7 +170,7 @@ const onScroll = (e: any) => {
 
   .catalogy {
     border: 1px solid #ccc;
-    overflow: hidden;
+    overflow: auto;
     top: 20vh;
     // right: 3vw;
     max-width: 18vw;
@@ -184,12 +188,54 @@ const onScroll = (e: any) => {
     }
   }
 
-  .catalogy:hover {
-    overflow: auto;
+  // .catalogy:hover {
+  //   overflow: auto;
+  // }
+
+  .catalogy::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0);
+    border-radius: 0;
+    transition: background-color 2s ease;
+  }
+
+  .catalogy:hover::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    transition: background-color 2s ease;
+  }
+
+  .catalogy::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 6px;
+    transition: background-color 2s ease;
+    // display: none;
+    // opacity: 0;
+  }
+
+  .catalogy:hover::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 6px;
+    transition: background-color 2s ease;
+    // display: inline !important;
+    // opacity: 1;
+  }
+
+  .catalogy::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0);
+    transition: background-color 2s ease;
+  }
+
+  .catalogy:hover::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.15);
+    transition: background-color 2s ease;
   }
 }
 
 .active {
-  background-color: green;
+  background-color: v-bind(themeColor);
 }
 </style>

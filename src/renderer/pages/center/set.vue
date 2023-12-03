@@ -37,7 +37,8 @@
         ></MySelect>
       </div>
     </Card>
-    <Card :title="t('set.scroller.set')" class="scroller">
+
+    <!-- <Card :title="t('set.scroller.set')" class="scroller">
       <div class="child">
         <div class="childItem">
           <Input
@@ -54,9 +55,9 @@
           v-model="scroller.scrollerWidth"
         />
       </div>
-    </Card>
+    </Card> -->
 
-    <Card :title="t('set.window.set')">
+    <!-- <Card :title="t('set.window.set')">
       <div class="child">
         <Input
           :label="t('set.window.height')"
@@ -71,7 +72,7 @@
           v-model="windowSet.width"
         />
       </div>
-    </Card>
+    </Card> -->
 
     <Card :title="t('set.blog.set')">
       <div class="child">

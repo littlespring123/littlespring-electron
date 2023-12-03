@@ -31,7 +31,7 @@
         </div>
       </div>
 
-      <div>
+      <div @keyup.enter="post" @keydown.ctrl.p="showMD">
         <textarea
           class="mo-textarea"
           :placeholder="t('blog.input')"
@@ -42,8 +42,8 @@
       </div>
       <div class="preview" v-html="valueMD.content"></div>
       <div class="submitBtn">
-        <Button @Click="post">{{ t("blog.submit") }}</Button>
-        <Button @Click="showMD">{{ t("blog.preview") }}</Button>
+        <Button @click="post">{{ t("blog.submit") }}</Button>
+        <Button @click="showMD">{{ t("blog.preview") }}</Button>
       </div>
     </div>
 

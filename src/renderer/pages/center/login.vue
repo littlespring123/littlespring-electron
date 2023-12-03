@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @keyup.enter="login">
+  <div class="container block-z-index" @keyup.enter="login">
     <div class="title">登录</div>
     <Form :formFields="loginForm" :formData="formData" @submit="login"></Form>
   </div>

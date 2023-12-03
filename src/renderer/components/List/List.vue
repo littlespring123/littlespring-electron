@@ -72,4 +72,46 @@ const getMoreFunc = () => {
   overflow: auto;
   align-items: center;
 }
+
+.list::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+  border-radius: 0;
+  transition: background-color 2s ease;
+}
+
+.list:hover::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 0;
+  transition: background-color 2s ease;
+}
+
+.list::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+  transition: background-color 2s ease;
+  // display: none;
+  // opacity: 0;
+}
+
+.list:hover::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 6px;
+  transition: background-color 2s ease;
+  // display: inline !important;
+  // opacity: 1;
+}
+
+.list::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0);
+  transition: background-color 2s ease;
+}
+
+.list:hover::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  border-radius: 5px;
+  background: rgba(0, 0, 0, 0.15);
+  transition: background-color 2s ease;
+}
 </style>

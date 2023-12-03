@@ -71,6 +71,10 @@ class MainInit {
     //     activate: true,
     //   });
     // }
+
+    // 创建托盘
+    this.creatTray();
+
     this.mainWindow.webContents.openDevTools({
       mode: "undocked",
       activate: true,
@@ -131,6 +135,7 @@ class MainInit {
           else this.mainWindow.close();
         });
     });
+
     /**
      * 新的gpu崩溃检测，详细参数详见：http://www.electronjs.org/docs/api/app
      * @returns {void}
@@ -186,8 +191,6 @@ class MainInit {
     this.mainWindow.on("closed", () => {
       this.mainWindow = null;
     });
-    // 创建托盘
-    // this.creatTray();
   }
 
   // 加载窗口函数
@@ -227,9 +230,9 @@ class MainInit {
   }
 
   creatTray() {
-    console.log("tray");
-    // this.tray = new Tray("http://47.98.47.146/static/headportrait.jpeg");
-    this.tray = new Tray(path.join("src\\renderer\\assets", "logo.png"));
+    this.tray = new Tray(
+      path.join(__dirname, "../renderer/trayIcon/trayIcon.png")
+    );
     this.tray.setToolTip("littlespring");
     this.tray.on("click", (e) => {
       this.mainWindow.isVisible()

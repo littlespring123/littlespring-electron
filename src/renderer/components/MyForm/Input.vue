@@ -75,6 +75,7 @@ input {
   border: 1px solid v-bind(themeColor);
   background-color: v-bind(backgroundColor);
   border-radius: 3px;
+  color: v-bind(color);
   // padding: 10px;
   height: v-bind(height);
   font-size: 16px;
