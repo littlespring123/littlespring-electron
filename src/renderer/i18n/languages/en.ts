@@ -13,6 +13,7 @@ export default {
     tools: "tools",
     todo: "todo",
     music: "music",
+    game: "game",
     set: "set",
     hide: "hide",
     add: "add",

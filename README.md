@@ -5,14 +5,26 @@
 博客：记录，查看，修改
 音乐：网易云音乐
 todo:记事本
+游戏
 
 ## Build Setup
 
 ```bash
+
 # Clone this repository
 $ git clone https://github.com/umbrella22/electron-vite-template.git
+
 # Go into the repository
 $ cd electron-vite-template
+
+npm config edit
+# 该命令会打开npm的配置文件，请在空白处添加
+# registry=https://registry.npmmirror.com
+# ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/
+# ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/
+# 然后关闭该窗口，重启命令行.
+# 使用yarn安装
+
 # install dependencies
 $ npm install
 
@@ -21,7 +33,6 @@ $ npm run dev
 
 # build electron application for production
 $ npm run build
-
 
 ```
 
