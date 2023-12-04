@@ -3,8 +3,8 @@
     v-show="store.darkMode"
     id="star"
     class="star canvas-z-index"
-    width="99vw"
-    height="99vh"
+    width="100vw"
+    height="100vh"
   ></canvas>
 </template>
 

@@ -7,6 +7,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { ILogin } from "./types.d";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -18,7 +19,7 @@ const { color, backgroundColor, themeColor } = storeToRefs(store);
 
 const router = useRouter();
 
-const formData = ref({
+const formData: Ref<ILogin> = ref({
   username: "",
   password: "",
 });

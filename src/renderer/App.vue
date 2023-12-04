@@ -24,7 +24,6 @@ const showLayout = ref({
 });
 
 router.afterEach((to, from, next) => {
-  console.log(to, to.meta);
   // 是否显示layout
   if (Object.keys(to.meta).length !== 0) {
     let { meta } = to;
@@ -41,7 +40,6 @@ router.afterEach((to, from, next) => {
 
   if (to.name) {
     store.setMenuActive(to.path);
-    console.log("path", store.menuActive);
     roadShow.value = i18n.global.t(to.name.toString());
     document.title = roadShow.value;
   }
@@ -52,7 +50,9 @@ router.afterEach((to, from, next) => {
 <template>
   <Star></Star>
   <div class="root" :style="{ color, backgroundColor }">
-    <Nav v-show="showLayout.showNav"></Nav>
+    <transtion name="swtich">
+      <Nav v-show="showLayout.showNav"></Nav>
+    </transtion>
     <div class="content">
       <Head :road="roadShow" v-show="showLayout.showHead"></Head>
       <!-- 路由切换特效 -->
@@ -63,12 +63,7 @@ router.afterEach((to, from, next) => {
   </div>
 
   <Loading />
-  <!-- <Message /> -->
   <String />
-  <!-- <FloatBtn></FloatBtn> -->
-  <!-- <div v-show="!store.darkMode">
-    <Gear></Gear>
-  </div> -->
 </template>
 
 <style lang="scss">

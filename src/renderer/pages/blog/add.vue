@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="root block-z-index">
     <div class="inputBox">
       <div @keyup.enter="pushTag">
         <Input
@@ -31,7 +31,11 @@
         </div>
       </div>
 
-      <div @keyup.enter="post" @keydown.ctrl.p="showMD">
+      <div
+        @keyup.enter="post"
+        @keydown.ctrl.s="showMD"
+        @keydown.ctrl.p="showMD"
+      >
         <textarea
           class="mo-textarea"
           :placeholder="t('blog.input')"
@@ -40,7 +44,7 @@
           rows="20"
         ></textarea>
       </div>
-      <div class="preview" v-html="valueMD.content"></div>
+      <div v-highlight class="preview" v-html="valueMD.content"></div>
       <div class="submitBtn">
         <Button @click="post">{{ t("blog.submit") }}</Button>
         <Button @click="showMD">{{ t("blog.preview") }}</Button>
@@ -65,12 +69,12 @@
 
 <script setup lang="ts">
 import { getBlogApi, postBlogApi, modifyBlogApi } from "@renderer/api/blog";
-import { ref } from "vue";
+import { ref, Ref } from "vue";
 import { md2html } from "@renderer/utils/txt2md";
 import { useRouter, useRoute } from "vue-router";
 import { storeToRefs } from "pinia";
 import { useStore } from "@renderer/stores/index";
-
+import { blogFormType } from "./types.d";
 import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 
@@ -82,13 +86,13 @@ const router = useRouter();
 const { query } = useRoute();
 
 // 内容 HTML
-const blogForm = ref({
+const blogForm: Ref<blogFormType> = ref({
   title: "",
   content: "",
   tag: [],
 });
-const valueMD = ref("");
-const tagText = ref("");
+const valueMD: string = ref("");
+const tagText: string = ref("");
 
 const pushTag = () => {
   if (tagText.value) {
@@ -100,8 +104,8 @@ const pushTag = () => {
 };
 
 // 保存
-const isSave = ref(false);
-const isModalVisible = ref(false);
+const isSave: boolean = ref(false);
+const isModalVisible: boolean = ref(false);
 
 const showMD = () => {
   valueMD.value = md2html(blogForm.value.content);
@@ -125,7 +129,6 @@ const post = async () => {
 const toTarget = (target: any) => {
   target = "#toc-nav" + target;
   let toElement = document.querySelector(target);
-  console.log(toElement);
   // toElement.scrollIntoView()
   toElement.scrollIntoView({
     behavior: "smooth",

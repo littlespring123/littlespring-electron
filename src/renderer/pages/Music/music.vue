@@ -38,12 +38,20 @@
         >
           <div
             @click="add2PlayList(item)"
-            :class="{ active: currentPlay === index }"
             v-for="(item, index) in searchList"
             class="item"
             :key="index"
           >
-            <span>{{ item.name }}</span>
+            <span>
+              {{ item.name }}
+              <Tag
+                text="vip"
+                :circle="true"
+                size="mini"
+                :color="themeColor"
+                v-if="item.fee === 1 || item.fee === 4"
+              ></Tag>
+            </span>
             <span>{{ item?.artists[0].name }}</span>
           </div>
         </List>
@@ -91,7 +99,8 @@ import {
 } from "@renderer/api/music";
 import { secTotime } from "@renderer/utils/date";
 import Player from "./player.vue";
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch, Ref } from "vue";
+import { DesktopMsg } from "@renderer/utils/notification";
 import { getMusicList } from "@renderer/api/music";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
@@ -100,17 +109,12 @@ const { t } = useI18n();
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 
-const searchValue = ref("");
+const searchValue: Ref<string> = ref("");
 const searchList = ref([]);
 const playList = ref([]);
-const counts = ref(0);
-const currentId = ref(0);
-const currentPlay = ref(-1);
-const paginations = ref({
-  pageNum: 1,
-  pageSize: 10,
-  total: 0,
-});
+const counts: number = ref(0);
+const currentId: number = ref(0);
+const currentPlay: number = ref(-1);
 
 const search = async () => {
   if (!searchValue.value) return;
@@ -124,6 +128,10 @@ const search = async () => {
 
 // 播放列表
 const add2PlayList = (item) => {
+  if (item.fee === 1 || item.fee === 4) {
+    DesktopMsg({ title: "＞﹏＜", body: "vip歌曲不能播放" });
+    return;
+  }
   if (playList.value.includes(item)) return;
   playList.value.push(item);
   localStorage.setItem("playlist", JSON.stringify(playList.value));
@@ -226,6 +234,7 @@ onMounted(() => {
           padding: 0 6px;
         }
       }
+
       &-box:hover {
         fill: v-bind(themeColor);
         color: v-bind(themeColor);

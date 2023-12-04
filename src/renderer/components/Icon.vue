@@ -9,22 +9,18 @@ import { defineComponent, computed, toRefs } from "vue";
 
 const define = defineProps({
   name: {
-    // 自定义svg的name属性
     type: String,
     required: true,
   },
   color: {
-    // 自定义svg的color属性
     type: String,
     default: "",
   },
   width: {
-    // 自定义svg的color属性
     type: String,
     default: "32px",
   },
   height: {
-    // 自定义svg的color属性
     type: String,
     default: "32px",
   },

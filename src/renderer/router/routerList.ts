@@ -57,12 +57,20 @@ const routes: IRoute[] = [
     path: "/detail",
     name: "nav.detail",
     hiden: true,
+    meta: {
+      headerRender: true,
+      menuRender: false,
+    },
     component: () => import("@renderer/pages/blog/detail.vue"),
   },
   {
     path: "/add",
     name: "nav.add",
     hiden: true,
+    meta: {
+      headerRender: true,
+      menuRender: false,
+    },
     component: () => import("@renderer/pages/blog/add.vue"),
   },
   {
@@ -86,6 +94,12 @@ const routes: IRoute[] = [
     name: "",
     hiden: true,
     component: () => import("@renderer/pages/center/index.vue"),
+  },
+  {
+    path: "/test",
+    name: "",
+    hiden: true,
+    component: () => import("@renderer/pages/other/test.vue"),
   },
   {
     path: "/:pathMatch(.*)*",

@@ -19,6 +19,7 @@ export default {
     add: "add",
     login: "login",
     detail: "detail",
+    "": "",
   },
   blog: {
     title: "title",

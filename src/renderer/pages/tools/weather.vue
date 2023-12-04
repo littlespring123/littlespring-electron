@@ -117,7 +117,6 @@ onReady(() => {
           icon: "error",
           duration: 2000,
         });
-        console.log("fail");
         console.log(err);
       },
     });

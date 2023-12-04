@@ -1,5 +1,9 @@
 <template>
-  <div @keydown.ctrl.t="router.push('/add')" class="select block-z-index">
+  <div
+    @keydown.ctrl.t="router.push('/add')"
+    @keyup.enter="getBlog(paginations.pageNum, paginations.pageSize)"
+    class="select block-z-index"
+  >
     <Input
       :label="t('blog.title')"
       v-model="title"
@@ -56,6 +60,7 @@ import { useRouter, useRoute } from "vue-router";
 import { getBlogListApi } from "@renderer/api/blog";
 import { useStore } from "@renderer/stores/index";
 import { useI18n } from "vue-i18n";
+import { IPaginations } from "./types.d";
 const { t } = useI18n();
 
 const stores = useStore();
@@ -93,9 +98,9 @@ const btn = [
 ];
 
 // 列表相关
-const title = ref("");
-const tagText = ref("");
-const paginations = ref({
+const title: Ref<String> = ref("");
+const tagText: Ref<String> = ref("");
+const paginations: Ref<IPaginations> = ref({
   pageNum: 1,
   pageSize: 5,
   total: 0,
@@ -130,6 +135,7 @@ onMounted(() => {
 .select {
   display: flex;
   align-items: center;
+  margin: 16px;
 }
 .container {
   height: 30vh;

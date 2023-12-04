@@ -7,14 +7,12 @@
       "url": "http://127.0.0.1"
     }
   ],
-  "productName": "electron-vite-template",
-  "appId": "org.sky.electron-vite-template",
+  "productName": "littlespring",
+  "appId": "org.littlespring.littlespring",
   "directories": {
     "output": "build"
   },
-  "files": [
-    "dist/electron/**/*"
-  ],
+  "files": ["dist/electron/**/*"],
   "dmg": {
     "contents": [
       {

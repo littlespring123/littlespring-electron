@@ -21,6 +21,7 @@ export default {
     add: "添加",
     login: "登录",
     detail: "详情",
+    "": "",
   },
 
   blog: {

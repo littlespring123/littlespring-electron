@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from "vue";
 const pipe_width = ref();
 const bird_width = ref();
@@ -199,7 +199,7 @@ function test_distance() {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
 * {
   margin: 0;
   padding: 0;
@@ -256,9 +256,6 @@ function test_distance() {
 }
 
 @keyframes move {
-  /* 0%{
-	                right: 0;
-	            } */
   to {
     right: 100%;
   }

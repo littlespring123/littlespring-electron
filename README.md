@@ -62,7 +62,6 @@ $ npm run build
     ├─utils
     └─views
 
-
 ## Built-in
 - [vue-router](https://next.router.vuejs.org/index.html)
 - [pinia](https://pinia.esm.dev/)
@@ -70,7 +69,7 @@ $ npm run build
 - electron-updater
 - typescript
 - i18n
-- 
+- marked,highlight.js
 
 
 ## 组件封装

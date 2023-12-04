@@ -10,26 +10,19 @@ export const md2html = (text: string) => {
   let maxTitle = 0;
   let toc: any = [];
   let anchor = 0;
-  const options = {
-    gfm: false,
-    breaks: true,
-    smartLists: true,
-    highlight: function (code: any) {
-      return require("highlight.js").highlightAuto(code).value;
-    },
-  };
+
   let rendererMD = new marked.Renderer();
 
-  marked.setOptions({
-    renderer: rendererMD,
-    gfm: true,
-    //   tables: true,
-    breaks: false,
-    pedantic: false,
-    //   sanitize: false,
-    //   smartLists: true,
-    //   smartypants: false,
-  });
+  // marked.setOptions({
+  //   renderer: rendererMD,
+  //   gfm: true,
+  //   //   tables: true,
+  //   breaks: false,
+  //   pedantic: false,
+  //   //   sanitize: false,
+  //   //   smartLists: true,
+  //   //   smartypants: false,
+  // });
 
   rendererMD.heading = function (text, level, raw) {
     //保存这篇文章的最大标签：用于相对定位
@@ -49,6 +42,16 @@ export const md2html = (text: string) => {
       text: text,
     });
     return `<h${level} id="toc-nav${anchor}">${text}</h${level}>`;
+  };
+
+  const options = {
+    gfm: true,
+    breaks: true,
+    smartLists: true,
+    smartypants: true,
+    highlight: (code: any, lang: any) => {
+      return require("highlight.js").highlightAuto(code).value;
+    },
   };
 
   return {

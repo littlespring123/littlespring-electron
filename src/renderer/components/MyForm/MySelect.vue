@@ -9,8 +9,13 @@
         {{ placeholder }}
       </div>
       <div class="arrow">
-        <Icon v-show="isOpen" name="arrow-up"></Icon>
-        <Icon v-show="!isOpen" name="arrow-down"></Icon>
+        <Icon width="24px" height="24px" v-show="isOpen" name="arrow-up"></Icon>
+        <Icon
+          width="24px"
+          height="24px"
+          v-show="!isOpen"
+          name="arrow-down"
+        ></Icon>
       </div>
     </div>
     <ul class="options" v-show="isOpen">
@@ -109,6 +114,7 @@ onBeforeUnmount(() => {
   align-items: center;
   margin: 3px;
   display: flex;
+  z-index: 999;
   // border-radius: 30px;
   label {
     width: 29%;
@@ -120,20 +126,22 @@ onBeforeUnmount(() => {
     justify-content: space-between;
     width: 70%;
     border: 1px solid #ccc;
+    height: 25px;
+    line-height: 25px;
 
     .selected {
-      padding: 10px;
+      // padding: 10px;
       border-radius: 5px;
       cursor: pointer;
     }
 
     .arrow {
-      margin: auto 0;
+      // margin: auto 0;
       width: 30%;
       // line-height: 32px;
       align-items: center;
       // margin: auto;
-      padding: auto 0;
+      // padding: auto 0;
     }
 
     .arrow:hover {
@@ -154,10 +162,11 @@ onBeforeUnmount(() => {
   background-color: #fff;
   max-height: 120px;
   width: calc(200px * 0.7);
-  overflow: auto;
+  overflow: hidden;
   position: absolute;
   top: 100%;
   right: 0;
+  z-index: 999;
 }
 
 .options li {
@@ -169,6 +178,7 @@ onBeforeUnmount(() => {
 }
 
 .options li:hover {
+  overflow: auto;
   // color: v-bind(color);
   // background-color: v-bind(backgroundColor);
   background-color: v-bind(themeColor);

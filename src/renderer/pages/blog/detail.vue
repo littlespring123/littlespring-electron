@@ -20,11 +20,14 @@
       <div class="head">
         <h3 class="title">{{ detail.title }}</h3>
         <div class="tags">
-          <Tag :text="item.content" circle v-for="item in detail.tag" />
+          <div>
+            <Tag :text="item.content" circle v-for="item in detail.tag" />
+          </div>
+          <div>{{ detail.lasttime }} 浏览量: {{ detail.count }}</div>
         </div>
-        <div>{{ detail.date }}</div>
       </div>
       <div
+        v-highlight
         class="detail-content"
         v-html="valueHtml.content"
         @scroll="onScroll"
@@ -38,6 +41,7 @@
 <script setup lang="ts">
 import { ref, Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { NodeType } from "./types.d";
 import { getBlogApi } from "@renderer/api/blog";
 import { marked } from "marked";
 import { md2html } from "@renderer/utils/txt2md";
@@ -47,17 +51,6 @@ import { storeToRefs } from "pinia";
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 const { t } = useI18n();
-
-interface NodeType {
-  name?: string;
-  id?: number | string;
-  level?: number;
-  parent?: any;
-  children?: [];
-  rawName?: string;
-  scrollTop?: number;
-  isVisible?: boolean;
-}
 
 const valueHtml = ref("");
 const { query } = useRoute();
@@ -146,14 +139,16 @@ const onScroll = (e: any) => {
       display: flex;
       flex-direction: column;
       text-align: center;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 3px;
 
       .title {
         text-align: center;
       }
       .tags {
         display: flex;
-        margin: 3px 0;
-        justify-content: center;
+        margin: 10px 0;
+        justify-content: space-between;
       }
     }
 
@@ -161,7 +156,7 @@ const onScroll = (e: any) => {
       padding: 10px;
       max-height: 60vh;
       overflow: hidden;
-      border: 1px solid #ccc;
+      // border: 1px solid #ccc;
     }
     .detail-content:hover {
       overflow: auto;
@@ -170,10 +165,12 @@ const onScroll = (e: any) => {
 
   .catalogy {
     border: 1px solid #ccc;
-    overflow: auto;
+    overflow: hidden;
     top: 20vh;
-    // right: 3vw;
+    right: 3vw;
+    padding: 3px;
     max-width: 18vw;
+    // width: 18vw;
     max-height: 60vh;
 
     .item {

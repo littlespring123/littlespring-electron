@@ -1,7 +1,7 @@
 <template>
   <div
     class="Nav shell"
-    :class="showMenu ? '' : 'close'"
+    :class="{ close: !showMenu }"
     :style="{ fill: color, color, backgroundColor }"
   >
     <div class="logo">

@@ -1,5 +1,8 @@
 <template>
-  <div class="root">
+  <Button @click="saveConfig">{{ t("set.save") }}</Button>
+  <Button @click="console.log('触发')">{{ t("set.reset") }}</Button>
+  <Button @click="router.push('test')">测试页</Button>
+  <div class="set-root">
     <Card :title="t('set.systemInfo')">
       <SystemInformation></SystemInformation>
     </Card>
@@ -88,8 +91,6 @@
         <Input label="导航栏颜色" inputType="color" v-model="scroller.scrollerColor" />
       </div> -->
   </div>
-  <Button @Click="saveConfig">{{ t("set.save") }}</Button>
-  <Button @Click="console.log('触发')">{{ t("set.reset") }}</Button>
 </template>
 
 <script setup lang="ts">
@@ -98,6 +99,8 @@ import { ref } from "vue";
 import { storeToRefs } from "pinia";
 import { useStore } from "@renderer/stores";
 import { useI18n } from "vue-i18n";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const { t } = useI18n();
 const store = useStore();
 
@@ -129,18 +132,20 @@ const saveConfig = () => {
 </script>
 
 <style scoped lang="scss">
-.root {
+.set-root {
   width: 98%;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
+  height: 80vh;
+  overflow: auto;
 }
 
-.scroller {
-  overflow: scroll;
-}
-.item {
-}
+// .scroller {
+//   overflow: scroll;
+// }
+// .item {
+// }
 
 .child {
   align-items: center;

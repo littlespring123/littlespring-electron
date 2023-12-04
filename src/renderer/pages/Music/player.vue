@@ -134,7 +134,6 @@ const playButton = () => {
 const chengeCurr = (e) => {
   currentTime.value = e.target.currentTime;
   progress.value = (e.target.currentTime * 100) / e.target.duration;
-  console.log("durign", currentTime.value, e);
 };
 
 const list = ref([]);
@@ -166,7 +165,6 @@ const getLyric = async (id) => {
 
 const getMusicInfo = async (id) => {
   const res = await musicInfo(id);
-  console.log("info", res.songs);
   if (res) {
     baseInfo.value = res.songs[0];
   }
@@ -184,9 +182,10 @@ const check = async (id) => {
 };
 
 const endPlay = () => {
-  playState.value = false;
-  currentIndex.value = -1;
-  audioPlayer.value?.pause();
+  emits("changePlay", currentIndex + 1);
+  // playState.value = false;
+  // currentIndex.value = -1;
+  // audioPlayer.value?.pause();
 };
 </script>
 
