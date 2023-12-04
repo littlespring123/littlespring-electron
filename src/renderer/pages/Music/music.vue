@@ -1,9 +1,10 @@
 <template>
-  <div class="music-box" :style="{ color, backgroundColor }">
+  <div class="music-box" :style="{ color }">
     <Player
       :id="currentId"
       :currentIndex="currentPlay"
       @changePlay="clickPlay"
+      @changeCover="changeCover"
     ></Player>
     <div class="show-list">
       <div class="search pink-atmo-box block-z-index">
@@ -64,13 +65,13 @@
         description="暂无播放内容"
       >
         <div
-          :class="{ active: currentPlay === index }"
+          :class="{ active: currentId === item.id }"
           v-for="(item, index) in playList"
           class="item"
-          :key="index"
+          :key="item.id"
         >
           <div>{{ item.name }} - {{ item?.artists[0].name }}</div>
-          <div class="item-right" v-show="currentPlay !== index">
+          <div class="item-right" v-show="currentId !== item.id">
             <div style="align-items: center">
               {{ secTotime(item.duration / 1000) }}
             </div>
@@ -82,12 +83,20 @@
               name="start"
               width="14px"
             ></Icon>
-            <Icon @click="removeList(index)" name="delete" width="14px"></Icon>
+            <Icon
+              @click="removeList(item.id)"
+              name="delete"
+              width="14px"
+            ></Icon>
           </div>
         </div>
       </List>
     </div>
   </div>
+  <div
+    class="bgc canvas-z-index"
+    :style="{ color, backgroundImage: `url(${coverUrl})` }"
+  ></div>
 </template>
 
 <script setup lang="ts">
@@ -115,13 +124,13 @@ const playList = ref([]);
 const counts: number = ref(0);
 const currentId: number = ref(0);
 const currentPlay: number = ref(-1);
+const coverUrl: Ref<String> = ref("");
 
 const search = async () => {
   if (!searchValue.value) return;
   const res = await searchMusic(searchValue.value);
   if (res) {
     counts.value = res.songCount;
-    currentPlay.value = -1;
     searchList.value = res.songs;
   }
 };
@@ -138,7 +147,7 @@ const add2PlayList = (item) => {
 };
 
 const removeList = (removeIdx: number) => {
-  playList.value = playList.value.filter((item, index) => removeIdx !== index);
+  playList.value = playList.value.filter((item) => removeIdx !== item.id);
   localStorage.setItem("playlist", JSON.stringify(playList.value));
 };
 
@@ -152,6 +161,10 @@ const clickPlay = (index) => {
   currentPlay.value = index;
 };
 
+const changeCover = (url) => {
+  coverUrl.value = url;
+};
+
 onMounted(() => {
   playList.value = JSON.parse(localStorage.getItem("playlist")) || [];
 });
@@ -160,10 +173,13 @@ onMounted(() => {
 <style scoped lang="scss">
 .music-box {
   align-items: center;
-  width: 96%;
+  width: 100%;
   height: 85vh;
-  margin: 7px auto;
   // overflow: auto;
+  // background-size: cover;
+  // backdrop-filter: blur(30px); /* 可以调整模糊程度 */
+  // filter: blur(10px);
+  z-index: 100;
 
   .show-list {
     margin: 20px 0 0 0;
@@ -176,6 +192,7 @@ onMounted(() => {
       height: 40vh;
       padding: 10px 5px;
       box-sizing: border-box;
+      background-color: v-bind(backgroundColor);
     }
 
     .search {
@@ -186,6 +203,7 @@ onMounted(() => {
       align-items: center;
       flex-direction: column;
       padding-top: 5px;
+      background-color: v-bind(backgroundColor);
 
       &-box {
         display: flex;
@@ -264,9 +282,6 @@ onMounted(() => {
   color: v-bind(color);
   fill: v-bind(color);
   box-sizing: border-box;
-  // width: calc(100% - 10px);
-  // padding-right: 10px;
-  // border: 1px solid red;
   &-right {
     display: flex;
     align-items: center;
@@ -280,5 +295,15 @@ onMounted(() => {
 
 .active {
   color: v-bind(themeColor);
+}
+
+.bgc {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  filter: blur(3px);
 }
 </style>

@@ -207,7 +207,7 @@ function test_distance() {
 
 .container {
   position: relative;
-  width: 90vw;
+  width: 100vw;
   height: 80vh;
   background: url("../../assets/game/bgi.jpg") no-repeat center;
   background-size: cover;

@@ -39,12 +39,20 @@ const routes: IRoute[] = [
     path: "/music",
     icon: "music",
     name: "nav.music",
+    meta: {
+      headerRender: true,
+      menuRender: false,
+    },
     component: () => import("@renderer/pages/Music/music.vue"),
   },
   {
     path: "/game",
     icon: "game",
     name: "nav.game",
+    meta: {
+      headerRender: true,
+      menuRender: false,
+    },
     component: () => import("@renderer/pages/game/index.vue"),
   },
   {

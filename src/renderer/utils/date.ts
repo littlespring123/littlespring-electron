@@ -17,7 +17,6 @@ export const secTotime = (s) => {
       t += "0";
     }
     t += sec.toFixed(0);
-    console.log("time", t);
   }
   return t;
 };

@@ -6,7 +6,6 @@
   >
     <div v-show="!showLRC" class="img-container">
       <img
-        :class="playState ? 'rotateLoop' : 'rotatePause'"
         :src="baseInfo.al.picUrl"
         :title="baseInfo.al.picUrl"
         :alt="t('music.musicCover')"
@@ -95,7 +94,7 @@ const props = defineProps({
     default: -1,
   },
 });
-const emits = defineEmits(["changePlay"]);
+const emits = defineEmits(["changePlay", "changeCover"]);
 
 const { id, currentIndex } = toRefs(props);
 const playState = ref(false); // 是否播放
@@ -167,6 +166,7 @@ const getMusicInfo = async (id) => {
   const res = await musicInfo(id);
   if (res) {
     baseInfo.value = res.songs[0];
+    emits("changeCover", baseInfo.value.al.picUrl);
   }
 };
 
@@ -192,7 +192,7 @@ const endPlay = () => {
 <style scoped lang="scss">
 #audio-player {
   width: 70vw;
-  height: 30vh;
+  height: 35vh;
   display: flex;
   justify-content: center;
   padding: 10px;
@@ -221,13 +221,13 @@ const endPlay = () => {
       // left: 0;
       // animation: rotate 3s linear infinite;
     }
-    .rotateLoop {
-      animation-play-state: running;
-    }
+    // .rotateLoop {
+    //   animation-play-state: running;
+    // }
 
-    .rotatePause {
-      animation-play-state: paused;
-    }
+    // .rotatePause {
+    //   animation-play-state: paused;
+    // }
   }
 
   .img-container::after {

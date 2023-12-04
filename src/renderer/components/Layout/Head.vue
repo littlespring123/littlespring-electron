@@ -1,5 +1,5 @@
 <template>
-  <div v-show="headerRender" class="head" :style="{ color, backgroundColor }">
+  <div v-show="headerRender" class="head" :style="{ color }">
     <div @click="goBack" class="backBtn">
       <Icon name="arrow-left-circle" :color="themeColor"></Icon>
       {{ road }}
@@ -54,16 +54,16 @@ defineProps({
   border-bottom: 1px solid #ccc;
   z-index: 100;
   position: relative;
+  // mix-blend-mode: multiply;
 
   .backBtn {
     display: flex;
     align-items: center;
     cursor: pointer;
     margin-right: 10px;
-    border-radius: 26%;
-
-    .controls-container {
-    }
+    // border-radius: 26%;
+    background-color: v-bind(backgroundColor);
+    // mix-blend-mode: difference;
   }
 }
 </style>

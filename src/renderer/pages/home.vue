@@ -6,7 +6,7 @@
         <img class="img" src="../assets/headportrait.jpeg" alt="" />
         <div>littlespring</div>
       </div>
-      <div @click="router.push('/blog')" class="list">
+      <div class="list">
         <div class="item">
           <div>{{ t("home.article") }}</div>
           <div>{{ overViewInfo?.articleCount }}</div>
@@ -24,6 +24,11 @@
         <div>{{ t("home.site") }}<span>http://local</span></div>
         <div>{{ t("home.github") }}<span>https://github</span></div>
       </div>
+      <Icon
+        @click="router.push('/blog')"
+        class="enter"
+        name="arrow-right-circle"
+      ></Icon>
     </div>
   </div>
 </template>
@@ -119,25 +124,31 @@ onMounted(() => {
       .img {
         border-radius: 10px;
         text-align: center;
-        width: 5vw;
-        height: 5vw;
+        width: 7vw;
+        height: 7vw;
       }
     }
 
     .list {
       display: flex;
+      width: 100%;
+      // justify-content: space-around;
 
       .item {
         color: #fff;
         text-align: center;
         border-right: 2px solid v-bind(themeColor);
-        cursor: pointer;
+        // cursor: pointer;
         display: flex;
         flex-direction: column;
         mix-blend-mode: difference;
-
+        font-size: 14px;
         // height: 2rem;
-        padding: 2vh 5vw;
+        padding: 2vh 4vw;
+        // border: 1px solid red;
+        div {
+          width: 50px;
+        }
       }
 
       .item:last-child {
@@ -152,5 +163,16 @@ onMounted(() => {
       mix-blend-mode: difference;
     }
   }
+}
+
+.enter {
+  transition: all 0.5s;
+  fill: #fff;
+}
+
+.enter:hover {
+  cursor: pointer;
+  fill: v-bind(themeColor);
+  transform: scale(1.2);
 }
 </style>
