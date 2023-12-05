@@ -14,9 +14,9 @@ const store = useStore();
 const roadShow = ref("");
 const { color, backgroundColor, scroller, themeColor } = storeToRefs(store);
 const { scrollerColor, scrollerWidth } = toRefs(scroller.value);
-store.setColor(store.getFromLocal("color"));
-store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
-store.setLanguageMode(store.getFromLocal("languageMode") || "cn");
+// store.setColor(store.getFromLocal("color"));
+// store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
+// store.setLanguageMode(store.getFromLocal("languageMode") || "cn");
 
 const showLayout = ref({
   showNav: true,
@@ -53,7 +53,7 @@ router.afterEach((to, from, next) => {
     <transtion name="swtich">
       <Nav v-show="showLayout.showNav"></Nav>
     </transtion>
-    <div class="content">
+    <div @keyup.space="router.back()" class="content">
       <Head :road="roadShow" v-show="showLayout.showHead"></Head>
       <!-- 路由切换特效 -->
       <transtion name="swtich">

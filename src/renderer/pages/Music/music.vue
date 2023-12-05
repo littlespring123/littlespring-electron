@@ -1,5 +1,5 @@
 <template>
-  <div class="music-box" :style="{ color }">
+  <div class="music-box">
     <Player
       :id="currentId"
       :currentIndex="currentPlay"
@@ -8,7 +8,11 @@
     ></Player>
     <div class="show-list">
       <div class="search pink-atmo-box block-z-index">
-        <div @keyup.enter="search" class="search-box">
+        <div
+          @keydown.ctrl.t="emptySearchList"
+          @keyup.enter="search"
+          class="search-box"
+        >
           <input
             class="search-txt"
             v-model="searchValue"
@@ -18,10 +22,7 @@
           <div class="search-btn">
             <Icon
               v-show="searchValue"
-              @click="
-                searchList = [];
-                searchValue = '';
-              "
+              @click="emptySearchList"
               width="15px"
               name="close"
             ></Icon>
@@ -163,6 +164,11 @@ const clickPlay = (index) => {
 
 const changeCover = (url) => {
   coverUrl.value = url;
+};
+
+const emptySearchList = () => {
+  searchList.value = [];
+  searchValue.value = "";
 };
 
 onMounted(() => {

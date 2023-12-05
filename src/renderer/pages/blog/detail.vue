@@ -1,5 +1,5 @@
 <template>
-  <div class="root">
+  <div class="root block-z-index">
     <!-- 目录 -->
     <div class="catalogy">
       {{ t("blog.categorize") }}
@@ -18,7 +18,7 @@
     </div>
     <div class="box">
       <div class="head">
-        <h3 class="title">{{ detail.title }}</h3>
+        <h2 class="title">{{ detail.title }}</h2>
         <div class="tags">
           <div>
             <Tag :text="item.content" circle v-for="item in detail.tag" />
@@ -28,7 +28,7 @@
       </div>
       <div
         v-highlight
-        class="detail-content"
+        class="detail-content markdown-body"
         v-html="valueHtml.content"
         @scroll="onScroll"
       ></div>
@@ -52,7 +52,11 @@ const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 const { t } = useI18n();
 
-const valueHtml = ref("");
+const valueHtml = ref({
+  content: "",
+  toc: [],
+  maxTitle: 0,
+});
 const { query } = useRoute();
 const router = useRouter();
 const detail = ref({});
@@ -77,6 +81,12 @@ const getBlogDet = async () => {
   if (res) {
     detail.value = res;
     valueHtml.value = md2html(detail.value.content);
+    console.log(
+      "valueHtml",
+      valueHtml.value,
+      detail.value.content,
+      detail.value.title
+    );
   }
 };
 getBlogDet();
@@ -121,18 +131,19 @@ const onScroll = (e: any) => {
 </script>
 
 <style scoped lang="scss">
+@import "github-markdown-css";
 .root {
   width: 100%;
   display: flex;
   justify-content: center;
-  padding: 4px;
-  margin: 5px;
+  // padding: 4px;
+  // margin: 5px;
 
   .box {
-    width: 70%;
-    max-height: 75vh;
+    width: 80vw;
+    max-height: 85vh;
     border: 1px solid #ccc;
-    max-width: 70vw;
+    // max-width: 70vw;
     // padding: 4px;
 
     .head {
@@ -154,7 +165,7 @@ const onScroll = (e: any) => {
 
     .detail-content {
       padding: 10px;
-      max-height: 60vh;
+      max-height: 70vh;
       overflow: hidden;
       // border: 1px solid #ccc;
     }
@@ -166,11 +177,12 @@ const onScroll = (e: any) => {
   .catalogy {
     border: 1px solid #ccc;
     overflow: hidden;
-    top: 20vh;
-    right: 3vw;
+    // top: 20vh;
+
+    // right: 3vw;
     padding: 3px;
-    max-width: 18vw;
-    // width: 18vw;
+    // max-width: 18vw;
+    width: 15vw;
     max-height: 60vh;
 
     .item {

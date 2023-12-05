@@ -3,14 +3,19 @@
     id="audio-player"
     class="pink-atmo-box block-z-index"
     :style="{ fill: color, color, backgroundColor }"
+    @keydown.space="playButton"
   >
-    <div v-show="!showLRC" class="img-container">
-      <img
+    <div
+      :style="{ backgroundImage: `url(${baseInfo.al.picUrl})` }"
+      v-show="!showLRC"
+      class="img-container"
+    >
+      <!-- <img
         :src="baseInfo.al.picUrl"
         :title="baseInfo.al.picUrl"
         :alt="t('music.musicCover')"
         id="cover"
-      />
+      /> -->
     </div>
     <LRC
       :currentTime="currentTime"
@@ -38,7 +43,13 @@
         >
           {{ t("music.LRC") }}
         </div>
-        <a :href="music2Down" class="setItem" @click="">L</a>
+        <a
+          :href="music2Down"
+          :download="baseInfo.name + 'mp3'"
+          class="setItem"
+          @click=""
+          >L</a
+        >
       </div>
       <div class="navigation">
         <Icon
@@ -84,6 +95,7 @@ import { useI18n } from "vue-i18n";
 const { t } = useI18n();
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
+
 const props = defineProps({
   id: {
     type: String,
@@ -191,7 +203,7 @@ const endPlay = () => {
 
 <style scoped lang="scss">
 #audio-player {
-  width: 70vw;
+  width: 77vw;
   height: 35vh;
   display: flex;
   justify-content: center;
@@ -203,10 +215,12 @@ const endPlay = () => {
   .img-container {
     align-items: center;
     margin: auto;
-    width: 50%;
+    width: 60%;
     text-align: center;
     padding: 10px;
-    margin: 10px;
+    margin: 1px;
+    background-size: cover;
+    background-repeat: no-repeat;
     // position: relative;
     // width: 110px;
 
@@ -259,7 +273,7 @@ const endPlay = () => {
   }
 
   .controller {
-    width: 50%;
+    width: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;

@@ -1,5 +1,5 @@
 <template>
-  <div class="floatBtn">
+  <div class="floatBtn block-z-index">
     <div v-for="item in list" @click="item.fun">
       {{ item.content }}
     </div>

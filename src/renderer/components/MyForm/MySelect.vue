@@ -174,7 +174,8 @@ onBeforeUnmount(() => {
   cursor: pointer;
   color: v-bind(color);
   // background-color: v-bind(backgroundColor);
-  mix-blend-mode: normal;
+  // mix-blend-mode: normal;
+  z-index: 999;
 }
 
 .options li:hover {

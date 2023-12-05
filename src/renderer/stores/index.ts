@@ -18,10 +18,12 @@ export const useStore = defineStore("main", () => {
   };
 
   // 用户信息
-  const userInfo = ref({
-    id: "",
-    name: "",
-  });
+  const userInfo = ref(
+    JSON.parse(localStorage.getItem("userInfo")) || {
+      id: "",
+      name: "",
+    }
+  );
 
   const setUserInfo = (data: any) => {
     userInfo.value = data;
@@ -37,8 +39,8 @@ export const useStore = defineStore("main", () => {
 
   // 设置相关
   // 主题设置
-  const themeColor = ref("#007AFF");
-  const color = ref("#000");
+  const themeColor = ref(localStorage.getItem("themeColor") || "#007AFF");
+  const color = ref(localStorage.getItem("color") || "#000");
   const backgroundColor = ref("#fff");
   const setColor = (colorObj: any) => {
     setThemeColor(colorObj?.themeColor || "#007AFF");
@@ -72,7 +74,7 @@ export const useStore = defineStore("main", () => {
   };
 
   // 语言设置
-  const languageMode = ref("cn");
+  const languageMode = ref(localStorage.getItem("languageMode") || "cn");
   const setLanguageMode = (mode: "en" | "cn") => {
     languageMode.value = mode;
     setLanguage(mode);
@@ -82,38 +84,38 @@ export const useStore = defineStore("main", () => {
   const loading = ref(false);
 
   // message设置
-  const message = ref({
-    show: false,
-    text: "",
-    icon: "success",
-    duration: 2000,
-  });
+  // const message = ref({
+  //   show: false,
+  //   text: "",
+  //   icon: "success",
+  //   duration: 2000,
+  // });
 
-  const setMessage = (text: string, duration = 2000) => {
-    message.value = {
-      show: true,
-      text,
-      icon: "none",
-      duration,
-    };
-  };
+  // const setMessage = (text: string, duration = 2000) => {
+  //   message.value = {
+  //     show: true,
+  //     text,
+  //     icon: "none",
+  //     duration,
+  //   };
+  // };
 
-  const setSuccessMsg = (text = "成功", duration = 2000) => {
-    message.value = {
-      show: true,
-      text,
-      icon: "success",
-      duration,
-    };
-  };
-  const setFailMsg = (text = "失败", duration = 2000) => {
-    message.value = {
-      show: true,
-      text,
-      icon: "fail",
-      duration,
-    };
-  };
+  // const setSuccessMsg = (text = "成功", duration = 2000) => {
+  //   message.value = {
+  //     show: true,
+  //     text,
+  //     icon: "success",
+  //     duration,
+  //   };
+  // };
+  // const setFailMsg = (text = "失败", duration = 2000) => {
+  //   message.value = {
+  //     show: true,
+  //     text,
+  //     icon: "fail",
+  //     duration,
+  //   };
+  // };
 
   // blog设置
   const blogSet = ref({
@@ -142,7 +144,7 @@ export const useStore = defineStore("main", () => {
 
   return {
     userInfo,
-    message,
+    // message,
     themeColor,
     color,
     backgroundColor,
@@ -163,9 +165,9 @@ export const useStore = defineStore("main", () => {
     setBlogSet,
     setColor,
     setLanguageMode,
-    setMessage,
-    setFailMsg,
-    setSuccessMsg,
+    // setMessage,
+    // setFailMsg,
+    // setSuccessMsg,
     setThemeColor,
     setUserInfo,
     setDarkMode,

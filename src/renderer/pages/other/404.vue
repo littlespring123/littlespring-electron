@@ -12,7 +12,8 @@
         <div class="bullshit__info">
           您似乎进到了一个次元世界，请点击以下按钮返回主页或者发送错误报告
         </div>
-        <a href="/" class="bullshit__return-home">返回首页</a>
+        <!-- <a href="/" class="bullshit__return-home">返回首页</a> -->
+        <div @click="router.push('/')">返回首页</div>
       </div>
     </div>
   </div>
@@ -21,25 +22,27 @@
 <script setup lang="ts">
 import img_404 from "@renderer/assets/404_images/404.png";
 import img_404_cloud from "@renderer/assets/404_images/404_cloud.png";
-import { useStoreTemplate } from "@store/template";
-let { ipcRenderer } = window;
-const storeTemplate = useStoreTemplate();
-console.log(storeTemplate.$state.testData);
+import { useRouter } from "vue-router";
+const router = useRouter();
+// import { useStoreTemplate } from "@store/template";
+// let { ipcRenderer } = window;
+// const storeTemplate = useStoreTemplate();
+// console.log(storeTemplate.$state.testData);
+//
+// if (!ipcRenderer) {
+//   ipcRenderer = {} as any;
+//   ipcRenderer.on =
+//     ipcRenderer.invoke =
+//     ipcRenderer.removeAllListeners =
+//       (...args: any): any => {
+//         console.log("not electron");
+//       };
+// }
 
-if (!ipcRenderer) {
-  ipcRenderer = {} as any;
-  ipcRenderer.on =
-    ipcRenderer.invoke =
-    ipcRenderer.removeAllListeners =
-      (...args: any): any => {
-        console.log("not electron");
-      };
-}
-
-ipcRenderer.on("send-data-test", (event, data) => {
-  console.log(event);
-  console.log(data);
-});
+// ipcRenderer.on("send-data-test", (event, data) => {
+//   console.log(event);
+//   console.log(data);
+// });
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

@@ -12,6 +12,8 @@
       <!-- {{ item.content }} -->
       <template v-slot:footer>
         <Icon
+          width="16px"
+          height="16px"
           @click="deleteTodo(item.id)"
           name="select-not"
           :color="themeColor"
@@ -164,18 +166,10 @@ getTodoList();
 
     .content {
       background-color: #fff7d1;
-      max-height: 20vh;
+      height: 20vh;
       overflow: hidden;
-      // text-overflow: ellipsis;
-      // display: -webkit-box;
-      // -webkit-line-clamp: 5; /*行数*/
-      // -webkit-box-orient: vertical;
-      // display: -moz-box;
-      // -moz-line-clamp: 2;
-      // -moz-box-orient: vertical;
       word-wrap: break-word;
       word-break: break-all;
-      // white-space: normal;
     }
     .content:hover {
       overflow: auto;

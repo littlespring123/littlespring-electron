@@ -69,7 +69,7 @@ $ npm run build
 - electron-updater
 - typescript
 - i18n
-- marked,highlight.js
+- marked,highlight.js, github-markdown-css
 
 
 ## 组件封装

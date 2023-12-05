@@ -23,6 +23,7 @@
     "electron-log": "^4.4.8",
     "electron-updater": "^6.1.1",
     "express": "^4.18.2",
+    "github-markdown-css": "^5.4.0",
     "glob": "^10.2.7",
     "highlight.js": "^11.9.0",
     "marked": "^10.0.0",

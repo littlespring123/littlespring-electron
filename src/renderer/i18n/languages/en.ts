@@ -59,16 +59,16 @@ export default {
       themeColor: "theme color",
       color: "font color",
     },
-    scroller: {
-      set: "Scroll bar setting",
-      color: "Scroll bar color",
-      size: "Scroll bar width",
-    },
-    window: {
-      set: "window",
-      width: "width",
-      height: "height",
-    },
+    // scroller: {
+    //   set: "Scroll bar setting",
+    //   color: "Scroll bar color",
+    //   size: "Scroll bar width",
+    // },
+    // window: {
+    //   set: "window",
+    //   width: "width",
+    //   height: "height",
+    // },
     blog: {
       pageseize: "page size",
     },
@@ -76,6 +76,9 @@ export default {
     language: "language：",
     save: "save",
     reset: "reset",
+    hotkey: {
+      set: "hot key",
+    },
   },
   //关于
   about: {

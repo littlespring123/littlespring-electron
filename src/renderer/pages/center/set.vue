@@ -41,42 +41,6 @@
       </div>
     </Card>
 
-    <!-- <Card :title="t('set.scroller.set')" class="scroller">
-      <div class="child">
-        <div class="childItem">
-          <Input
-            :label="t('set.scroller.color')"
-            inputType="color"
-            v-model="scroller.scrollerColor"
-          />
-        </div>
-      </div>
-      <div class="child">
-        <Input
-          :label="t('set.scroller.size')"
-          inputType="number"
-          v-model="scroller.scrollerWidth"
-        />
-      </div>
-    </Card> -->
-
-    <!-- <Card :title="t('set.window.set')">
-      <div class="child">
-        <Input
-          :label="t('set.window.height')"
-          inputType="number"
-          v-model="windowSet.height"
-        />
-      </div>
-      <div class="child">
-        <Input
-          :label="t('set.window.width')"
-          inputType="number"
-          v-model="windowSet.width"
-        />
-      </div>
-    </Card> -->
-
     <Card :title="t('set.blog.set')">
       <div class="child">
         <Input
@@ -87,9 +51,11 @@
       </div>
     </Card>
 
-    <!-- <div class="child">
-        <Input label="导航栏颜色" inputType="color" v-model="scroller.scrollerColor" />
-      </div> -->
+    <Card :title="t('set.hotkey.set')">
+      <div v-for="item in hotKeyList" class="child">
+        {{ item.title }} - {{ item.value }}
+      </div>
+    </Card>
   </div>
 </template>
 
@@ -100,7 +66,7 @@ import { storeToRefs } from "pinia";
 import { useStore } from "@renderer/stores";
 import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
-const router = useRouter();
+const router = useRoutr();
 const { t } = useI18n();
 const store = useStore();
 
@@ -129,6 +95,27 @@ const languageArray = [
 const saveConfig = () => {
   localStorage.setItem("");
 };
+
+const hotKeyList = [
+  {
+    key: "",
+    title: "返回上一页",
+    value: "backspace",
+  },
+  {
+    key: "",
+    title: "清空列表",
+    value: "ctrl + L",
+  },
+  {
+    key: "",
+    value: "",
+  },
+  {
+    key: "",
+    value: "",
+  },
+];
 </script>
 
 <style scoped lang="scss">

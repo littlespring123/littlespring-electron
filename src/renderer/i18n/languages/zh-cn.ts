@@ -74,16 +74,6 @@ export default {
       themeColor: "主题色",
       color: "字体颜色",
     },
-    scroller: {
-      set: "滚动条设置",
-      color: "滚动条颜色",
-      size: "滚动条宽度",
-    },
-    window: {
-      set: "窗口设置",
-      width: "宽度",
-      height: "高度",
-    },
     blog: {
       pageseize: "每页数量",
     },
@@ -91,6 +81,9 @@ export default {
     language: "语言",
     save: "保存",
     reset: "重置",
+    hotkey: {
+      set: "快捷键",
+    },
   },
   /**
    * 组件

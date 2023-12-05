@@ -5,8 +5,10 @@ import router from "@renderer/router";
 import { createPinia } from "pinia";
 import hljs from "highlight.js";
 // 导入高亮样式
-import "highlight.js/styles/kimbie-light.css";
+// import "highlight.js/styles/kimbie-light.css";
 // import "highlight.js/styles/gradient-light.css";
+// import "highlight.js/styles/atom-one-dark-reasonable.css";
+import "highlight.js/styles/obsidian.css";
 
 const pinia = createPinia();
 

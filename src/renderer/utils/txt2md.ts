@@ -13,16 +13,16 @@ export const md2html = (text: string) => {
 
   let rendererMD = new marked.Renderer();
 
-  // marked.setOptions({
-  //   renderer: rendererMD,
-  //   gfm: true,
-  //   //   tables: true,
-  //   breaks: false,
-  //   pedantic: false,
-  //   //   sanitize: false,
-  //   //   smartLists: true,
-  //   //   smartypants: false,
-  // });
+  marked.setOptions({
+    renderer: rendererMD,
+    gfm: true,
+    tables: true,
+    breaks: false,
+    pedantic: false,
+    sanitize: false,
+    smartLists: true,
+    smartypants: false,
+  });
 
   rendererMD.heading = function (text, level, raw) {
     //保存这篇文章的最大标签：用于相对定位
