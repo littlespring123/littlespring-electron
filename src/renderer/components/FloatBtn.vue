@@ -1,6 +1,6 @@
 <template>
-  <div class="floatBtn block-z-index">
-    <div v-for="item in list" @click="item.fun">
+  <div class="floatBox block-z-index">
+    <div class="floatBox-btn" v-for="item in list" @click="item.fun">
       {{ item.content }}
     </div>
   </div>
@@ -9,8 +9,6 @@
 <script setup lang="ts">
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
-// import { useRouter } from 'vue-router';
-// const router = useRouter()
 const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 defineProps({
@@ -47,25 +45,29 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.floatBtn {
-  cursor: pointer;
-  border-radius: 50%;
-  width: 2rem;
-  height: 2rem;
-  line-height: 2rem;
-  box-shadow: 10px salmon;
+.floatBox {
   position: fixed;
-  font-size: 1.5rem;
-  text-align: center;
   bottom: v-bind(bootom);
   right: v-bind(right);
-  color: v-bind(color);
-  border: 1px solid v-bind(color);
-  background-color: v-bind(backgroundColor);
-}
-.floatBtn:hover {
-  color: v-bind(themeColor);
-  border: 1px solid v-bind(themeColor);
-  transition: 0.5s;
+
+  &-btn {
+    cursor: pointer;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    box-shadow: 10px salmon;
+    font-size: 1.5rem;
+    text-align: center;
+    color: v-bind(color);
+    border: 1px solid v-bind(color);
+    background-color: v-bind(backgroundColor);
+  }
+
+  &-btn:hover {
+    color: v-bind(themeColor);
+    border: 1px solid v-bind(themeColor);
+    transition: 0.5s;
+  }
 }
 </style>

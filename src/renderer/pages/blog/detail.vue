@@ -2,7 +2,7 @@
   <div class="root block-z-index">
     <!-- 目录 -->
     <div class="catalogy">
-      {{ t("blog.categorize") }}
+      {{ detail.title }}
       <div
         class="item"
         v-for="item of valueHtml.toc"
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <FloatBtn :list="btn" right="50px" bootom="50px"></FloatBtn>
+  <FloatBtn :list="btn" right="70px" bootom="70px"></FloatBtn>
 </template>
 
 <script setup lang="ts">
@@ -52,6 +52,7 @@ const store = useStore();
 const { color, backgroundColor, themeColor } = storeToRefs(store);
 const { t } = useI18n();
 
+// 转换后的文字
 const valueHtml = ref({
   content: "",
   toc: [],
@@ -59,6 +60,7 @@ const valueHtml = ref({
 });
 const { query } = useRoute();
 const router = useRouter();
+// 获取的原文字：
 const detail = ref({});
 
 // 悬浮按钮
@@ -68,6 +70,10 @@ const btn = [
     fun: () => {
       router.push("/add?id=" + query?.id);
     },
+  },
+  {
+    content: "D",
+    fun: () => download(),
   },
 ];
 
@@ -81,16 +87,24 @@ const getBlogDet = async () => {
   if (res) {
     detail.value = res;
     valueHtml.value = md2html(detail.value.content);
-    console.log(
-      "valueHtml",
-      valueHtml.value,
-      detail.value.content,
-      detail.value.title
-    );
   }
 };
 getBlogDet();
 
+// 下载文档
+const download = () => {
+  const blob = new Blob([detail.value.content], { type: "text/plain" });
+  const href = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = href;
+  link.download = detail.value.title + ".md";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(href);
+};
+
+// 滚动到目的地
 const toTarget = (target: any) => {
   target = "#toc-nav" + target;
   let toElement = document.querySelector(target);

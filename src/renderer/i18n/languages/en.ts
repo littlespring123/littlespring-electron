@@ -32,6 +32,7 @@ export default {
     categorize: "categorize",
     preview: "preview",
     add: "add",
+    import: "import .md",
     submit: "submit",
   },
   todo: {

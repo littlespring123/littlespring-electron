@@ -53,7 +53,7 @@ router.afterEach((to, from, next) => {
     <transtion name="swtich">
       <Nav v-show="showLayout.showNav"></Nav>
     </transtion>
-    <div @keyup.space="router.back()" class="content">
+    <div @keyup.ctrl.backspace="router.back()" class="content">
       <Head :road="roadShow" v-show="showLayout.showHead"></Head>
       <!-- 路由切换特效 -->
       <transtion name="swtich">

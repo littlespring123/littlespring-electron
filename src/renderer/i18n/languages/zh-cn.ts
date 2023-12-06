@@ -35,6 +35,7 @@ export default {
     categorize: "目录",
     preview: "预览",
     add: "添加",
+    import: "导入md文件",
     submit: "提交",
   },
 

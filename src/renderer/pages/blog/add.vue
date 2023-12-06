@@ -17,9 +17,10 @@
           tabindex="0"
           v-model="tagText"
         />
-        <Button @keyup.enter="pushTag" @Click="pushTag">{{
+        <Button @keyup.enter="pushTag" @click="pushTag">{{
           t("blog.add")
         }}</Button>
+        <Button @click="importFile">{{ t("blog.import") }}</Button>
         <div style="margin: 0 3px 10px 3px">
           <Tag
             :inverted="true"
@@ -145,6 +146,38 @@ const getBlogDet = async () => {
     }
   }
 };
+
+// 导入文件，仅支持文件
+const importFile = async () => {
+  try {
+    const handle = await showOpenFilePicker();
+    const file = await handle[0].getFile();
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const text = (e.target as any).result;
+      blogForm.value.content = text;
+    };
+    reader.readAsText(file, "utf-8");
+  } catch (error) {
+    console.log("err", error);
+  }
+};
+
+// 处理文件/文件夹
+const processHandle = async (handle) => {
+  if (handle.kind === "file") {
+    return handle;
+  } else {
+    // 异步迭代器
+    handle.children = [];
+    const iter = handle.entries();
+    for await (const entry of iter) {
+      handle.children.push(await processHandle(entry[1]));
+    }
+    return handle;
+  }
+};
+
 getBlogDet();
 </script>
 

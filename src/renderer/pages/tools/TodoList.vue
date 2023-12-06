@@ -23,7 +23,7 @@
   </div>
   <Modal :show="showForm" @confirm="addTodo" @close="showForm = false">
     <div class="input-box">
-      <div>
+      <div class="">
         <Input
           :placeholder="t('todo.titlePlace')"
           :label="t('todo.title')"
@@ -36,7 +36,7 @@
         :placeholder="t('todo.contentPlace')"
         :label="t('todo.content')"
         name="content"
-        :rows="6"
+        :rows="10"
         class="textarea"
         v-model="todoForm.content"
       ></textarea>
@@ -180,9 +180,16 @@ getTodoList();
 .input-box {
   display: flex;
   flex-direction: column;
-}
 
-.textarea {
-  white-space: pre-wrap;
+  .textarea {
+    margin: 3px;
+    white-space: pre-wrap;
+    // outline: none;
+    padding: 3px;
+    font-family: "微软雅黑";
+  }
+  .textarea:focus {
+    outline: 1px solid v-bind(themeColor);
+  }
 }
 </style>

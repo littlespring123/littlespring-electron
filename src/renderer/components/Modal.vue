@@ -8,7 +8,7 @@
       <div class="modal-content">
         <slot></slot>
       </div>
-      <div>
+      <div class="modal-bottom">
         <Button @click="confirmModal" class="modal-close-button">
           {{ t("modal.confirm") }}
         </Button>
@@ -63,13 +63,17 @@ const emit = defineEmits(["close", "confirm"]);
 
   &-content {
     background-color: #fff;
-    padding: 20px;
+    padding: 20px 10px 10px 10px;
     border-radius: 4px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    // box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
     max-height: 60vh;
     /* 设置容器的最大高度，根据需要进行调整 */
     overflow: auto;
     /* 添加滚动条 */
+  }
+
+  &-bottom {
+    text-align: center;
   }
 }
 
