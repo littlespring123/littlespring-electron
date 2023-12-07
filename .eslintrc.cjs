@@ -1,52 +1,55 @@
 module.exports = {
-  env: {
-    browser: true,
-    es2021: true
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
   },
-  extends: [
+  "extends": [
     "eslint-config-prettier",
     "eslint:recommended", // 使用推荐的eslint
     "plugin:@typescript-eslint/recommended",
     "plugin:vue/vue3-recommended", // 使用插件支持vue3
     "plugin:vue/vue3-essential",
-    //1.继承.prettierrc.js文件规则  2.开启rules的 "prettier/prettier": "error"  3.eslint fix的同时执行prettier格式化
-    // "plugin:prettier/recommended",
-    // 覆盖 ESLint 配置，确保 prettier 放在最后
     "prettier"
   ],
-  overrides: [
+  "overrides": [
     {
-      env: {
-        node: true
+      "env": {
+        "node": true
       },
-      files: [".eslintrc.{js,cjs}"],
-      parserOptions: {
-        sourceType: "script"
+      "files": [
+        ".eslintrc.{js,cjs}"
+      ],
+      "parserOptions": {
+        "sourceType": "script"
       }
     }
   ],
-  parser: 'vue-eslint-parser',
-  parserOptions: {
-    parser: '@typescript-eslint/parser',
-    ecmaVersion: "latest",
-    sourceType: "module"
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    'parser': '@typescript-eslint/parser',
+    "ecmaVersion": "latest",
+    "sourceType": "module"
   },
-  plugins: ["vue", "node"],
-  rules: {
+  "plugins": [
+    "vue"
+  ],
+  "rules": {
     "space-before-function-paren": 0, // 函数定义时括号前面要不要有空格
     "eol-last": 0, // 文件以单一的换行符结束
     "no-extra-semi": 0, // 可以多余的冒号
-    'semi': 0, // 语句可以不需要分号结尾
-    'eqeqeq': 0, // 必须使用全等
+    "semi": 0, // 语句可以不需要分号结尾
+    "eqeqeq": 0, // 必须使用全等
     "one-var": 0, // 连续声明
     "no-undef": 0, // 可以 有未定义的变量
+
     "no-extra-boolean-cast": 1, // 不必要的bool转换
     "no-extra-parens": 1, // 非必要的括号
     "no-empty": 1, // 块语句中的内容不能为空
     "no-use-before-define": [1, "nofunc"], // 未定义前不能使用
     complexity: [1, 10], // 循环复杂度
     "no-unused-vars": 1, // 不能有声明后未被使用的变量或参数
-    // "comma-dangle": [2, "ignore"], // 对象字面量项尾不能有逗号
+    // "comma-dangle": [2, "never"], // 对象字面量项尾不能有逗号
     "no-constant-condition": 2, // 禁止在条件中使用常量表达式 if(true) if(1)
     "no-dupe-args": 2, // 函数参数不能重复
     "no-dupe-keys": 2, // 在创建对象字面量时不允许键重复 {a:1,a:1}

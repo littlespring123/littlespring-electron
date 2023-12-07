@@ -1,5 +1,5 @@
 // 仅示例
-import request from '@renderer/utils/request'
+import request from '@renderer/api/request'
 
 // export function login (data) {
 //   return request({

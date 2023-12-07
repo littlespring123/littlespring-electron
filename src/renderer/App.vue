@@ -112,6 +112,11 @@ router.afterEach((to, from, next) => {
 
 .pink-atmo-box {
 	border-radius: 15px;
+	box-shadow: 3px 3px 3px 3px rgba(252, 169, 169, 0.3);
+	transition: all 0.5s;
+}
+
+.pink-atmo-box:hover {
 	box-shadow: 5px 5px 5px 4px rgba(252, 169, 169, 0.6);
 }
 

@@ -146,13 +146,13 @@ watch(id, () => {
 
 <style scoped lang="scss">
 #audio-player {
-	width: 77vw;
-	height: 35vh;
+	width: 90%;
+	height: 80%;
 	display: flex;
 	justify-content: center;
-	padding: 10px;
+	padding-right: 10px;
 	position: relative;
-	margin: auto;
+	margin: auto auto -10px 20px;
 	overflow: hidden;
 
 	.img-container {
@@ -160,7 +160,7 @@ watch(id, () => {
 		margin: auto;
 		width: 60%;
 		text-align: center;
-		padding: 10px;
+		padding: 1px;
 		margin: 1px;
 		background-size: cover;
 		background-repeat: no-repeat;
