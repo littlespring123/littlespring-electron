@@ -3,7 +3,7 @@
 		<div v-for="(item, index) in newList" :key="item.id" :class="{ active: currentId === item.id }" class="item" @click="emits('playNew', item.song)">
 			<div>
 				{{ item.name }}
-				<Tag v-if="item.fee === 1 || item.fee === 4" text="vip" :circle="true" size="mini" :color="themeColor"></Tag>
+				<Tag v-if="item.song.fee === 1 || item.song.fee === 4" text="vip" :circle="true" size="mini" :color="themeColor"></Tag>
 			</div>
 			<div v-show="currentId !== item.id" class="item-right">
 				<div style="align-items: center">
