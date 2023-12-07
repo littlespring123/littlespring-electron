@@ -160,7 +160,7 @@ watch(id, () => {
 		margin: auto;
 		width: 60%;
 		text-align: center;
-		padding: 1px;
+		padding: 10px;
 		margin: 1px;
 		background-size: cover;
 		background-repeat: no-repeat;

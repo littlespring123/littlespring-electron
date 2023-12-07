@@ -21,43 +21,14 @@ const showLayout = ref({
 	showNav: true,
 	showHead: true,
 })
-
-router.afterEach((to, from, next) => {
-	// 是否显示layout
-	if (Object.keys(to.meta).length !== 0) {
-		let { meta } = to
-		showLayout.value = {
-			showNav: meta.menuRender,
-			showHead: meta.headerRender,
-		}
-	} else {
-		showLayout.value = {
-			showNav: true,
-			showHead: true,
-		}
-	}
-
-	if (to.name) {
-		store.setMenuActive(to.path)
-		roadShow.value = i18n.global.t(to.name.toString())
-		document.title = roadShow.value
-	}
-	// next();
-})
 </script>
 
 <template>
 	<Star></Star>
 	<div class="root" :style="{ color, backgroundColor }">
-		<transtion name="swtich">
-			<Nav v-show="showLayout.showNav"></Nav>
-		</transtion>
-		<div @keyup.ctrl.backspace="router.back()" class="content">
-			<Head :road="roadShow" v-show="showLayout.showHead"></Head>
-			<!-- 路由切换特效 -->
-			<transtion name="swtich">
-				<router-view></router-view>
-			</transtion>
+		<div class="content" @keyup.ctrl.backspace="router.back()">
+			<!-- <Head v-show="showLayout.showHead" :road="roadShow"></Head> -->
+			<router-view></router-view>
 		</div>
 	</div>
 

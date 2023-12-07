@@ -101,7 +101,7 @@ onMounted(() => {
 .music-box {
 	align-items: center;
 	width: 100%;
-	height: 85vh;
+	height: 100vh;
 	z-index: 100;
 	transition: all 0.5s;
 	display: grid;
