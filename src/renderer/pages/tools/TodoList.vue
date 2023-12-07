@@ -2,21 +2,21 @@
   <!-- <List class="list" :listLength="todos.length"> -->
   <div class="toList block-z-index">
     <Card
-      @dblclick="modifyEvent(item.id, item.title, item.content)"
-      :title="item.title"
-      class="item"
       v-for="item in todos"
       :key="item.id"
+      :title="item.title"
+      class="item"
+      @dblclick="modifyEvent(item.id, item.title, item.content)"
     >
       <div class="content" v-html="item.content.replace(/\n/g, '<br>')"></div>
       <!-- {{ item.content }} -->
-      <template v-slot:footer>
+      <template #footer>
         <Icon
           width="16px"
           height="16px"
-          @click="deleteTodo(item.id)"
           name="select-not"
           :color="themeColor"
+          @click="deleteTodo(item.id)"
         ></Icon>
       </template>
     </Card>
@@ -25,20 +25,20 @@
     <div class="input-box">
       <div class="">
         <Input
+          v-model="todoForm.title"
           :placeholder="t('todo.titlePlace')"
           :label="t('todo.title')"
           name="title"
-          v-model="todoForm.title"
         />
       </div>
 
       <textarea
+        v-model="todoForm.content"
         :placeholder="t('todo.contentPlace')"
         :label="t('todo.content')"
         name="content"
         :rows="10"
         class="textarea"
-        v-model="todoForm.content"
       ></textarea>
     </div>
   </Modal>
@@ -112,7 +112,7 @@ const modifyEvent = (id, title: string, content: string) => {
 //勾选or取消勾选一个TODO
 const checkTodo = (id) => {
   todos.value.forEach((todo: any) => {
-    if (todo.id == id) todo.done = !todo.done;
+    if (todo.id == id) {todo.done = !todo.done;}
   });
 };
 

@@ -1,9 +1,9 @@
 <template>
   <uni-search-bar
-    @confirm="search"
     v-model="searchValue"
     placeholder="输入城市名"
-    :cancelButton="false"
+    :cancel-button="false"
+    @confirm="search"
   ></uni-search-bar>
   <uni-section type="line" title="今日天气">
     <view class="box">
@@ -53,7 +53,7 @@
     title="近4日天气"
     :sub-title="'更新时间：' + reportTime"
   >
-    <qiun-data-charts type="line" :chartData="dataLine" />
+    <qiun-data-charts type="line" :chart-data="dataLine" />
   </uni-section>
 </template>
 
@@ -189,8 +189,8 @@ function getWeather() {
 }
 
 const toObject = (array) => {
-  let daytemp = new Array();
-  let nighttemp = new Array();
+  let daytemp = [];
+  let nighttemp = [];
   array.map((item) => {
     daytemp.push(item.daytemp);
     nighttemp.push(item.nighttemp);

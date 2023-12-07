@@ -4,14 +4,14 @@
     <div class="catalogy">
       {{ detail.title }}
       <div
-        class="item"
         v-for="item of valueHtml.toc"
         :key="item.id"
-        @click="toTarget(item.id)"
+        class="item"
         :class="{ active: currentTitle.id === item.id }"
         :style="{
           'padding-left': (item.tag - valueHtml.maxTitle) * 10 + 'px',
         }"
+        @click="toTarget(item.id)"
       >
         {{ item.text }}
       </div>
@@ -21,7 +21,7 @@
         <h2 class="title">{{ detail.title }}</h2>
         <div class="tags">
           <div>
-            <Tag :text="item.content" circle v-for="item in detail.tag" />
+            <Tag v-for="(item,index) in detail.tag" :key="index" :text="item.content" circle />
           </div>
           <div>{{ detail.lasttime }} 浏览量: {{ detail.count }}</div>
         </div>
@@ -29,8 +29,8 @@
       <div
         v-highlight
         class="detail-content markdown-body"
-        v-html="valueHtml.content"
         @scroll="onScroll"
+        v-html="valueHtml.content"
       ></div>
     </div>
   </div>
@@ -43,20 +43,17 @@ import { ref, Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { NodeType } from "./types.d";
 import { getBlogApi } from "@renderer/api/blog";
-import { marked } from "marked";
 import { md2html } from "@renderer/utils/txt2md";
-import { useI18n } from "vue-i18n";
 import { useStore } from "@renderer/stores";
 import { storeToRefs } from "pinia";
 const store = useStore();
-const { color, backgroundColor, themeColor } = storeToRefs(store);
-const { t } = useI18n();
+const { themeColor } = storeToRefs(store);
 
 // 转换后的文字
 const valueHtml = ref({
   content: "",
   toc: [],
-  maxTitle: 0,
+  maxTitle: 0
 });
 const { query } = useRoute();
 const router = useRouter();
@@ -69,16 +66,16 @@ const btn = [
     content: "M",
     fun: () => {
       router.push("/add?id=" + query?.id);
-    },
+    }
   },
   {
     content: "D",
-    fun: () => download(),
-  },
+    fun: () => download()
+  }
 ];
 
 const currentTitle: Ref<NodeType> = ref({
-  id: 0,
+  id: 0
 });
 // let selfTitle=ref([])
 
@@ -111,7 +108,7 @@ const toTarget = (target: any) => {
   toElement.scrollIntoView({
     behavior: "smooth",
     block: "center",
-    inline: "nearest",
+    inline: "nearest"
   });
 };
 

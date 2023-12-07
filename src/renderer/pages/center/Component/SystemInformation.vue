@@ -1,6 +1,6 @@
 <template>
   <div class="items">
-    <div class="item" v-for="(item, index) in tips" :key="index">
+    <div v-for="(item, index) in tips" :key="index" class="item">
       <div class="name">{{ t(item.name) }}</div>
       <div class="value">{{ t(item.value) }}</div>
     </div>

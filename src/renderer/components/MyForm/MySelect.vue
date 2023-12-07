@@ -9,16 +9,16 @@
         {{ placeholder }}
       </div>
       <div class="arrow">
-        <Icon width="24px" height="24px" v-show="isOpen" name="arrow-up"></Icon>
+        <Icon v-show="isOpen" width="24px" height="24px" name="arrow-up"></Icon>
         <Icon
+          v-show="!isOpen"
           width="24px"
           height="24px"
-          v-show="!isOpen"
           name="arrow-down"
         ></Icon>
       </div>
     </div>
-    <ul class="options" v-show="isOpen">
+    <ul v-show="isOpen" class="options">
       <li
         v-for="(item, index) in localdata"
         :key="index"
@@ -53,20 +53,20 @@ const mySelect = ref(null);
 const define = defineProps({
   localdata: {
     type: Array,
-    default: [],
+    default: []
   },
   label: {
     type: String,
-    default: "",
+    default: ""
   },
   placeholder: {
     type: String,
-    default: "综合",
+    default: "综合"
   },
   disabled: {
     type: Boolean,
-    default: false,
-  },
+    default: false
+  }
 });
 
 const { localdata, label, placeholder, disabled } = toRefs(define);
@@ -90,7 +90,7 @@ onMounted(() => {
     // if (!(e instanceof MouseEvent)) {
     //   e = window.event;
     // }
-    if (!mySelect || !mySelect.value) return;
+    if (!mySelect.value || !mySelect.value) {return;}
     // if (e.target.contains(mySelect.value)) {
     //   isOpen.value = false;
     // } else {
