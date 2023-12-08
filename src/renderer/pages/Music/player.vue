@@ -10,11 +10,15 @@
 				<span v-show="baseInfo.ar[0].name" class="title-name">{{ baseInfo.ar[0].name }}</span>
 			</h4>
 			<Progress :title="secTotime(currentTime)" :sub-title="secTotime(baseInfo.dt / 1000 - currentTime)" :value="`${progress}%`"></Progress>
-			<div class="baseSet">
+			<div ref="baseSet" class="baseSet">
 				<div class="setItem" :style="showLRC && { borderWidth: '1px', borderStyle: 'solid' }" @click="showLRC = !showLRC">
 					{{ t("music.LRC") }}
 				</div>
 				<a :href="music2Down" :download="baseInfo.name + 'mp3'" class="setItem">L</a>
+				<div class="setItem">
+					<Icon name="volume" width="24px" height="24px" @click="showVolume = !showVolume"></Icon>
+					<input v-show="showVolume" id="volumeRange" v-model="myVolume" type="range" min="0" max="1" step="0.1" class="volumeRange" />
+				</div>
 			</div>
 			<div class="navigation">
 				<Icon name="arrow-left" height="24px" @click="emits('changePlay', currentIndex - 1)"></Icon>
@@ -26,7 +30,6 @@
 				</div>
 				<Icon name="arrow-right" height="24px" @click="emits('changePlay', currentIndex + 1)"></Icon>
 			</div>
-			<div class="list"></div>
 		</div>
 	</div>
 	<audio ref="audioPlayer" @timeupdate="chengeCurr" @ended="endPlay"></audio>
@@ -37,7 +40,7 @@ import { DesktopMsg } from "@renderer/utils/notification"
 import { checkMusic, musicUrl, musicInfo, lyricInfo } from "@renderer/api/music"
 import LRC from "./LRC.vue"
 import { secTotime } from "@renderer/utils/date"
-import { ref, toRefs, watch } from "vue"
+import { ref, toRefs, watch, onMounted, onBeforeUnmount } from "vue"
 import { useStore } from "@renderer/stores"
 import { storeToRefs } from "pinia"
 
@@ -65,6 +68,9 @@ const progress = ref(0) // 进度
 const showLRC = ref(false) // 展示歌词
 const currentTime = ref(0)
 const lyric = ref("")
+
+// 设置项目的节点
+const baseSet = ref(null)
 
 const baseInfo = ref({
 	name: "",
@@ -135,6 +141,13 @@ const check = async (id) => {
 	}
 }
 
+// 音量
+const myVolume = ref(0.5)
+const showVolume = ref(false)
+watch(myVolume, () => {
+	audioPlayer.value.volume = myVolume.value
+})
+
 const endPlay = () => {
 	emits("changePlay", currentIndex.value + 1)
 }
@@ -142,12 +155,27 @@ const endPlay = () => {
 watch(id, () => {
 	check(id.value)
 })
+
+onMounted(() => {
+	document.addEventListener("click", (e) => {
+		if (!baseSet.value) {
+			return
+		}
+		if (!baseSet.value?.contains(e.target)) {
+			showVolume.value = false
+		}
+	})
+})
+
+onBeforeUnmount(() => {
+	document.body.removeEventListener("click", () => {})
+})
 </script>
 
 <style scoped lang="scss">
 #audio-player {
 	width: 90%;
-	height: 80%;
+	height: 40vh;
 	display: flex;
 	justify-content: center;
 	padding-right: 10px;
@@ -158,9 +186,9 @@ watch(id, () => {
 	.img-container {
 		align-items: center;
 		margin: auto;
-		width: 60%;
+		width: 50%;
 		text-align: center;
-		padding: 1px;
+		padding: 10px;
 		margin: 1px;
 		background-size: cover;
 		background-repeat: no-repeat;
@@ -198,8 +226,10 @@ watch(id, () => {
 			cursor: pointer;
 			color: v-bind(color);
 			align-items: center;
+			text-align: center;
 		}
 		.setItem:hover {
+			fill: v-bind(themeColor);
 			color: v-bind(themeColor);
 			border-color: v-bind(themeColor);
 		}
@@ -207,6 +237,8 @@ watch(id, () => {
 
 	.controller {
 		width: 40%;
+		height: 100%;
+		// min-height: 40vh;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -273,5 +305,12 @@ watch(id, () => {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+.volumeRange {
+	position: absolute;
+
+	/* 旋转为竖直方向 */
+	transform: rotate(-90deg);
 }
 </style>

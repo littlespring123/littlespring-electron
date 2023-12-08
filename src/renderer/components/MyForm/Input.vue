@@ -1,16 +1,18 @@
 <template>
-  <!-- <div class="root"> -->
-  <label v-if="label"> {{ label }}: </label>
-  <input
-    :name="name"
-    :type="inputType"
-    :value="modelValue"
-    :maxlength="maxlength"
-    :placeholder="placeholder"
-    :class="className"
-    @input="(e) => emit('update:modelValue', e.target.value)"
-  />
-  <!-- </div> -->
+	<!-- <div class="root"> -->
+	<label v-if="label"> {{ label }}: </label>
+	<input
+		:name="name"
+		:type="inputType"
+		:value="modelValue"
+		:maxlength="maxlength"
+		:placeholder="placeholder"
+		:class="className"
+		:min="minlength"
+		:max="maxlength"
+		@input="(e) => emit('update:modelValue', e.target.value)"
+	/>
+	<!-- </div> -->
 </template>
 
 <script setup lang="ts">
@@ -18,75 +20,81 @@
  * 输入框
  *
  */
-import { useStore } from "@renderer/stores";
-import { storeToRefs } from "pinia";
-const store = useStore();
-const { color, backgroundColor, themeColor } = storeToRefs(store);
-import { ref, toRefs } from "vue";
+import { useStore } from "@renderer/stores"
+import { storeToRefs } from "pinia"
+const store = useStore()
+const { color, backgroundColor, themeColor } = storeToRefs(store)
+import { ref, toRefs } from "vue"
 const define = defineProps({
-  name: {
-    type: String,
-    default: "",
-  },
-  label: {
-    type: String,
-    default: "",
-  },
-  inputType: {
-    type: String,
-    default: "text",
-  },
-  modelValue: {
-    // 绑定的v-model
-    type: String,
-    default: "",
-  },
-  maxlength: {
-    type: Number,
-    default: 100,
-  },
-  placeholder: {
-    type: String,
-    default: "",
-  },
-  className: {
-    type: String,
-    default: "",
-  },
-  height: {
-    type: String,
-    default: "20px",
-  },
-});
+	name: {
+		type: String,
+		default: "",
+	},
+	label: {
+		type: String,
+		default: "",
+	},
+	inputType: {
+		type: String,
+		default: "text",
+	},
+	modelValue: {
+		// 绑定的v-model
+		type: String,
+		default: "",
+	},
+	maxlength: {
+		type: Number,
+		default: 100,
+	},
+	minlength: {
+		type: Number,
+		default: 0,
+	},
+	placeholder: {
+		type: String,
+		default: "",
+	},
+	className: {
+		type: String,
+		default: "",
+	},
+	height: {
+		type: String,
+		default: "20px",
+	},
+})
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue"])
 </script>
 
 <style lang="scss" scoped>
 .root {
-  // display: flex;
+	// display: flex;
 }
 label {
-  margin-left: 5px;
-  align-items: center;
+	margin-left: 5px;
+	align-items: center;
 }
 input {
-  outline-style: none;
-  border: 1px solid v-bind(themeColor);
-  background-color: v-bind(backgroundColor);
-  border-radius: 3px;
-  color: v-bind(color);
-  // padding: 10px;
-  height: v-bind(height);
-  font-size: 16px;
+	outline-style: none;
+	border: 1px solid v-bind(themeColor);
+	background-color: v-bind(backgroundColor);
+	border-radius: 3px;
+	color: v-bind(color);
+	// padding: 10px;
+	height: v-bind(height);
+	font-size: 16px;
 }
 
 input:focus {
-  border: 1px solid v-bind(themeColor);
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
-    0 0 8px rgba(102, 175, 233, 0.6);
+	border: 1px solid v-bind(themeColor);
+	outline: 0;
+	-webkit-box-shadow:
+		inset 0 1px 1px rgba(0, 0, 0, 0.075),
+		0 0 8px rgba(102, 175, 233, 0.6);
+	box-shadow:
+		inset 0 1px 1px rgba(0, 0, 0, 0.075),
+		0 0 8px rgba(102, 175, 233, 0.6);
 }
 </style>

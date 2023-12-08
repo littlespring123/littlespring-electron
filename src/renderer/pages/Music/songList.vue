@@ -1,13 +1,14 @@
 <template>
 	<List :list-length="newList.length" margin="0px" padding="0px" class="new-list pink-atmo-box block-z-index" description="暂无播放内容">
-		<div v-for="(item, index) in newList" :key="item.id" :class="{ active: currentId === item.id }" class="item" @click="emits('playNew', item.song)">
+		<span>{{ t("music.newList") }}</span>
+		<hr />
+		<div v-for="item in newList" :key="item.id" class="item" @click="emits('playNew', item.song)">
 			<div>
 				{{ item.name }}
 				<Tag v-if="item.song.fee === 1 || item.song.fee === 4" text="vip" :circle="true" size="mini" :color="themeColor"></Tag>
 			</div>
-			<div v-show="currentId !== item.id" class="item-right">
+			<div class="item-right">
 				<div style="align-items: center">
-					<!-- {{ secTotime(item.song.duration / 1000) }} -->
 					{{ item?.song.artists[0].name }}
 				</div>
 			</div>
@@ -17,7 +18,6 @@
 
 <script setup lang="ts">
 import { newSongAPi } from "@renderer/api/music"
-import { secTotime } from "@renderer/utils/date"
 import { ref } from "vue"
 import { storeToRefs } from "pinia"
 import { useStore } from "@renderer/stores"
@@ -42,7 +42,7 @@ getNewList()
 <style scoped lang="scss">
 .new-list {
 	width: 80%;
-	height: 80%;
+	height: 40vh;
 	padding: 10px 5px;
 	margin: -10px 20px auto auto;
 	// bottom: 10px;

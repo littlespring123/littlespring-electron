@@ -52,11 +52,13 @@ router.afterEach((to, from, next) => {
 		<transtion name="swtich">
 			<Nav v-show="showLayout.showNav"></Nav>
 		</transtion>
-		<div @keyup.ctrl.backspace="router.back()" class="content">
-			<Head :road="roadShow" v-show="showLayout.showHead"></Head>
+		<div class="content" @keyup.ctrl.backspace="router.back()">
+			<Head v-show="showLayout.showHead" :road="roadShow"></Head>
 			<!-- 路由切换特效 -->
 			<transtion name="swtich">
-				<router-view></router-view>
+				<keep-alive>
+					<router-view></router-view>
+				</keep-alive>
 			</transtion>
 		</div>
 	</div>
