@@ -71,12 +71,13 @@ const emptySearchList = () => {
 		border: 1px solid #ccc;
 		width: 80%;
 		height: 38px;
-		border-radius: 60px;
+		border-radius: calc(infinity * 1px);
 
 		.search-btn {
 			width: 30%;
 			height: 40px;
-			border-radius: 50%;
+			// border-radius: 50%;
+			border-radius: calc(infinity * 1px);
 			display: flex;
 			cursor: pointer;
 			justify-content: center;

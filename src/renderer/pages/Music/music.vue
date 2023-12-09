@@ -15,6 +15,7 @@
 					<Icon name="start" width="14px" @click="toplay(item.id, index)"></Icon>
 					<Icon name="delete" width="14px" @click="removeList(item.id)"></Icon>
 				</div>
+				<MusicWave v-show="currentId === item.id" class="item-right" :count="5"></MusicWave>
 			</div>
 		</List>
 	</div>
@@ -23,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+import MusicWave from "@renderer/components/Music/MusicWave.vue"
 import Search from "./searchList.vue"
 import SongList from "./songList.vue"
 import { secTotime } from "@renderer/utils/date"
