@@ -26,9 +26,17 @@ const showLayout = ref({
 <template>
 	<Star></Star>
 	<div class="root" :style="{ color, backgroundColor }">
+		<transtion name="swtich">
+			<Nav v-show="showLayout.showNav"></Nav>
+		</transtion>
 		<div class="content" @keyup.ctrl.backspace="router.back()">
-			<!-- <Head v-show="showLayout.showHead" :road="roadShow"></Head> -->
-			<router-view></router-view>
+			<Head v-show="showLayout.showHead" :road="roadShow"></Head>
+			<!-- 路由切换特效 -->
+			<transtion name="swtich">
+				<keep-alive>
+					<router-view></router-view>
+				</keep-alive>
+			</transtion>
 		</div>
 	</div>
 

@@ -33,6 +33,7 @@ import Switch from "@renderer/components/MyForm/Switch.vue";
 import Progress from "@renderer/components/Progress.vue";
 import TabSelect from "@renderer/components/TabSelect.vue";
 import Message from "@renderer/components/Message.vue";
+import noticeBar from "@renderer/components/NoticeBar.vue";
 
 // import VueI18n from 'vue-i18n';
 import i18n from "./i18n";
@@ -43,6 +44,7 @@ const GlobalComponents = (app: any) => {
     TabSelect,
     Progress,
     Message,
+    noticeBar,
     Tag,
     Icon,
     MySelect,

@@ -10,7 +10,7 @@
 			</div>
 		</div>
 		<List :list-length="searchList.length" margin="0px" padding="0px" class="search-list" description="搜索查看">
-			<div v-for="(item, index) in searchList" :key="index" class="item" @click="add2PlayList(item)">
+			<div v-for="(item, index) in searchList" :key="index" class="item" @click="emits('add2PlayList', item)">
 				<span>
 					{{ item.name }}
 					<Tag v-if="item.fee === 1 || item.fee === 4" text="vip" :circle="true" size="mini" :color="themeColor"></Tag>
@@ -33,6 +33,9 @@ const { color, backgroundColor, themeColor } = storeToRefs(store)
 const { t } = useI18n()
 const searchList = ref([])
 const searchValue: Ref<string> = ref("")
+const counts = ref(0)
+
+const emits = defineEmits("add2PlayList")
 
 const search = async () => {
 	if (!searchValue.value) {
@@ -54,7 +57,7 @@ const emptySearchList = () => {
 <style scoped lang="scss">
 .search {
 	width: 80%;
-	height: 80%;
+	height: 40vh;
 	// right: 0;
 	margin: auto -10px 20px auto;
 	display: flex;
@@ -68,12 +71,13 @@ const emptySearchList = () => {
 		border: 1px solid #ccc;
 		width: 80%;
 		height: 38px;
-		border-radius: 60px;
+		border-radius: calc(infinity * 1px);
 
 		.search-btn {
 			width: 30%;
 			height: 40px;
-			border-radius: 50%;
+			// border-radius: 50%;
+			border-radius: calc(infinity * 1px);
 			display: flex;
 			cursor: pointer;
 			justify-content: center;
@@ -101,7 +105,7 @@ const emptySearchList = () => {
 			transition: 0.4s;
 			height: 40px;
 			line-height: 40px;
-			width: 60%;
+			width: 70%;
 			padding: 0 6px;
 		}
 	}
@@ -116,5 +120,25 @@ const emptySearchList = () => {
 		padding: 3px;
 		max-height: 30vh;
 	}
+}
+
+.item {
+	margin: 4px;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: v-bind(color);
+	fill: v-bind(color);
+	box-sizing: border-box;
+	&-right {
+		display: flex;
+		align-items: center;
+	}
+}
+
+.item:hover {
+	color: v-bind(themeColor);
+	fill: v-bind(themeColor);
 }
 </style>

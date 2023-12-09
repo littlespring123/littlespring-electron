@@ -1,10 +1,11 @@
 <template>
 	<div class="music-box" :class="showBGI ? 'hiddenMain' : 'showMain'">
-		<Search></Search>
+		<Search @add2-play-list="add2PlayList"></Search>
 		<Player :id="currentId" :current-index="currentPlay" @change-play="clickPlay" @change-cover="changeCover"></Player>
-
 		<SongList @play-new="add2PlayList"></SongList>
 		<List :list-length="playList.length" margin="0px" padding="0px" class="play-list pink-atmo-box block-z-index" description="暂无播放内容">
+			{{ t("music.playList") }}
+			<hr />
 			<div v-for="item in playList" :key="item.id" :class="{ active: currentId === item.id }" class="item">
 				<div>{{ item.name }} - {{ item?.artists[0].name }}</div>
 				<div v-show="currentId !== item.id" class="item-right">
@@ -14,14 +15,16 @@
 					<Icon name="start" width="14px" @click="toplay(item.id, index)"></Icon>
 					<Icon name="delete" width="14px" @click="removeList(item.id)"></Icon>
 				</div>
+				<MusicWave v-show="currentId === item.id" class="item-right" :count="5"></MusicWave>
 			</div>
 		</List>
 	</div>
 	<div class="bgc canvas-z-index" :class="{ blur: !showBGI }" :style="{ color, backgroundImage: `url(${coverUrl})` }"></div>
-	<FloatBtn :list="floatBtns" right="30px" bootom="500px"></FloatBtn>
+	<FloatBtn :list="floatBtns" right="30px" bootom="600px"></FloatBtn>
 </template>
 
 <script setup lang="ts">
+import MusicWave from "@renderer/components/Music/MusicWave.vue"
 import Search from "./searchList.vue"
 import SongList from "./songList.vue"
 import { secTotime } from "@renderer/utils/date"
@@ -52,12 +55,11 @@ const floatBtns = [
 
 // 播放列表
 const add2PlayList = (item) => {
-	console.log("item", item)
 	if (item.fee === 1 || item.fee === 4) {
 		DesktopMsg({ title: "＞﹏＜", body: "vip歌曲不能播放" })
 		return
 	}
-	if (playList.value.includes(item)) {
+	if (playList.value.some((itemInPlayList) => itemInPlayList.id === item.id)) {
 		return
 	}
 	playList.value.push(item)
@@ -110,7 +112,7 @@ onMounted(() => {
 	.play-list {
 		width: 80%;
 		padding: 10px;
-		height: 80%;
+		height: 40vh;
 		margin: 20px auto auto -10px;
 		box-sizing: border-box;
 		background-color: v-bind(backgroundColor);

@@ -103,7 +103,7 @@ audio {
 /* 歌词 */
 .contaniner {
 	height: v-bind(containerHeight + "px");
-	overflow: auto;
+	// overflow: auto;
 	// padding: auto;
 	// display: flex;
 	width: 100%;
@@ -121,6 +121,7 @@ li {
 	line-height: 40px;
 	height: 40px;
 	text-align: center;
+	white-space: nowrap;
 	transition: 0.3s;
 }
 
