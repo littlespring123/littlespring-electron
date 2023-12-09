@@ -14,7 +14,7 @@ export default {
 		blog: "博客",
 		tools: "工具",
 		todo: "todo",
-		music: "音乐",
+		music: "音乐盒",
 		game: "游戏",
 		set: "设置",
 		hide: "隐藏",

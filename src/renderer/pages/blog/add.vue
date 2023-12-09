@@ -147,23 +147,22 @@ getBlogDet()
 <style scoped lang="scss">
 .root {
 	max-height: 86vh;
-	width: 95%;
+	width: 99vw;
 	display: flex;
 	justify-content: space-around;
-	border: 1px solid #ccc;
-	padding: 6px;
+	// padding: 6px;
 	margin: 10px;
 
 	.inputBox {
 		display: flex;
 		flex-direction: column;
-		height: 60vh;
+		height: 70vh;
 		width: 80%;
 
 		.preview {
 			border: 1px solid #ccc;
-			min-height: 20vh;
-			max-height: 50vh;
+			min-height: 30vh;
+			max-height: 55vh;
 			overflow: hidden;
 			padding: 5px 15px;
 		}

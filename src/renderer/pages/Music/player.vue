@@ -4,8 +4,8 @@
 			<img id="cover" :src="baseInfo.al.picUrl" :title="baseInfo.al.picUrl" :alt="t('music.musicCover')" />
 		</div>
 		<LRC v-show="showLRC" :current-time="currentTime" :lrc="lyric.lyric" class="img-container"></LRC>
-		<div class="controller">
-			<h4 id="title">
+		<div ref="controllerNode" class="controller">
+			<h4 id="title" ref="titleNode" class="title">
 				<span class="title-title">{{ baseInfo.name }}</span>
 				<span v-show="baseInfo.ar[0].name" class="title-name">{{ baseInfo.ar[0].name }}</span>
 			</h4>
@@ -71,6 +71,9 @@ const lyric = ref("")
 
 // 设置项目的节点
 const baseSet = ref(null)
+const titleNode = ref(null)
+const titleWidth = ref("0")
+const controllerNode = ref(null)
 
 const baseInfo = ref({
 	name: "",
@@ -148,15 +151,24 @@ watch(myVolume, () => {
 	audioPlayer.value.volume = myVolume.value
 })
 
+// 结束播放，
 const endPlay = () => {
 	emits("changePlay", currentIndex.value + 1)
 }
 
 watch(id, () => {
 	check(id.value)
+	setTimeout(() => {
+		if (titleNode.value.offsetWidth > controllerNode.value.offsetWidth) {
+			titleWidth.value = -titleNode.value.offsetWidth + "px"
+		} else {
+			titleWidth.value = "0"
+		}
+	}, 200)
 })
 
 onMounted(() => {
+	// 给音量条 添加点击
 	document.addEventListener("click", (e) => {
 		if (!baseSet.value) {
 			return
@@ -243,12 +255,14 @@ onBeforeUnmount(() => {
 		flex-direction: column;
 		align-items: center;
 		justify-content: space-around;
+		overflow: hidden;
 
 		.title {
 			// padding-left: 20px;
 			display: inline-block;
 			// font-size: 12px;
 			white-space: nowrap;
+			// transition-timing-function: linear;
 			animation: 15s wordsLoop linear infinite normal;
 
 			&-title {
@@ -264,10 +278,10 @@ onBeforeUnmount(() => {
 		// 文字左右滚动
 		@keyframes wordsLoop {
 			0% {
-				transform: translateX(0px);
+				transform: translateX(0);
 			}
 			100% {
-				transform: translateX(-100%);
+				transform: translateX(v-bind(titleWidth));
 			}
 		}
 
