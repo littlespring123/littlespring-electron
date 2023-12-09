@@ -1,37 +1,20 @@
 <script setup lang="ts">
 import Star from "@renderer/components/App/Star.vue"
 import { useStore } from "@renderer/stores"
-import Nav from "@renderer/components/Layout/Nav.vue"
 import Loading from "@renderer/components/Loading.vue"
-import Head from "@renderer/components/Layout/Head.vue"
 import String from "@renderer/components/App/String.vue"
 import { storeToRefs } from "pinia"
 import { toRefs, ref } from "vue"
 import router from "@renderer/router"
-import i18n from "@renderer/i18n"
 const store = useStore()
 const roadShow = ref("")
 const { color, backgroundColor, scroller, themeColor } = storeToRefs(store)
-const { scrollerColor, scrollerWidth } = toRefs(scroller.value)
-// store.setColor(store.getFromLocal("color"));
-// store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
-// store.setLanguageMode(store.getFromLocal("languageMode") || "cn");
-
-const showLayout = ref({
-	showNav: true,
-	showHead: true,
-})
 </script>
 
 <template>
 	<Star></Star>
 	<div class="root" :style="{ color, backgroundColor }">
-		<transtion name="swtich">
-			<Nav v-show="showLayout.showNav"></Nav>
-		</transtion>
 		<div class="content" @keyup.ctrl.backspace="router.back()">
-			<Head v-show="showLayout.showHead" :road="roadShow"></Head>
-			<!-- 路由切换特效 -->
 			<transtion name="swtich">
 				<keep-alive>
 					<router-view></router-view>
