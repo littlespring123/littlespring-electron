@@ -13,9 +13,6 @@ const store = useStore()
 const roadShow = ref("")
 const { color, backgroundColor, scroller, themeColor } = storeToRefs(store)
 const { scrollerColor, scrollerWidth } = toRefs(scroller.value)
-// store.setColor(store.getFromLocal("color"));
-// store.setUserInfo(JSON.parse(localStorage.getItem("userInfo")));
-// store.setLanguageMode(store.getFromLocal("languageMode") || "cn");
 
 const showLayout = ref({
 	showNav: true,

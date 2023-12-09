@@ -19,7 +19,7 @@
 			</div>
 
 			<div @keyup.enter="post" @keydown.ctrl.s="showMD" @keydown.ctrl.p="showMD">
-				<textarea v-model="blogForm.content" class="mo-textarea" :placeholder="t('blog.input')" cols="100" rows="20"></textarea>
+				<textarea v-model="blogForm.content" class="myTextarea" spellcheck="false" :placeholder="t('blog.input')" cols="100" rows="20"></textarea>
 			</div>
 			<div v-highlight class="preview" v-html="valueMD.content"></div>
 			<div class="submitBtn">
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { getBlogApi, postBlogApi, modifyBlogApi } from "@renderer/api/blog"
 import { ref, Ref } from "vue"
+import { DesktopMsg } from "@renderer/utils/notification"
 import { md2html } from "@renderer/utils/txt2md"
 import { useRouter, useRoute } from "vue-router"
 import { storeToRefs } from "pinia"
@@ -66,7 +67,7 @@ const { query } = useRoute()
 const blogForm: Ref<blogFormType> = ref({
 	title: "",
 	content: "",
-	tag: []
+	tag: [],
 })
 const valueMD: string = ref("")
 const tagText: string = ref("")
@@ -76,13 +77,9 @@ const pushTag = () => {
 		blogForm.value.tag.push(tagText.value)
 		tagText.value = ""
 	} else {
-		console.log("输入不能为空")
+		DesktopMsg({ title: "输入不能为空" })
 	}
 }
-
-// 保存
-// const isSave: boolean = ref(false);
-// const isModalVisible: boolean = ref(false);
 
 const showMD = () => {
 	valueMD.value = md2html(blogForm.value.content)
@@ -90,6 +87,7 @@ const showMD = () => {
 
 const post = async () => {
 	if (blogForm.value.title === "") {
+		DesktopMsg({ title: "标题不能为空" })
 		return
 	}
 	if (query?.id) {
@@ -112,7 +110,7 @@ const toTarget = (target: any) => {
 	toElement.scrollIntoView({
 		behavior: "smooth",
 		block: "center",
-		inline: "nearest"
+		inline: "nearest",
 	})
 }
 
@@ -208,7 +206,7 @@ textarea:focus {
 }
 
 /* 自定义样式 */
-.mo-textarea {
+.myTextarea {
 	height: 40vh;
 	display: inline-block;
 	resize: vertical;
@@ -223,17 +221,17 @@ textarea:focus {
 }
 
 /* 提示文字 */
-.mo-textarea::placeholder {
+.myTextarea::placeholder {
 	color: #c0c4cc;
 }
 
 /* 鼠标hover */
-.mo-textarea:hover {
+.myTextarea:hover {
 	border-color: v-bind(themeColor);
 }
 
 /* 获得焦点 */
-.mo-textarea:focus {
+.myTextarea:focus {
 	border-color: #3677f0;
 }
 </style>

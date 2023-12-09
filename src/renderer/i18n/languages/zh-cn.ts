@@ -170,5 +170,10 @@ export default {
 		confirm: "提交",
 		reset: "重置",
 	},
+	page: {
+		total: "总计：",
+		items: "条",
+		pages: "页",
+	},
 	"": "",
 }

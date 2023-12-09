@@ -30,18 +30,17 @@
 
 <script setup lang="ts">
 import { onMounted, ref, Ref } from "vue"
-import { useRouter, useRoute } from "vue-router"
+import { useRouter } from "vue-router"
 import { getBlogListApi } from "@renderer/api/blog"
 import { useStore } from "@renderer/stores/index"
 import { useI18n } from "vue-i18n"
-import { IPaginations } from "./types.d"
+import { IPaginations, IBlogItem } from "./types.d"
 const { t } = useI18n()
 
 const stores = useStore()
 const router = useRouter()
-const route = useRoute()
 
-const list: Ref<any> = ref([])
+const list: Ref<IBlogItem[]> = ref([])
 
 const selectOptions = [
 	{
@@ -72,7 +71,7 @@ const title: Ref<string> = ref("")
 const tagText: Ref<string> = ref("")
 const paginations: Ref<IPaginations> = ref({
 	pageNum: 1,
-	pageSize: 5,
+	pageSize: 6,
 	total: 0,
 	sort: "",
 })
@@ -106,10 +105,6 @@ onMounted(() => {
 }
 .container {
 	height: 30vh;
-	// max-height: 90vh;
-	// max-width: 90vw;
-	// margin: 10px 0;
-	// grid布局方式：瀑布流
 	overflow: auto;
 }
 

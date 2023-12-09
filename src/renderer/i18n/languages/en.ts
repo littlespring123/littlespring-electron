@@ -121,6 +121,11 @@ export default {
 		confirm: "confirm",
 		reset: "reset",
 	},
+	page: {
+		total: "total:",
+		items: "items",
+		pages: "pages",
+	},
 	"": "",
 }
 // buttons: {
