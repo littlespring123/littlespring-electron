@@ -127,7 +127,7 @@ export default {
 					// 开发模式下自动开启devtools
 					ChildMusicWin.webContents.openDevTools({ mode: "undocked", activate: true })
 				}
-				ChildMusicWin.loadURL(winURL + "/extends")
+				ChildMusicWin.loadURL(winURL + "#/extends")
 				ChildMusicWin.once("ready-to-show", () => {
 					ChildMusicWin.show()
 				})

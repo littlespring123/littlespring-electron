@@ -20,10 +20,8 @@
 			<div class="head">
 				<h2 class="title">{{ detail.title }}</h2>
 				<div class="tags">
-					<div>
-						<Tag v-for="(item, index) in detail.tag" :key="index" :text="item.content" circle />
-					</div>
 					<div>{{ detail.lasttime }} 浏览量: {{ detail.count }}</div>
+					<Tag v-for="(item, index) in detail.tag" :key="index" :text="item.content" circle />
 				</div>
 			</div>
 			<div v-highlight class="detail-content markdown-body" @scroll="onScroll" v-html="valueHtml.content"></div>
@@ -79,17 +77,20 @@ const toTop = () => {
 // 悬浮按钮
 const btn = [
 	{
-		content: "M",
+		content: "modify",
+		type: "icon",
 		fun: () => {
 			router.push("/add?id=" + query?.id)
 		},
 	},
 	{
-		content: "下",
+		content: "download",
+		type: "icon",
 		fun: () => download(),
 	},
 	{
-		content: "↑",
+		content: "arrow-up",
+		type: "icon",
 		fun: () => toTop(),
 	},
 ]
@@ -158,26 +159,25 @@ const onScroll = (e: any) => {
 	// margin: 5px;
 
 	.box {
-		width: 82vw;
+		width: 85vw;
 		max-height: 85vh;
-		border: 1px solid #ccc;
+
+		// border: 1px solid #ccc;
 		// max-width: 70vw;
-		// padding: 4px;
+		padding: 4px;
 
 		.head {
 			display: flex;
 			flex-direction: column;
-			text-align: center;
+			text-align: left;
 			border-bottom: 1px solid #ccc;
 			margin-bottom: 3px;
 
-			.title {
-				text-align: center;
-			}
 			.tags {
-				display: flex;
 				margin: 10px 0;
-				justify-content: space-between;
+				div {
+					margin: 4px;
+				}
 			}
 		}
 
@@ -194,26 +194,31 @@ const onScroll = (e: any) => {
 	}
 
 	.catalogy {
-		border: 1px solid #ccc;
+		border-right: 1px solid #ccc;
 		overflow: hidden;
-		// top: 20vh;
 		scroll-behavior: smooth;
-
-		// right: 3vw;
-		padding: 3px;
-		// max-width: 18vw;
+		padding: 10px;
 		width: 15vw;
-		max-height: 60vh;
+		height: 70vh;
 
 		.item {
 			max-width: 50vw;
 			overflow: hidden;
 			cursor: pointer;
 			list-style: none;
+
+			a {
+				background: linear-gradient(to right, #000, #000) left bottom no-repeat;
+				background-size: 0px 1px;
+				transition: 0.5s;
+			}
 		}
 
-		.item:hover {
-			text-decoration: underline;
+		.item a:hover {
+			// color: v-bind(themeColor);
+			// background-position: left bottom;
+			background-size: 100% 2px;
+			// text-decoration: underline;
 		}
 	}
 
@@ -265,6 +270,6 @@ const onScroll = (e: any) => {
 }
 
 .active {
-	background-color: v-bind(themeColor);
+	// background-color: v-bind(themeColor);
 }
 </style>

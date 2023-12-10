@@ -84,7 +84,6 @@ const musicBroad = new BroadcastChannel("musicInfo")
 musicBroad.onmessage = (data) => {
 	console.log(data)
 	const { closeWin, endPlay, index } = JSON.parse(data.data)
-	console.log("onMess", closeWin, endPlay, index)
 	if (closeWin) {
 		sessionStorage.setItem("extendMusic", false)
 	}
@@ -109,11 +108,12 @@ const baseInfo = ref({
 
 // 1. 通过监听按钮的点击时间，修改音频的播放、暂停状态，并设置对应的 icon.
 const playButton = () => {
-	if (sessionStorage.getItem("extendMusic")) {
+	if (JSON.parse(sessionStorage.getItem("extendMusic"))) {
 	} else {
 		if (playState.value) {
 			playState.value = false
 			audioPlayer.value?.pause()
+			emits("changePlay", -1)
 		} else {
 			playState.value = true
 			audioPlayer.value?.play()
@@ -181,9 +181,13 @@ const endPlay = () => {
 }
 
 watch(id, () => {
-	if (sessionStorage.getItem("extendMusic")) {
+	if (JSON.parse(sessionStorage.getItem("extendMusic"))) {
+		console.log("index", currentIndex.value)
 		musicBroad.postMessage(JSON.stringify({ id: id.value, currentIndex: currentIndex.value }))
 	} else {
+		if (id.value === -1) {
+			return
+		}
 		check(id.value)
 		setTimeout(() => {
 			if (titleNode.value.offsetWidth > controllerNode.value.offsetWidth) {
@@ -198,14 +202,17 @@ watch(id, () => {
 let { ipcRenderer } = window
 // 打开新窗口
 const openNewWin = () => {
-	if (sessionStorage.getItem("extendMusic")) {
-		musicBroad.postMessage("id")
+	if (JSON.parse(sessionStorage.getItem("extendMusic"))) {
 	} else {
 		if (ipcRenderer) {
+			playState.value = false
+			audioPlayer.value?.pause()
 			ipcRenderer.invoke("open-music-win")
-			// 创建窗口栈
-			musicBroad.postMessage("创建新窗口")
 			sessionStorage.setItem("extendMusic", true)
+			setTimeout(() => {
+				musicBroad.postMessage("创建新窗口")
+				musicBroad.postMessage(JSON.stringify({ id: id.value, currentIndex: currentIndex.value }))
+			}, 400)
 		}
 	}
 }

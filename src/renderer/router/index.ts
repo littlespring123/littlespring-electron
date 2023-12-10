@@ -1,11 +1,11 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import i18n from '@renderer/i18n';
-import routes from '@renderer/router/routerList';
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router"
+import routes from "@renderer/router/routerList"
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: routes
-});
+	history: createWebHashHistory(),
+	// history: createWebHistory(),
+	routes: routes,
+})
 
 // router.beforeEach((to, from, next) => {
 //   console.log('to', to, 'from', from, 'next', next);
@@ -19,4 +19,4 @@ const router = createRouter({
 //   // next();
 // });
 
-export default router;
+export default router

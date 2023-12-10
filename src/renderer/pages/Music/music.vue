@@ -1,12 +1,12 @@
 <template>
 	<div class="music-box" :class="showBGI ? 'hiddenMain' : 'showMain'">
 		<Search @add2-play-list="add2PlayList"></Search>
-		<Player :id="currentId" :current-index="currentPlay" @change-play="clickPlay" @change-cover="changeCover"></Player>
+		<Player :id="currentId" :current-index="currentPlayIndex" @change-play="clickPlay" @change-cover="changeCover"></Player>
 		<SongList @play-new="add2PlayList"></SongList>
 		<List :list-length="playList.length" margin="0px" padding="0px" class="play-list pink-atmo-box block-z-index" description="暂无播放内容">
 			{{ t("music.playList") }}
 			<hr />
-			<div v-for="item in playList" :key="item.id" :class="{ active: currentId === item.id }" class="item">
+			<div v-for="(item, index) in playList" :key="item.id" :class="{ active: currentId === item.id }" class="item">
 				<div>{{ item.name }} - {{ item?.artists[0].name }}</div>
 				<div v-show="currentId !== item.id" class="item-right">
 					<div style="align-items: center">
@@ -40,13 +40,14 @@ const { color, backgroundColor, themeColor } = storeToRefs(store)
 
 const playList = ref([])
 const currentId: number = ref(0)
-const currentPlay: number = ref(-1)
+const currentPlayIndex: number = ref(-1)
 const coverUrl: Ref<string> = ref("")
 const showBGI = ref(false)
 
 const floatBtns = [
 	{
-		content: "S",
+		content: "eye",
+		type: "icon",
 		fun: () => {
 			showBGI.value = !showBGI.value
 		},
@@ -79,10 +80,11 @@ const removeList = (removeIdx: number) => {
  */
 const clickPlay = (index) => {
 	if (index < 0 || index > playList.value.length) {
+		// currentId.value = -1
 		return
 	}
+	currentPlayIndex.value = index
 	currentId.value = playList.value[index].id
-	currentPlay.value = index
 }
 
 const changeCover = (url) => {
@@ -90,8 +92,8 @@ const changeCover = (url) => {
 }
 
 const toplay = (id, index) => {
+	currentPlayIndex.value = index
 	currentId.value = id
-	currentPlay.value = index
 }
 
 onMounted(() => {

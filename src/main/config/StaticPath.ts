@@ -3,7 +3,7 @@ import { join } from 'path'
 import config from '@config/index'
 import { app } from 'electron'
 
-const env = app.isPackaged ? 'production': 'development'
+const env = app.isPackaged ? 'production' : 'development'
 
 const filePath = {
   winURL: {
@@ -23,7 +23,7 @@ const filePath = {
   }
 }
 
-if (env !== 'development') process.env.__static = join(app.getAppPath(), "dist", "electron", 'renderer').replace(/\\/g, '\\\\');
+if (env !== 'development') {process.env.__static = join(app.getAppPath(), "dist", "electron", 'renderer').replace(/\\/g, '\\\\');}
 
 
 process.env.__lib = getAppRootPath(config.DllFolder)

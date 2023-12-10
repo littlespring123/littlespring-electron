@@ -55,7 +55,7 @@ const { t } = useI18n()
 
 const store = useStore()
 
-const { themeColor } = storeToRefs(store)
+const { themeColor, color } = storeToRefs(store)
 
 const router = useRouter()
 const { query } = useRoute()
@@ -181,6 +181,17 @@ getBlogDet()
 		overflow: auto;
 		scroll-behavior: smooth;
 		transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+		li {
+			a {
+				background: linear-gradient(to right, #000, #000) left bottom no-repeat;
+				background-size: 0px 1px;
+				transition: 0.5s;
+			}
+			a:hover {
+				background-size: 100% 2px;
+			}
+		}
 	}
 
 	.catalogy:hover {

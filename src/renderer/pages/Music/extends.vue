@@ -99,20 +99,6 @@ const chengeCurr = (e) => {
 
 const music2Down = ref("")
 
-const play = async (id) => {
-	const res = await musicUrl(id)
-	if (res) {
-		// baseInfo.value = { url: res[0].url };
-		audioPlayer.value.src = res[0].url
-		music2Down.value = res[0].url
-		progress.value = 0
-		getLyric(id)
-		getMusicInfo(id)
-		audioPlayer.value?.play()
-		playState.value = true
-	}
-}
-
 const getLyric = async (id) => {
 	const res = await lyricInfo(id)
 	if (res) {
@@ -125,6 +111,19 @@ const getMusicInfo = async (id) => {
 	if (res) {
 		baseInfo.value = res.songs[0]
 		// emits("changeCover", baseInfo.value.al.picUrl)
+	}
+}
+
+const play = async (id) => {
+	const res = await musicUrl(id)
+	if (res) {
+		audioPlayer.value.src = res[0].url
+		music2Down.value = res[0].url
+		progress.value = 0
+		getLyric(id)
+		getMusicInfo(id)
+		audioPlayer.value?.play()
+		playState.value = true
 	}
 }
 
@@ -161,16 +160,23 @@ watch(myVolume, () => {
 const musicBroad = new BroadcastChannel("musicInfo")
 
 musicBroad.onmessage = (data) => {
+	console.log("data", data)
 	const { id, currentIndex } = JSON.parse(data.data)
+	console.log("id", id, currentIndex)
 	currentIndexSelf.value = currentIndex
-	check(id)
-	setTimeout(() => {
-		if (titleNode.value.offsetWidth > controllerNode.value.offsetWidth) {
-			titleWidth.value = -titleNode.value.offsetWidth + "px"
-		} else {
-			titleWidth.value = "0"
-		}
-	}, 200)
+	if (id === -1) {
+		return
+	}
+	if (id) {
+		check(id)
+	}
+	// setTimeout(() => {
+	// 	if (titleNode.value.offsetWidth > controllerNode.value.offsetWidth) {
+	// 		titleWidth.value = -titleNode.value.offsetWidth + "px"
+	// 	} else {
+	// 		titleWidth.value = "0"
+	// 	}
+	// }, 200)
 }
 
 musicBroad.onmessageerror = (e) => {
@@ -207,6 +213,8 @@ onMounted(() => {
 
 onBeforeUnmount(() => {
 	document.body.removeEventListener("click", () => {})
+	musicBroad.postMessage(JSON.stringify({ closeWin: true }))
+	sessionStorage.setItem("extendMusic", false)
 })
 </script>
 

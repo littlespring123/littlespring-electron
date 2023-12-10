@@ -226,7 +226,6 @@ class MainInit {
       return this.loadingWindow(this.shartURL);
     }
       return this.createMainWindow();
-
   }
 
   creatTray() {

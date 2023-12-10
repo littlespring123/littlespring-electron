@@ -60,6 +60,7 @@ const selectOptions = [
 const btn = [
 	{
 		content: "+",
+		type: "text",
 		fun: () => {
 			router.push("/add")
 		},
