@@ -30,14 +30,11 @@
 
 		<!-- 目录 -->
 		<ul class="catalogy">
-			<li
-				v-for="item of valueMD.toc"
-				:key="item.id"
-				:style="{ 'padding-left': item.tag - valueMD.maxTitle + 'em' }"
-				@click="toTarget(item.id)"
-				v-html="item.text"
-			></li>
+			<li v-for="item of valueMD.toc" :key="item.id" :style="{ 'padding-left': item.tag - valueMD.maxTitle + 'em' }" @click="toTarget(item.id)">
+				<a :href="`#content-nav${item.id}`">{{ item.text }}</a>
+			</li>
 		</ul>
+		<!-- v-html="item.text" -->
 	</div>
 	<!-- <Modal :show="isModalVisible" @close="isModalVisible = false">
     <div class="" v-html="valueMD.content"></div>
@@ -163,6 +160,7 @@ getBlogDet()
 			max-height: 55vh;
 			overflow: hidden;
 			padding: 5px 15px;
+			scroll-behavior: smooth;
 		}
 
 		.preview:hover {
@@ -181,6 +179,7 @@ getBlogDet()
 		border: 1px solid #ccc;
 		overflow: hidden;
 		overflow: auto;
+		scroll-behavior: smooth;
 		transition: border-color 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 	}
 

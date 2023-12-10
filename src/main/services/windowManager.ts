@@ -62,7 +62,7 @@ class MainInit {
     // dom-ready之后显示界面
     this.mainWindow.once("ready-to-show", () => {
       this.mainWindow.show();
-      if (config.UseStartupChart) this.loadWindow.destroy();
+      if (config.UseStartupChart) {this.loadWindow.destroy();}
     });
     // 开发模式下自动开启devtools
     // if (process.env.NODE_ENV === "development") {
@@ -116,8 +116,8 @@ class MainInit {
           noLink: true,
         })
         .then((res) => {
-          if (res.response === 0) this.mainWindow.reload();
-          else this.mainWindow.close();
+          if (res.response === 0) {this.mainWindow.reload();}
+          else {this.mainWindow.close();}
         });
     });
     // 不知道什么原因，反正就是这个窗口里的页面触发了假死时执行
@@ -131,8 +131,8 @@ class MainInit {
           noLink: true,
         })
         .then((res) => {
-          if (res.response === 0) this.mainWindow.reload();
-          else this.mainWindow.close();
+          if (res.response === 0) {this.mainWindow.reload();}
+          else {this.mainWindow.close();}
         });
     });
 
@@ -181,7 +181,7 @@ class MainInit {
         .then((res) => {
           // 当显卡出现崩溃现象时使用该设置禁用显卡加速模式。
           if (res.response === 0) {
-            if (details.type === "GPU") app.disableHardwareAcceleration();
+            if (details.type === "GPU") {app.disableHardwareAcceleration();}
             this.mainWindow.reload();
           } else {
             this.mainWindow.close();
@@ -224,9 +224,9 @@ class MainInit {
   initWindow() {
     if (config.UseStartupChart) {
       return this.loadingWindow(this.shartURL);
-    } else {
-      return this.createMainWindow();
     }
+      return this.createMainWindow();
+
   }
 
   creatTray() {

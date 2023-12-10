@@ -1,4 +1,3 @@
-/* eslint-disable prefer-promise-reject-errors */
 import app from "./server"
 import config from "@config/index"
 import { createServer } from "http"

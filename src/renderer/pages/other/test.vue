@@ -1,6 +1,8 @@
 <template>
 	<button type="" @click="test">test</button>
-
+	<button @click="openDialog">open dialog</button>
+	<button @click="close">close</button>
+	<button @click="newWin">new</button>
 </template>
 
 <script setup lang="ts">
@@ -21,7 +23,18 @@ const test = () => {
 		ipcRenderer.invoke("open-messagebox")
 	}
 }
+
+const openDialog = () => {
+	ipcRenderer.invoke("open-messagebox")
+}
+
+const close = () => {
+	ipcRenderer.invoke("app-close")
+}
+
+const newWin = () => {
+	ipcRenderer.invoke("open-music-win")
+}
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>

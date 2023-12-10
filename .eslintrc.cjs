@@ -129,6 +129,8 @@ module.exports = {
     curly: 1, // 必须使用 if(){} 中的{}
 
     // common js
-    "no-duplicate-imports": 1
+    "no-duplicate-imports": 1,
+    // vue
+    // "multi-word-component-names": 0,
   }
 }
