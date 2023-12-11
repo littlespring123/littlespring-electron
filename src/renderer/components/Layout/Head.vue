@@ -1,7 +1,7 @@
 <template>
 	<div class="head" :style="{ color }">
 		<div class="backBtn" @click="goBack">
-			<Icon name="arrow-left-circle" :color="themeColor"></Icon>
+			<!-- <Icon name="arrow-left-circle" :color="themeColor"></Icon> -->
 			{{ road }}
 		</div>
 	</div>
@@ -59,7 +59,7 @@ const router = useRouter()
 // }
 
 const goBack = () => {
-	router.back()
+	// router.back()
 }
 
 defineProps({

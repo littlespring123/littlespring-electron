@@ -44,11 +44,11 @@ router.afterEach((to, from, next) => {
 </script>
 
 <template>
-	<Star></Star>
+	<!-- <Star></Star> -->
 	<div class="root" :style="{ color, backgroundColor }">
-		<transtion name="swtich">
+		<!-- <transtion name="swtich">
 			<Nav v-show="showLayout.showNav"></Nav>
-		</transtion>
+		</transtion> -->
 		<div class="content" @keyup.ctrl.backspace="router.back()">
 			<Head v-show="showLayout.showHead" :road="roadShow"></Head>
 			<!-- 路由切换特效 -->

@@ -21,19 +21,13 @@ interface IRoute {
 const routes: IRoute[] = [
 	{
 		path: "/",
-		icon: "home",
-		name: "nav.home",
+		icon: "music",
+		name: "nav.music",
 		meta: {
-			headerRender: false,
+			headerRender: true,
 			menuRender: false,
 		},
-		component: () => import("@renderer/pages/home.vue"),
-	},
-	{
-		path: "/blog",
-		icon: "blog",
-		name: "nav.blog",
-		component: () => import("@renderer/pages/blog/blog.vue"),
+		component: () => import("@renderer/pages/Music/music.vue"),
 	},
 	{
 		path: "/music",
@@ -57,74 +51,10 @@ const routes: IRoute[] = [
 		component: () => import("@renderer/pages/Music/extends.vue"),
 	},
 	{
-		path: "/game",
-		icon: "game",
-		name: "nav.game",
-		meta: {
-			headerRender: true,
-			menuRender: false,
-		},
-		component: () => import("@renderer/pages/game/index.vue"),
-	},
-	{
-		path: "/tool",
-		icon: "tools",
-		name: "nav.tools",
-		component: () => import("@renderer/pages/tools/index.vue"),
-	},
-	{
-		path: "/detail",
-		name: "nav.detail",
-		hiden: true,
-		meta: {
-			headerRender: true,
-			menuRender: false,
-		},
-		component: () => import("@renderer/pages/blog/detail.vue"),
-	},
-	{
-		path: "/add",
-		name: "nav.add",
-		hiden: true,
-		meta: {
-			headerRender: true,
-			menuRender: false,
-		},
-		component: () => import("@renderer/pages/blog/add.vue"),
-	},
-	{
-		path: "/login",
-		name: "nav.login",
-		hiden: true,
-		meta: {
-			headerRender: false,
-			menuRender: false,
-		},
-		component: () => import("@renderer/pages/center/login.vue"),
-	},
-	{
-		path: "/set",
-		name: "nav.set",
-		hiden: true,
-		component: () => import("@renderer/pages/center/set.vue"),
-	},
-	{
-		path: "/center",
-		name: "",
-		hiden: true,
-		component: () => import("@renderer/pages/center/index.vue"),
-	},
-	{
-		path: "/test",
-		name: "",
-		hiden: true,
-		component: () => import("@renderer/pages/other/test.vue"),
-	},
-	{
 		path: "/:pathMatch(.*)*",
 		name: "",
 		hiden: true,
-		component: () => import("@renderer/pages/other/404.vue"),
+		component: () => import("@renderer/pages/Music/music.vue"),
 	},
 ]
 
