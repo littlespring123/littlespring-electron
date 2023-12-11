@@ -1,0 +1,231 @@
+.chatBox {
+	flex: 1;
+	margin-bottom: 10px;
+	padding: 15px 15px 40px 15px;
+	display: flex;
+	flex-direction: column;
+	user-select: text;
+	overflow-y: auto;
+
+	.chatWord {
+		z-index: 5 !important;
+		margin: 10px 0;
+		display: flex;
+		align-items: flex-start;
+
+		.icon {
+			width: 40px;
+			height: 40px;
+			background-color: pink;
+			border-radius: 25px;
+			background-position: center;
+
+			.image {
+				width: 40px;
+				height: 40px;
+			}
+		}
+
+		.wordBox {
+			max-width: 70%;
+			margin-left: 15px;
+			padding: 15px;
+			background-color: #f8f5f8;
+			color: #666;
+			font-size: 14px;
+			letter-spacing: 1px;
+			border-radius: 10px;
+			word-wrap: break-word;
+
+			em {
+				color: #000;
+			}
+		}
+
+		.questionList {
+			max-width: 70%;
+			margin-left: 15px;
+			padding: 15px;
+			background-color: #f8f5f8;
+			color: #666;
+			font-size: 14px;
+			letter-spacing: 1px;
+			border-radius: 10px;
+			word-wrap: break-word;
+
+			.tips {
+				color: #151515;
+				font-weight: bold;
+			}
+
+			.questionItem {
+				color: #142d88;
+				cursor: pointer;
+			}
+		}
+	}
+
+	.chatWord:last-child {
+		margin: 20px 0;
+	}
+
+	.chatQuestion {
+		z-index: 5;
+		flex-direction: row-reverse;
+
+		.wordBox {
+			margin-left: 0;
+			margin-right: 15px;
+			background-color: #142d88;
+			color: #fff;
+		}
+	}
+
+	.helloTitle {
+		z-index: 10;
+		font-weight: bold;
+
+		.hello {
+			font-size: 34px;
+			color: #142d88;
+		}
+
+		.word {
+			font-size: 20px;
+			margin-top: 5px;
+		}
+	}
+
+	.hot {
+		z-index: 10;
+		margin-top: 15px;
+		margin-left: 10px;
+
+		.title {
+			font-weight: bold;
+			color: #142d88;
+		}
+
+		.hotBox {
+			margin-top: 10px;
+			display: flex;
+			flex-wrap: wrap;
+
+			.item {
+				padding: 10px;
+				background-color: #f8f5f8;
+				color: #666;
+				font-size: 14px;
+				margin-right: 5px;
+				margin-bottom: 8px;
+				border-radius: 20px;
+				cursor: pointer;
+			}
+		}
+	}
+}
+
+.chatBox:last-child {
+	margin: 20px 0 40px 0;
+}
+
+//输入框
+.chatLine {
+	z-index: 10;
+	width: 100vw;
+	height: auto;
+	position: fixed;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	bottom: 1px;
+	border-radius: 8px;
+
+	.chatInput {
+		z-index: 99 !important; // 这个页面最高层级
+		width: 98vw;
+		border: 3px solid #142d88;
+		display: flex;
+		align-items: center;
+		background-color: #fff;
+		border-radius: 8px;
+
+		input {
+			flex: 1;
+			height: 100%;
+			padding: 0 15px;
+			border-radius: 8px;
+			font-size: 16px;
+			color: #666;
+			caret-color: #000;
+		}
+
+		.searchBtn {
+			height: 100%;
+			background-position: center;
+			background-repeat: no-repeat;
+			border-left: 2px solid #eee;
+			cursor: pointer;
+
+			.img {
+				width: 40px;
+				height: 40px;
+			}
+		}
+	}
+
+	.toolTips {
+		z-index: 11;
+		overflow: auto;
+		max-height: 20vh;
+		height: auto;
+		font-size: 14px;
+		padding: 10px 0 0 0;
+		background-color: rgba(255, 255, 255, 0.8);
+		width: 98vw;
+		border-radius: 8px 8px 0 0;
+		transform-origin: center bottom;
+		transform: scaleY(1);
+		transition: 0.5s;
+
+		.toolTip {
+			line-height: 1.6rem;
+			padding: 1px 0 1px 10px;
+			// border-bottom: 1px solid $theme-color;
+
+			.lightHight {
+				background: #ffb7b7;
+			}
+		}
+
+		.toolTip:last-child {
+			border-bottom: 0;
+		}
+	}
+
+	.hideToolTips {
+		z-index: 1 !important;
+		transform: scaleY(0);
+		transform-origin: center bottom;
+		width: 98vw;
+		height: 0;
+		transition: all 0.5s;
+
+		.toolTip {
+			opacity: 0;
+		}
+	}
+}
+
+.bgc {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	background-size: cover;
+	background-repeat: repeat-y;
+	background-image: url("https://pic4.zhimg.com/v2-e87a84f502665d8ee5fc8f1c8344f9a3_r.jpg?source=1940ef5c");
+}

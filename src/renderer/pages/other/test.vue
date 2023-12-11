@@ -3,9 +3,11 @@
 	<button @click="openDialog">open dialog</button>
 	<button @click="close">close</button>
 	<button @click="newWin">new</button>
+	<test-jsx></test-jsx>
 </template>
 
 <script setup lang="ts">
+import testJsx from "./test-jsx"
 import { ref } from "vue"
 let { ipcRenderer, systemInfo } = window
 

@@ -26,6 +26,7 @@ const routes: IRoute[] = [
 		meta: {
 			headerRender: false,
 			menuRender: false,
+			keepAlive: false, // 不需要缓存
 		},
 		component: () => import("@renderer/pages/home.vue"),
 	},
@@ -65,6 +66,12 @@ const routes: IRoute[] = [
 			menuRender: false,
 		},
 		component: () => import("@renderer/pages/game/index.vue"),
+	},
+	{
+		path: "/chat",
+		icon: "chat",
+		name: "nav.chat",
+		component: () => import("@renderer/pages/Chat/MyChat"),
 	},
 	{
 		path: "/tool",

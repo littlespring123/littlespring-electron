@@ -70,7 +70,7 @@ $ npm run build
 - typescript
 - i18n
 - marked,highlight.js, github-markdown-css
-
+- plugin-vue-jsx 在vue中使用jsx语法
 
 ## 组件封装
 ### 表单组件

@@ -44,7 +44,7 @@ module.exports = {
     "no-undef": 0, // 可以 有未定义的变量
 
     "no-extra-boolean-cast": 1, // 不必要的bool转换
-    "no-extra-parens": 1, // 非必要的括号
+    "no-extra-parens": 0, // 非必要的括号
     "no-empty": 1, // 块语句中的内容不能为空
     "no-use-before-define": [1, "nofunc"], // 未定义前不能使用
     complexity: [1, 10], // 循环复杂度

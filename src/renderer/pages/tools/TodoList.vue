@@ -1,20 +1,17 @@
 <template>
-	<!-- <List class="list" :listLength="todos.length"> -->
 	<div class="toList block-z-index">
 		<Card v-for="item in todos" :key="item.id" :title="item.title" class="item" @dblclick="modifyEvent(item.id, item.title, item.content)">
 			<div class="content" v-html="item.content.replace(/\n/g, '<br>')"></div>
-			<!-- {{ item.content }} -->
 			<template #footer>
 				<Icon width="16px" height="16px" name="select-not" :color="themeColor" @click="deleteTodo(item.id)"></Icon>
 			</template>
 		</Card>
 	</div>
-	<Modal :show="showForm" @confirm="addTodo" @close="showForm = false">
+	<Modal :show="showForm" @keydown.ctrl.enter="addTodo" @close="showForm = false">
 		<div class="input-box">
 			<div class="">
 				<Input v-model="todoForm.title" :placeholder="t('todo.titlePlace')" :label="t('todo.title')" name="title" />
 			</div>
-
 			<textarea
 				v-model="todoForm.content"
 				:placeholder="t('todo.contentPlace')"
@@ -34,7 +31,7 @@ import { ref } from "vue"
 import { useI18n } from "vue-i18n"
 import { useRouter } from "vue-router"
 import { Tool } from "@renderer/utils/tool"
-import { getList, addTodo, modifyTodo, deleteTodo } from "@renderer/api/todo"
+// import { getList, addTodo, modifyTodo, deleteTodo } from "@renderer/api/todo"
 
 import { useStore } from "@renderer/stores"
 import { storeToRefs } from "pinia"
@@ -42,16 +39,6 @@ const store = useStore()
 const { themeColor } = storeToRefs(store)
 
 const { t } = useI18n()
-
-// 悬浮按钮
-const btn = [
-	{
-		content: "+",
-		fun: () => {
-			showForm.value = true
-		},
-	},
-]
 
 const showForm = ref(false)
 const todoForm = ref({
@@ -65,7 +52,7 @@ const getTodoList = () => {
 	todos.value = JSON.parse(localStorage.getItem("todo")) || []
 }
 
-//添加一个TODO
+//添加一个TODOs
 const addTodo = () => {
 	if (todoForm.value.id) {
 		todos.value = todos.value.map((item) => {
@@ -93,7 +80,7 @@ const modifyEvent = (id, title: string, content: string) => {
 	showForm.value = true
 }
 
-//勾选or取消勾选一个TODO
+//勾选or取消勾选一个MyTODO
 const checkTodo = (id) => {
 	todos.value.forEach((todo: any) => {
 		if (todo.id == id) {
@@ -102,7 +89,7 @@ const checkTodo = (id) => {
 	})
 }
 
-//删除一个todo
+//删除一个todos
 const deleteTodo = (id) => {
 	todos.value = todos.value.filter((todo: any) => {
 		return todo.id !== id
@@ -110,21 +97,26 @@ const deleteTodo = (id) => {
 	localStorage.setItem("todo", JSON.stringify(todos.value))
 }
 
-//全选or取消全选
-// const checkAllTodo = (done) => {
-//   todos.value.forEach((todo: any) => {
-//     todo.done = done;
-//   });
-// };
-
-//清楚所有已经完成的todo
-// const clearAllTodo = () => {
-//   todos.value = todos.value.filter((todo: any) => {
-//     return !todo.done;
-//   });
-// };
-
 getTodoList()
+
+// 悬浮按钮
+const btn = [
+	{
+		content: "+",
+		type: "text",
+		fun: () => {
+			showForm.value = true
+		},
+	},
+	{
+		content: "calendar",
+		type: "icon",
+		fun: () => {
+			todoForm.value.title = new Date().toLocaleDateString()
+			showForm.value = true
+		},
+	},
+]
 </script>
 
 <style scoped lang="scss">
@@ -132,6 +124,7 @@ getTodoList()
 	width: 98%;
 	display: grid;
 	max-height: 80vh;
+	overflow: hidden;
 	// grid-template-columns: repeat(4, 25%);
 	// grid-template-rows: repeat(4, 22%);
 	grid-template-columns: repeat(4, 1fr);
@@ -161,6 +154,10 @@ getTodoList()
 			overflow: auto;
 		}
 	}
+}
+
+.toList:hover {
+	overflow: auto;
 }
 
 .input-box {

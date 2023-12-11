@@ -56,6 +56,8 @@ const moveToIndex = ref(-1);
 const tabList = ref<TabItemData[]>([]);
 const activeBvWebContentsId = ref<number>();
 
+let a = { useTransition&& <a ></a>}
+
 onMounted(async () => {
   const isNewTabContainer = localStorage.getItem("isNewTabContainer");
   if (isNewTabContainer) {

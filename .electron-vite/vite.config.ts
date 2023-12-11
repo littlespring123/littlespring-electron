@@ -36,4 +36,11 @@ export default defineConfig({
 	server: {},
 	plugins: [vueJsx(), vuePlugin(), viteIkarosTools(), svgBuilder(resolve("src/renderer/assets/svg/"))],
 	optimizeDeps: {},
+	css: {
+		preprocessorOptions: {
+			sass: {
+				additionalData: `@import "@renderer/global.scss";`,
+			},
+		},
+	},
 })
